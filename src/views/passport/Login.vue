@@ -1,15 +1,17 @@
 <template>
-  <div class="login">
+  <div class="login-container">
     <div class="left-bg"></div>
     <div class="right">
-      <h1>欢迎登录xxx时间银行</h1>
+      <div class="right-header">
+        <h1>欢迎登录xxx时间银行</h1>
+      </div>
       <a-form-model ref="loginForm" class="login-form"
                     :model="loginForm" :rules="rules" v-bind="layout">
         <a-form-model-item has-feedback label="邮箱" prop="email">
           <a-input v-model="loginForm.email"/>
         </a-form-model-item>
         <a-form-model-item has-feedback label="密码" prop="password">
-          <a-input v-model="loginForm.password" type="password" autocomplete="off"/>
+          <a-input v-model="loginForm.password" type="password" autocomplete="new-password"/>
         </a-form-model-item>
         <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }" style="text-align: center">
           <a-button type="primary" @click="submitForm('loginForm')" class="login-btn">
@@ -31,6 +33,7 @@
 export default {
   name: 'Login',
   data() {
+    // 邮箱填写校验
     const emailReg = /^[\w-]+@[\w.-]+.com$/;
     const checkEmail = (rule, value, callback) => {
       if (!value) {
@@ -41,6 +44,7 @@ export default {
       }
       return callback(new Error('邮箱格式不正确'));
     };
+    // 密码填写校验
     const validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
@@ -69,11 +73,23 @@ export default {
       },
     };
   },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 使用登录接口
+          return true;
+        }
+        window.console.log('error submit!!');
+        return false;
+      });
+    },
+  },
 };
 </script>
 
 <style scoped lang="less">
-.login {
+.login-container {
   width: 80vw;
   height: 80vh;
   top: 50%;
@@ -96,14 +112,18 @@ export default {
     background-color: #d0d0d02e;
     flex: 1 1 auto;
 
-    h1 {
-      font-size: 20px;
-      font-weight: 500;
-      color: #333;
-      line-height: 28px;
-      text-align: center;
+    .right-header {
       margin-bottom: 65px;
       margin-top: 63px;
+
+      h1 {
+        transform: translateX(-5%);
+        font-size: 20px;
+        font-weight: 500;
+        color: #333;
+        line-height: 28px;
+        text-align: center;
+      }
     }
   }
 }
