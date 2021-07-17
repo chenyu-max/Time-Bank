@@ -25,7 +25,7 @@ const routes = [
   },
   {
     path: '/findbackpwd',
-    name: 'findBackPwd',
+    name: 'FindBackPassword',
     meta: {
       title: '找回密码',
       hidden: true,

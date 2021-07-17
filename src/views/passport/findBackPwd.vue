@@ -29,6 +29,11 @@
           <a-button type="primary" @click="submitForm('findBackPwdForm')" class="find-back-pwd-btn">
             找回密码
           </a-button>
+          <div>
+            <router-link :to="{name : 'Login'}">
+              返回登录
+            </router-link>
+          </div>
         </a-form-model-item>
       </a-form-model>
     </div>
@@ -140,7 +145,7 @@ export default {
 <style scoped lang="less">
 .find-back-pwd-container {
   width: 80vw;
-  height: 80vh;
+  height: 85vh;
   top: 50%;
   left: 50%;
   position: absolute;
@@ -162,8 +167,8 @@ export default {
     flex: 1 1 auto;
 
     .right-header {
-      margin-top: 20px;
-      margin-bottom: 30px;
+      margin-top: 35px;
+      margin-bottom: -15px;
 
       h1 {
         transform: translateX(-5%);
@@ -184,8 +189,9 @@ export default {
   .find-back-pwd-btn {
     display: block;
     width: 100%;
-    margin-bottom: 5px;
+    margin-top: -10px;
     font-size: 1.2rem;
+    margin-bottom: 8px;
   }
 }
 </style>

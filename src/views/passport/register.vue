@@ -32,6 +32,11 @@
           <a-button type="primary" @click="submitForm('registerForm')" class="register-btn">
             注册
           </a-button>
+          <div>
+            <router-link :to="{name : 'Login'}">
+              返回登录
+            </router-link>
+          </div>
         </a-form-model-item>
       </a-form-model>
     </div>
@@ -158,7 +163,7 @@ export default {
 <style scoped lang="less">
 .register-container {
   width: 80vw;
-  height: 80vh;
+  height: 85vh;
   top: 50%;
   left: 50%;
   position: absolute;
