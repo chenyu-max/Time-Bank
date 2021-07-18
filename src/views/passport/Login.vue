@@ -3,7 +3,7 @@
     <div class="left-bg"></div>
     <div class="right">
       <div class="right-header">
-        <h1>欢迎登录xxx时间银行</h1>
+        <!--        <h1>欢迎登录xxx时间银行</h1>-->
       </div>
       <a-form-model ref="loginForm" class="login-form"
                     :model="loginForm" :rules="rules" v-bind="layout">
@@ -111,41 +111,39 @@ export default {
   .right {
     background-color: #d0d0d02e;
     flex: 1 1 auto;
+    flex-direction: column;
+    display: flex;
 
     .right-header {
-      margin-bottom: 65px;
-      margin-top: 63px;
+      margin-bottom: 35px;
+      margin-top: 45px;
+      height: 30%;
+      background: url("../../assets/login_header.png");
+      background-size: cover;
+      flex: 0 0 auto;
+    }
 
-      h1 {
-        transform: translateX(-5%);
-        font-size: 20px;
-        font-weight: 500;
-        color: #333;
-        line-height: 28px;
-        text-align: center;
+    .login-form {
+      background: rgba(89, 234, 76, 0);
+      padding: 40px 10px 0 20px;
+      flex: 1 1 auto;
+      transform: translateX(5%);
+
+      .login-btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+        font-size: 1.2rem;
+      }
+
+      .find-back-btn {
+        float: left;
+      }
+
+      .register-btn {
+        float: right;
       }
     }
   }
-}
-
-.login-form {
-  background: rgba(89, 234, 76, 0);
-  padding: 40px 10px 0 20px;
-
-  .login-btn {
-    display: block;
-    width: 100%;
-    margin-bottom: 5px;
-    font-size: 1.2rem;
-  }
-
-  .find-back-btn {
-    float: left;
-  }
-
-  .register-btn {
-    float: right;
-  }
-
 }
 </style>
