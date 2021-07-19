@@ -8,7 +8,6 @@ export function setCityCookie(info) {
 export function getCityCookie() {
   // 存储在 cookie 中的是 字符串 我们要将字符串转换成数组
   const str = Cookies.get('nowCity');
-  console.log(str);
   return str.substring(1, str.length - 1)
     .replaceAll(' ', '')
     .split(',')
