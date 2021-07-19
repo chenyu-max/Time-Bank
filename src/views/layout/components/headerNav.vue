@@ -1,7 +1,7 @@
 <template>
   <div class="header-nav-container">
     <div class="collapsed-btn">
-      <a-button type="primary" style="margin-bottom: 16px" @click="toggleCollapsed">
+      <a-button type="primary" @click="toggleCollapsed">
         <a-icon :type="$store.state.leftMenuCollapsed.collapsed ? 'menu-unfold' : 'menu-fold'"/>
       </a-button>
     </div>
@@ -15,7 +15,9 @@
     <div class="location">
       <div class="current-city">
         <a-icon type="environment"></a-icon>
-        杭州
+        <div v-for="(area,i) in nowCityList" :key="i">
+          {{ area }}
+        </div>
       </div>
       <div class="change-city">
         <router-link :to="{name : 'ChangeCity'}">切换城市</router-link>
@@ -25,38 +27,59 @@
       <div class="avatar">
         <a-avatar class="avatar-img"
                   :size="36"
-                  src="https://img-blog.csdnimg.cn/20210718145411978.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xlb3dhaGFoYQ==,size_16,color_FFFFFF,t_70"/>
+                  :src="avatarUrl"/>
         <div class="user-info">
           <div class="info">
             <router-link :to="{name : 'PersonalCenter'}">个人中心</router-link>
           </div>
           <div class="balance">
-            <router-link :to="{name : 'TimeBalance'}">时间余额</router-link>
+            <router-link :to="{name : 'TimeShop'}">时间商城</router-link>
           </div>
-          <div class="logout">退出登录</div>
+          <div class="logout" @click="logout">退出登录</div>
         </div>
       </div>
-      <div class="username">欢迎您，用户aaa</div>
+      <div class="username">欢迎您 {{ username }}</div>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'headerNav',
   computed: {
     breadcrumbArr: {
       get() {
         const temp = this.$route.meta;
-        const arr = temp.fatherTitle === '' ? [] : temp.fatherTitle.split('/');
+        const arr = temp.fatherTitle ? temp.fatherTitle.split('/') : [];
         return arr.concat([temp.title]);
+      },
+    },
+    username: {
+      get() {
+        return this.$store.state.user.userinfo.username;
+      },
+    },
+    avatarUrl: {
+      get() {
+        return this.$store.state.user.userinfo.avatarUrl;
+      },
+    },
+    nowCityList: {
+      get() {
+        return this.$store.state.nowCityList.nowCityList;
       },
     },
   },
   methods: {
     toggleCollapsed() {
       this.$store.dispatch('leftMenuCollapsed/changeCollapsed');
+    },
+    logout() {
+      this.$store.dispatch('user/logout');
+      this.$store.dispatch('nowCityList/deleteNowCityList');
+      this.$router.replace({
+        name: 'login',
+      });
     },
   },
 };
@@ -74,13 +97,14 @@ export default {
 
 .breadcrumb {
   flex: 1 1 auto;
-  width: 60%;
+  width: 50%;
   margin-left: 10px;
 }
 
 .location {
   margin-right: 10px;
   flex: 1 1 auto;
+  width: 20%;
 
   div {
     margin: 0 5px;
@@ -90,7 +114,6 @@ export default {
 
 .user {
   flex: 1 1 auto;
-  margin-left: 20px;
   display: flex;
 
   .username {

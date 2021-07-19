@@ -162,7 +162,7 @@ export default [
     component: Home,
     children: [
       {
-        path: '/customerservicemen',
+        path: 'customerservicemen',
         name: 'CustomerServiceMen',
         meta: {
           title: '人工客服',
@@ -172,7 +172,7 @@ export default [
         component: () => import(/* webpackChunkName: "index" */ '../views/page/customerService/customerServiceMen.vue'),
       },
       {
-        path: '/customerserviceai',
+        path: 'customerserviceai',
         name: 'CustomerServiceAI',
         meta: {
           title: '智能AI客服',

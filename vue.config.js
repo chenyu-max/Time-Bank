@@ -6,4 +6,11 @@ module.exports = {
       },
     },
   },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://test.time-bank.com',
+      },
+    },
+  },
 };

@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import userApi from '@/api/user';
+
 export default {
   name: 'Login',
   data() {
@@ -78,6 +80,18 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // 使用登录接口
+          userApi.login(this.loginForm).then((res) => {
+            this.$store.dispatch('user/setUserInfo', res);
+            if (!res.nowCity) {
+              const defaultNowCity = ['浙江省', '杭州市', '江干区'];
+              this.$store.dispatch('nowCityList/setNowCityList', defaultNowCity);
+            }
+            this.$router.push({
+              name: 'Home',
+            });
+          }).catch((err) => {
+            this.$message.error(err);
+          });
           return true;
         }
         window.console.log('error submit!!');

@@ -1,12 +1,12 @@
 <template>
-  <div class="time-balance-container">
-    用户时间余额
+  <div class="time-shop-container">
+    时间商城
   </div>
 </template>
 
 <script>
 export default {
-  name: 'timeBalance',
+  name: 'timeShop',
 };
 </script>
 

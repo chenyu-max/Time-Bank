@@ -32,17 +32,25 @@ export default {
   .main-app {
     margin-left: 15%;
     transition: all .3s;
+    height: 100vh;
 
     &.menu-unfold {
       margin-left: 80px;
     }
 
     .header-nav-container {
-      height: 50px;
-      line-height: 50px;
+      height: 10vh;
+      line-height: 10vh;
       border-bottom: 1px solid #eee;
       padding-left: 10px;
       padding-right: 20px;
+    }
+
+    > div:last-child {
+      padding: 10px;
+      width: 100%;
+      height: calc(100% - 10vh);
+      overflow: auto;
     }
   }
 }

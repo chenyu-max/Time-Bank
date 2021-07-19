@@ -1,6 +1,6 @@
 <template>
   <div class="report-reviewer-container">
-    举报发起者
+    举报审核人
   </div>
 </template>
 
