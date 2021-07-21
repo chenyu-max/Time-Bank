@@ -10,8 +10,8 @@
         <a-form-model-item has-feedback label="用户名" prop="username">
           <a-input v-model="registerForm.username"/>
         </a-form-model-item>
-        <a-form-model-item has-feedback label="邮箱" prop="email">
-          <a-input v-model="registerForm.email"/>
+        <a-form-model-item has-feedback label="手机号" prop="phoneNumber">
+          <a-input v-model="registerForm.phoneNumber"/>
         </a-form-model-item>
         <a-form-model-item has-feedback label="密码" prop="password">
           <a-input v-model="registerForm.password" type="password" autocomplete="new-password"/>
@@ -24,7 +24,7 @@
         </a-form-model-item>
         <a-form-model-item style="text-align: center; margin-top: -12px"
                            :wrapper-col="{ span: 14, offset: 4 }">
-          <a-button @click="getEmailCode">
+          <a-button @click="getCode">
             获取验证码
           </a-button>
         </a-form-model-item>
@@ -55,16 +55,16 @@ export default {
         callback();
       }
     };
-    // 邮箱填写校验
-    const emailReg = /^[\w-]+@[\w.-]+.com$/;
-    const checkEmail = (rule, value, callback) => {
+    // 手机号填写校验
+    const phoneReg = /^1[3456789]{1}\d{9}$/;
+    const checkPhoneNumber = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请输入邮箱'));
+        return callback(new Error('请输入手机号'));
       }
-      if (emailReg.test(value)) {
+      if (phoneReg.test(value)) {
         return callback();
       }
-      return callback(new Error('邮箱格式不正确'));
+      return callback(new Error('手机号格式不正确'));
     };
     // 第一次密码填写校验
     const validatePass = (rule, value, callback) => {
@@ -98,7 +98,7 @@ export default {
     return {
       registerForm: {
         username: '',
-        email: '',
+        phoneNumber: '',
         password: '',
         password2: '',
         code: '',
@@ -108,8 +108,8 @@ export default {
           validator: validateUsername,
           triggers: 'change',
         },
-        email: {
-          validator: checkEmail,
+        phoneNumber: {
+          validator: checkPhoneNumber,
           triggers: 'change',
         },
         password: [{
@@ -132,10 +132,10 @@ export default {
     };
   },
   methods: {
-    getEmailCode() {
-      const emailReg = /^[\w-]+@[\w.-]+.com$/;
+    getCode() {
+      const phoneReg = /^1[3456789]{1}\d{9}$/;
       // 这里的验证是因为获取验证码的时候，是无法进行rule的验证的，所以这里需要再一次的进行验证
-      if (emailReg.test(this.registerForm.email)) {
+      if (phoneReg.test(this.registerForm.phoneNumber)) {
         // 发送获取验证码的请求
       }
     },
@@ -146,7 +146,7 @@ export default {
           // const data = {
           //   username: this.registerForm.username
           //   password: this.registerForm.password,
-          //   email: this.registerForm.email,
+          //   phoneNumber: this.registerForm.phoneNumber,
           //   code: this.registerForm.code,
           // };
           // 使用注册接口

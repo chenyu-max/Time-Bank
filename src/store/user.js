@@ -17,7 +17,6 @@ export default {
         username: '',
         appkey: '',
         role: '',
-        email: '',
         phoneNumber: '',
         avatarUrl: '',
         userIDNumber: '',

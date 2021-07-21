@@ -7,8 +7,8 @@
       </div>
       <a-form-model ref="loginForm" class="login-form"
                     :model="loginForm" :rules="rules" v-bind="layout">
-        <a-form-model-item has-feedback label="邮箱" prop="email">
-          <a-input v-model="loginForm.email"/>
+        <a-form-model-item has-feedback label="手机号" prop="phoneNumber">
+          <a-input v-model="loginForm.phoneNumber"/>
         </a-form-model-item>
         <a-form-model-item has-feedback label="密码" prop="password">
           <a-input v-model="loginForm.password" type="password" autocomplete="new-password"/>
@@ -35,16 +35,16 @@ import userApi from '@/api/user';
 export default {
   name: 'Login',
   data() {
-    // 邮箱填写校验
-    const emailReg = /^[\w-]+@[\w.-]+.com$/;
-    const checkEmail = (rule, value, callback) => {
+    // 手机号填写校验
+    const phoneReg = /^1[3456789]{1}\d{9}$/;
+    const checkPhoneNumber = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请输入邮箱'));
+        return callback(new Error('请输入手机号'));
       }
-      if (emailReg.test(value)) {
+      if (phoneReg.test(value)) {
         return callback();
       }
-      return callback(new Error('邮箱格式不正确'));
+      return callback(new Error('手机号格式不正确'));
     };
     // 密码填写校验
     const validatePass = (rule, value, callback) => {
@@ -57,15 +57,15 @@ export default {
     return {
       loginForm: {
         password: '',
-        email: '',
+        phoneNumber: '',
       },
       rules: {
         password: [{
           validator: validatePass,
           trigger: 'change',
         }],
-        email: {
-          validator: checkEmail,
+        phoneNumber: {
+          validator: checkPhoneNumber,
           triggers: 'change',
         },
       },

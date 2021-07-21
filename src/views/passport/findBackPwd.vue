@@ -7,8 +7,8 @@
       </div>
       <a-form-model ref="findBackPwdForm" class="find-back-pwd-form"
                     :model="findBackPwdForm" :rules="rules" v-bind="layout">
-        <a-form-model-item has-feedback label="邮箱" prop="email">
-          <a-input v-model="findBackPwdForm.email"/>
+        <a-form-model-item has-feedback label="手机号" prop="phoneNumber">
+          <a-input v-model="findBackPwdForm.phoneNumber"/>
         </a-form-model-item>
         <a-form-model-item has-feedback label="输入新密码" prop="password">
           <a-input v-model="findBackPwdForm.password" type="password" autocomplete="new-password"/>
@@ -21,7 +21,7 @@
         </a-form-model-item>
         <a-form-model-item style="text-align: center; margin-top: -12px"
                            :wrapper-col="{ span: 14, offset: 4 }">
-          <a-button @click="getEmailCode">
+          <a-button @click="getCode">
             获取验证码
           </a-button>
         </a-form-model-item>
@@ -44,16 +44,16 @@
 export default {
   name: 'findBackPwd',
   data() {
-    // 邮箱填写校验
-    const emailReg = /^[\w-]+@[\w.-]+.com$/;
-    const checkEmail = (rule, value, callback) => {
+    // 手机号填写校验
+    const phoneReg = /^1[3456789]{1}\d{9}$/;
+    const checkPhoneNumber = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请输入邮箱'));
+        return callback(new Error('请输入手机号'));
       }
-      if (emailReg.test(value)) {
+      if (phoneReg.test(value)) {
         return callback();
       }
-      return callback(new Error('邮箱格式不正确'));
+      return callback(new Error('手机号格式不正确'));
     };
     // 第一次密码填写校验
     const validatePass = (rule, value, callback) => {
@@ -86,14 +86,14 @@ export default {
     };
     return {
       findBackPwdForm: {
-        email: '',
+        phoneNumber: '',
         password: '',
         password2: '',
         code: '',
       },
       rules: {
-        email: {
-          validator: checkEmail,
+        phoneNumber: {
+          validator: checkPhoneNumber,
           triggers: 'change',
         },
         password: [{
@@ -116,9 +116,9 @@ export default {
     };
   },
   methods: {
-    getEmailCode() {
-      const emailReg = /^[\w-]+@[\w.-]+.com$/;
-      if (emailReg.test(this.findBackPwdForm.email)) {
+    getCode() {
+      const phoneReg = /^1[3456789]{1}\d{9}$/;
+      if (phoneReg.test(this.findBackPwdForm.phoneNumber)) {
         // 发送获取验证码的请求
       }
     },
@@ -128,7 +128,7 @@ export default {
         if (valid) {
           // const data = {
           //   password: this.findBackPwdForm.password,
-          //   email: this.findBackPwdForm.email,
+          //   phoneNumber: this.findBackPwdForm.phoneNumber,
           //   code: this.findBackPwdForm.code,
           // };
           // 使用找回密码的接口

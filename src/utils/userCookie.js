@@ -17,14 +17,12 @@ export function setCookie(info) {
 
 /**
  * 获取 cookies 的user信息
- * @returns {{role: string, appkey: string, email: string, username: string}}
  */
 export function getUserCookie() {
   return {
     username: Cookies.get('username'),
     appkey: Cookies.get('appkey'), // 用户通行证唯一编号
     role: Cookies.get('role'), // 用户角色 普通用户 审核人
-    email: Cookies.get('email'),
     phoneNumber: Cookies.get('phoneNumber'),
     avatarUrl: Cookies.get('avatarUrl'), // 用户头像地址
     userIDNumber: Cookies.get('userIDNumber'), // 用户身份证号
@@ -43,7 +41,6 @@ export function removeUserCookie() {
   Cookies.remove('appkey');
   Cookies.remove('username');
   Cookies.remove('role');
-  Cookies.remove('email');
   Cookies.remove('phoneNumber');
   Cookies.remove('avatarUrl');
   Cookies.remove('userIDNumber');
