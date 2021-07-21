@@ -104,7 +104,7 @@ export default {
 .location {
   margin-right: 10px;
   flex: 1 1 auto;
-  width: 20%;
+  width: 25%;
 
   div {
     margin: 0 5px;
