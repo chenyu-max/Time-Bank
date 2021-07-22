@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     checkDetail() {
-      this.$emit('checkDetail', this.project.id);
+      this.$emit('checkDetail', this.project);
     },
   },
 };

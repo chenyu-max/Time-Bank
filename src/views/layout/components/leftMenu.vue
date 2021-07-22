@@ -10,15 +10,16 @@
             <a-icon :type='item.meta.icon'/>
             <span>{{ item.meta.title }}</span>
         </span>
-        <a-menu-item v-for="childItem in item.children"
-                     :key="childItem.name"
-                     @click="changeRouter(childItem.name)"
-        >
-          <a-icon :type="childItem.meta.icon"></a-icon>
-          <span>
+        <template v-for="childItem in item.children">
+          <a-menu-item v-if="!childItem.meta.hidden"
+                       @click="changeRouter(childItem.name)"
+                       :key="childItem.name">
+            <a-icon :type="childItem.meta.icon"></a-icon>
+            <span>
             {{ childItem.meta.title }}
           </span>
-        </a-menu-item>
+          </a-menu-item>
+        </template>
       </a-sub-menu>
     </a-menu>
   </div>

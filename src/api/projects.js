@@ -5,4 +5,7 @@ export default {
   getProjectsList(params) {
     return axios.get('/api/getProjectsList', params);
   },
+  getProjectById(params) {
+    return axios.get('/api/getProjectById', params);
+  },
 };

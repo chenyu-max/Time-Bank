@@ -30,7 +30,10 @@ export default {
     pager,
   },
   async created() {
-    await api.getProjectsList({ appkey: this.$store.state.user.userinfo.appkey })
+    await api.getProjectsList({
+      appkey: this.$store.state.user.userinfo.appkey,
+      city: this.$store.state.nowCityList.nowCityList[1],
+    })
       .then((res) => {
         this.total = res.list.length;
         this.nowTotal = res.list.length;
@@ -85,8 +88,12 @@ export default {
       ],
       valueRange: [
         {
-          name: '0-5',
+          name: '全部',
           isSelected: true,
+        },
+        {
+          name: '0-5',
+          isSelected: false,
         }, {
           name: '5-10',
           isSelected: false,
@@ -173,7 +180,7 @@ export default {
         return originValue <= 5;
       }
       if (targetValue === '5-10') {
-        return originValue <= 10;
+        return originValue <= 10 && originValue > 5;
       }
       return originValue > 10;
     },
@@ -189,8 +196,13 @@ export default {
       }
       return targetState === originState;
     },
-    checkDetail(id) {
-      window.console.log(id);
+    checkDetail(project) {
+      this.$router.push({
+        name: 'ProjectDetail',
+        params: {
+          projectId: project.id,
+        },
+      });
     },
     handlePageChange(newPage) {
       const maxPage = newPage * 10 > this.total ? this.total : newPage * 10;

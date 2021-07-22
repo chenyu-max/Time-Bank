@@ -33,6 +33,16 @@ export default [
         },
         component: () => import(/* webpackChunkName: "index" */ '../views/page/publicWelfareContainer/publicWelfareHistory.vue'),
       },
+      {
+        name: 'ProjectDetail',
+        path: 'projectdetail/:projectId',
+        component: () => import(/* webpackChunkName: "index" */ '../views/page/publicWelfareContainer/projectDetail.vue'),
+        meta: {
+          title: '项目详情',
+          hidden: true,
+          fatherTitle: '公益项目',
+        },
+      },
     ],
   },
   {
