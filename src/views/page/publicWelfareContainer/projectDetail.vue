@@ -79,9 +79,7 @@
           <a-list-item>
             <a-comment :author="item.authorDis" :avatar="item.avatar">
               <template #content>
-                <p>
-                  {{ item.userComment }}
-                </p>
+                <p>{{ item.userComment }}</p>
               </template>
               <template #datetime>
                 <a-tooltip :title="item.overTime">
