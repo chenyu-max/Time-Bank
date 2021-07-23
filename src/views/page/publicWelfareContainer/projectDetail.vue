@@ -56,11 +56,11 @@
       </div>
       <div class="contact-person-name">
         <div class="title">联系人:</div>
-        {{ project.contactPerson.name }}
+        {{ contactPerson.name }}
       </div>
       <div class="contact-person-phone">
         <div class="title">联系电话:</div>
-        {{ project.contactPerson.phone }}
+        {{ contactPerson.phone }}
       </div>
       <div class="effective-time">
         <div class="title">有效时间:</div>
@@ -70,7 +70,42 @@
       </div>
     </div>
     <div class="user-info-list">
-<!--      <a-rate :value="2" disabled />-->
+      <a-list
+          class="comment-list"
+          :header="`${commentsList.length}条 评论`"
+          item-layout="horizontal"
+          :data-source="commentsList">
+        <template #renderItem="item">
+          <a-list-item>
+            <a-comment :author="item.authorDis" :avatar="item.avatar">
+              <template #content>
+                <p>
+                  {{ item.userComment }}
+                </p>
+              </template>
+              <template #datetime>
+                <a-tooltip :title="item.overTime">
+                  <span>评论时间： {{ item.overTime }}</span>
+                </a-tooltip>
+              </template>
+            </a-comment>
+            <div class="comment-info">
+              <div class="accept-time">
+                <div class="title">接受任务时间:</div>
+                {{ item.acceptTime }}
+              </div>
+              <div class="user-state">
+                <div class="title">完成状态:</div>
+                {{ item.userState }}
+              </div>
+              <div class="user-star">
+                <div class="title">用户评分:</div>
+                <a-rate :value="item.star" disabled style="line-height: 16px;"/>
+              </div>
+            </div>
+          </a-list-item>
+        </template>
+      </a-list>
     </div>
   </div>
 </template>
@@ -87,11 +122,31 @@ export default {
     })
       .then((res) => {
         this.project = res;
+        const contactName = res.contactPerson.sex === 'male' ? `${res.contactPerson.name[0]}先生` : `${res.contactPerson.name[0]}女士`;
+        this.contactPerson = {
+          name: contactName,
+          phone: res.contactPerson.phone,
+        };
+        this.commentsList = res.userList.map((item) => {
+          const temp = item;
+          const authorDis = `${temp.userName}`;
+          return {
+            authorDis,
+            avatar: temp.userAvatar,
+            overTime: temp.overTime,
+            userComment: temp.userComment,
+            acceptTime: temp.acceptTime,
+            userState: temp.userState,
+            star: temp.star,
+          };
+        });
       });
   },
   data() {
     return {
       project: {},
+      contactPerson: {},
+      commentsList: [],
     };
   },
 };
@@ -132,15 +187,48 @@ export default {
 
   .project-info-3 {
     margin-top: 20px;
-    >div{
+
+    > div {
       display: flex;
       line-height: 30px;
       height: 30px;
     }
+
     .title {
       width: 7%;
       font-weight: 600;
     }
+  }
+}
+
+.ant-list-item {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.comment-info {
+  width: 100%;
+  height: 20px;
+  display: flex;
+
+  > div {
+    display: flex;
+
+    > div {
+      display: flex;
+    }
+  }
+
+  .title {
+    margin-right: 10px;
+  }
+
+  .accept-time {
+    flex: 0 0 30%;
+  }
+
+  .user-state {
+    flex: 0 0 30%;
   }
 }
 </style>

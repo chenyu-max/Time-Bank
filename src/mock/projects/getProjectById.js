@@ -26,11 +26,13 @@ Mock.mock('/api/getProjectById', 'get', {
     description: '@cparagraph(9,15)',
     'userList|0-7': [
       {
-        username: '@cname',
-        'userState|1': ['可承接', '已满员', '已完成'],
+        userName: '@cname',
+        userAvatar: '@image(32x32, @color, #fff, @natural)',
+        'userState|1': ['已完成', '正在进行中'],
         acceptTime: '@datetime("yyyy-MM-dd HH:mm")',
         overTime: '@datetime("yyyy-MM-dd HH:mm")',
         userComment: '@cparagraph',
+        'star|0-5': 0,
       },
     ],
   },
