@@ -31,7 +31,7 @@ export default [
           fatherTitle: '公益项目',
           icon: 'container',
         },
-        component: () => import(/* webpackChunkName: "index" */ '../views/page/publicWelfareContainer/publicWelfareHistory.vue'),
+        component: () => import(/* webpackChunkName: "index" */ '../views/page/publicWelfareContainer/publicWelfareHistory/index.vue'),
       },
       {
         name: 'ProjectDetail',

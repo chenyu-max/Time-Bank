@@ -137,6 +137,7 @@ export default {
           return true;
         });
         this.nowTotal = this.selectedProjectList.length;
+        this.currentPage = 1;
         this.showProjectList = this.selectedProjectList.slice(0, 10);
       },
       deep: true, // 深度监听

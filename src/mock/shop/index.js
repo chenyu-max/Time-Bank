@@ -1,0 +1,2 @@
+import './getShopList';
+import './getGoodsDetails';

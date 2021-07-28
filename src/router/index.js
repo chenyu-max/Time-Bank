@@ -44,7 +44,7 @@ const routes = [
     component: Home,
     children: [
       {
-        path: '/changecity',
+        path: 'changecity',
         name: 'ChangeCity',
         meta: {
           title: '切换城市',
@@ -53,7 +53,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "index" */ '../views/page/Home/changeCity.vue'),
       },
       {
-        path: '/personalcenter',
+        path: 'personalcenter',
         name: 'PersonalCenter',
         meta: {
           title: '个人中心',
@@ -62,13 +62,22 @@ const routes = [
         component: () => import(/* webpackChunkName: "index" */ '../views/page/Home/personalCenter.vue'),
       },
       {
-        path: '/timeshop',
+        path: 'timeshop',
         name: 'TimeShop',
         meta: {
           title: '时间商城',
           fatherTitle: '主页',
         },
-        component: () => import(/* webpackChunkName: "index" */ '../views/page/Home/timeShop.vue'),
+        component: () => import(/* webpackChunkName: "index" */ '../views/page/Home/timeShop/index.vue'),
+      },
+      {
+        path: 'gooddetails/:goodsId',
+        name: 'GoodDetails',
+        meta: {
+          title: '商品详情',
+          fatherTitle: '主页/时间商城',
+        },
+        component: () => import(/* webpackChunkName: "index" */ '../views/page/Home/timeShop/goodsDetails.vue'),
       },
     ],
   },
