@@ -415,3 +415,26 @@ method:get
 }
 ```
 
+
+
+## AI客服发送信息接口
+
+**url:**/api/aimsgsend
+
+**method**:post
+
+| 字段   |  类型  | 是否必须 | 备注             |
+| :----- | :----: | :------: | ---------------- |
+| appkey | String |   必须   | 用户appkey       |
+| text   | String |   必须   | 用户所提问的信息 |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: [String,String...]，// 可以是一条信息，也可以是两条信息       
+}
+```
+

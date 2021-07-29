@@ -77,6 +77,7 @@ export default {
     logout() {
       this.$store.dispatch('user/logout');
       this.$store.dispatch('nowCityList/deleteNowCityList');
+      this.$store.dispatch('customerService/logout');
       this.$router.replace({
         name: 'login',
       });
