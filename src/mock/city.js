@@ -1,6 +1,6 @@
 import Mock from 'mockjs';
 
-Mock.mock('/api/getCityList', 'get', {
+Mock.mock('/api/citylist', 'get', {
   code: 0,
   msg: '',
   data: [

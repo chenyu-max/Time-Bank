@@ -9,10 +9,10 @@ export default {
     return axios.post('/api/passport/register', params);
   },
   findBackPassword(params) {
-    return axios.post('/api/passport/findBack', params);
+    return axios.post('/api/passport/findback', params);
   },
   getCode(email) {
-    return axios.post('/api/passport/getCode', email);
+    return axios.post('/api/passport/phonecode', email);
   },
   changeUserInfo(params) {
     return axios.put('/api/userinfo/submit', params);

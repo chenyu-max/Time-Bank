@@ -3,9 +3,9 @@ import axios from './axios';
 
 export default {
   getProjectsList(params) {
-    return axios.get('/api/getProjectsList', params);
+    return axios.get('/api/projectslist', params);
   },
   getProjectById(params) {
-    return axios.get('/api/getProjectById', params);
+    return axios.get('/api/projectbyid', params);
   },
 };

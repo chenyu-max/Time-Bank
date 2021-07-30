@@ -1,6 +1,6 @@
 import Mock from 'mockjs';
 
-Mock.mock('/api/getshoplist', 'get', {
+Mock.mock('/api/shoplist', 'get', {
   code: 0,
   msg: '',
   'data|3-28': [
