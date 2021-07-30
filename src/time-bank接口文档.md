@@ -419,7 +419,56 @@ method:get
 
 ## AI客服发送信息接口
 
-**url:**/api/aimsgsend
+**url:**/api/sendmsgtoai
+
+**method**:post
+
+| 字段   |  类型  | 是否必须 | 备注             |
+| :----- | :----: | :------: | ---------------- |
+| appkey | String |   必须   | 用户appkey       |
+| text   | String |   必须   | 用户所提问的信息 |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: [String,String...]，// 可以是一条信息，也可以是两条信息       
+}
+```
+
+
+
+## 人工客服初始化接口
+
+**url:**/api/menserviceinit
+
+**method**:post
+
+
+
+| 字段   |  类型  | 是否必须 | 备注       |
+| :----- | :----: | :------: | ---------- |
+| appkey | String |   必须   | 用户appkey |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: {
+		name: String, // 人工客服名字 如 小王、小李等
+	}，//        
+}
+```
+
+
+
+## 人工客服发送信息接口
+
+**url:**/api/sendmsgtomen
 
 **method**:post
 

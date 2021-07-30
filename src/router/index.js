@@ -90,6 +90,19 @@ const router = new VueRouter({
   routes,
 });
 
+// 以下代码是为了防止路由重复点击的报错
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location)
+    .catch((err) => err);
+};
+
+const originalReplace = VueRouter.prototype.replace;
+VueRouter.prototype.replace = function replace(location) {
+  return originalReplace.call(this, location)
+    .catch((err) => err);
+};
+
 router.beforeEach((to, from, next) => {
   // 如果想要进入其他的路由，会进行判断
   if (to.path !== '/login' && to.path !== '/findbackpwd' && to.path !== '/register') {

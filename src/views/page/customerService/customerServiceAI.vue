@@ -18,7 +18,7 @@
           <a-icon type="folder-open" class="icon"/>
         </div>
         <div class="input">
-          <a-textarea :autosize="true" class="input-area"
+          <a-textarea  class="input-area"
                       @keydown.native="keyDown"
                       placeholder="请输入您想要询问的问题"
                       v-model="myMsg"/>
@@ -35,6 +35,7 @@
 
 <script>
 import api from '@/api/customerService';
+import deepCopy from '../../../utils/deepCopy';
 import formatDate from '../../../utils/formatDate';
 import msgBubble from './components/msgBubble.vue';
 
@@ -50,10 +51,12 @@ export default {
       type: 'end',
       text: `上述对话结束于 ${endTime}`,
     });
-    this.$store.dispatch('customerService/changeAIHistory', this.showMsgList);
+    if (this.isChat) {
+      this.$store.dispatch('customerService/changeAIHistory', this.showMsgList);
+    }
   },
   created() {
-    this.showMsgList = this.$store.state.customerService.AIHistory;
+    this.showMsgList = deepCopy(this.$store.state.customerService.AIHistory);
     const timestamp = new Date().getTime();
     const startTime = formatDate(timestamp, true);
     this.showMsgList.push({
@@ -70,6 +73,7 @@ export default {
       myMsg: '',
       startTime: '',
       showMsgList: [],
+      isChat: false, // 本次对话是否进行
     };
   },
   watch: {
@@ -99,6 +103,7 @@ export default {
         type: 'right',
         text: this.myMsg,
       });
+      this.isChat = true;
       api.sendMsgToAI({
         appkey: this.$store.state.user.userinfo.appkey,
         text: this.myMsg,
@@ -140,6 +145,7 @@ export default {
     color: #fff;
     display: flex;
     justify-content: center;
+    text-align: center;
 
     > div {
       div:last-child {
