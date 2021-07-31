@@ -8,4 +8,7 @@ export default {
   getProjectById(params) {
     return axios.get('/api/projectbyid', params);
   },
+  getMyProjectHistory(params) {
+    return axios.get('/api/myproject', params);
+  },
 };

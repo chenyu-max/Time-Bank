@@ -376,10 +376,28 @@ method:get
 				createTime: date, // 项目的发布时间
 				startTime: date, // 项目的开始时间
 				endTime: date, // 项目的结束时间
+			},
+		],
+		waitForComment:[
+            id: String , // 项目的唯一编号id
+            name:String, // 项目的名称
+            ownerName:String, // 项目发起者的用户名
+            value:Sting, // 项目的时间货币
+            time:Number, // 项目所需要的时间
+		],
+		finish:[
+			{
+				id: String , // 项目的唯一编号id
+				name:String, // 项目的名称
+				ownerName:String, // 项目发起者的用户名
+				value:Sting, // 项目的时间货币
+				time:Number, // 项目所需要的时间
+				category:String, // 项目的分类
+				createTime: date, // 项目的发布时间
+				startTime: date, // 项目的开始时间
+				endTime: date, // 项目的结束时间
 			}
 		],
-		waitForComment:[],
-		finish:[],
 	},        
 }
 ```
