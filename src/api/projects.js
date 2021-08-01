@@ -11,4 +11,7 @@ export default {
   getMyProjectHistory(params) {
     return axios.get('/api/myproject', params);
   },
+  commitComment(params) {
+    return axios.post('/api/comment', params);
+  },
 };

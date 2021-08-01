@@ -42,6 +42,7 @@ export default {
 <style scoped lang="less">
 .project-nav-container {
   border-bottom: 1px solid #eeeeee;
+  padding: 0 10px;
   cursor: default;
 
   > div {

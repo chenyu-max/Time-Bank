@@ -5,6 +5,7 @@ import menuRouters from './menuRouters';
 import user from './user';
 import nowCityList from './nowCityList';
 import customerService from './customerService';
+import myProjectHistory from './myProjectHistory';
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     user,
     nowCityList,
     customerService,
+    myProjectHistory,
   },
   strict: true,
 });

@@ -408,6 +408,21 @@ method:get
 
 
 
+## 上传项目评论接口
+
+**url:**/api/comment
+
+**method**:post
+
+
+
+| 字段      |  类型  | 是否必须 | 备注       |
+| :-------- | :----: | :------: | ---------- |
+| appkey    | String |   必须   | 用户appkey |
+| projectId | String |   必须   | 公益项目ID |
+
+
+
 ## 商场物品列表获取
 
 **url:**/api/shoplist

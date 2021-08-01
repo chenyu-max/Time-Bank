@@ -43,6 +43,7 @@ export default {
 .project-nav-container {
   border-bottom: 1px solid #eeeeee;
   cursor: default;
+  padding: 0 10px;
 
   > div {
     display: flex;
