@@ -22,6 +22,8 @@
             title="评论"
             :visible="visible"
             :confirm-loading="confirmLoading"
+            cancelText="取消"
+            okText="提交评论"
             @ok="handleOk"
             @cancel="handleCancel"
         >
