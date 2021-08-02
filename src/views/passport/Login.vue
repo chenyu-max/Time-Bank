@@ -8,10 +8,14 @@
       <a-form-model ref="loginForm" class="login-form"
                     :model="loginForm" :rules="rules" v-bind="layout">
         <a-form-model-item has-feedback label="手机号" prop="phoneNumber">
-          <a-input v-model="loginForm.phoneNumber"/>
+          <a-input v-model="loginForm.phoneNumber">
+            <a-icon slot="prefix" type="phone" style="color:rgba(0,0,0,.25)" />
+          </a-input>
         </a-form-model-item>
         <a-form-model-item has-feedback label="密码" prop="password">
-          <a-input v-model="loginForm.password" type="password" autocomplete="new-password"/>
+          <a-input v-model="loginForm.password" type="password" autocomplete="new-password">
+            <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
+          </a-input>
         </a-form-model-item>
         <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }" style="text-align: center">
           <a-button type="primary" @click="submitForm('loginForm')" class="login-btn">
