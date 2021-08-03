@@ -99,6 +99,10 @@ export default {
     },
     sendMsg() {
       // 调用 api
+      if (!this.myMsg.trim()) {
+        this.$message.warn('请输入正确的问题');
+        return;
+      }
       this.showMsgList.push({
         type: 'right',
         text: this.myMsg,

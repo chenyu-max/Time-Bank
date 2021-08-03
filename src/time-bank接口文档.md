@@ -320,6 +320,7 @@ method:get
         	phone: String,
         	sex: String, // male or female 用来显示 是 x先生 or x女士
         }, // 联系人信息
+        category: String , // 项目的类别
         value:Sting, // 项目的时间货币
         time:Number, // 项目所需要的时间
         address: String, // 具体地址
@@ -341,7 +342,7 @@ method:get
         		userComment: String, // 承接人完成任务的评价
         		star: Number, // 承接人 对该项目的 星级评价 【0~5】
         	}
-        ]
+        ], // 用户评价列表
 	}
 }
 ```
