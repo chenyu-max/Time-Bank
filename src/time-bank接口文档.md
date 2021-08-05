@@ -349,6 +349,23 @@ method:get
 
 
 
+## 承接任务接口
+
+url: /api/acceptproject
+
+method:post
+
+请求参数：
+
+| 字段      |  类型  | 是否必须 | 备注       |
+| :-------- | :----: | :------: | ---------- |
+| appkey    | String |   必须   | 用户appkey |
+| projectId | String |   必须   | 项目的ID   |
+
+
+
+
+
 ## 获取个人公益项目历史记录接口
 
 **url:**/api/myproject

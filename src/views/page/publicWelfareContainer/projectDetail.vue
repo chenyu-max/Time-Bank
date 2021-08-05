@@ -68,6 +68,9 @@
         &nbsp;&nbsp; 到 &nbsp;&nbsp;
         {{ project.endTime }}
       </div>
+      <div v-if="isShow" style="margin: 10px 0;">
+        <a-button type="primary" @click="acceptProject">确认承接该任务</a-button>
+      </div>
     </div>
     <div class="user-info-list">
       <a-list
@@ -110,6 +113,7 @@
 
 <script>
 import api from '@/api/projects';
+import deepCopy from '../../../utils/deepCopy';
 
 export default {
   name: 'projectDetail',
@@ -146,6 +150,44 @@ export default {
       contactPerson: {},
       commentsList: [],
     };
+  },
+  computed: {
+    isShow: {
+      get() {
+        const { projectId } = this.$route.params;
+        const doingList = deepCopy(this.$store.state.myProjectHistory.doingList);
+        const finishList = deepCopy(this.$store.state.myProjectHistory.finishList);
+        let flag = true;
+        if (this.project.state !== '可承接') {
+          flag = false;
+        }
+        for (let i = 0; i < doingList.length; i += 1) {
+          if (doingList[i].projectId === projectId) {
+            flag = false;
+            break;
+          }
+        }
+        for (let i = 0; i < finishList.length; i += 1) {
+          if (finishList[i].projectId === projectId) {
+            flag = false;
+            break;
+          }
+        }
+        return flag;
+      },
+    },
+  },
+  methods: {
+    acceptProject() {
+      api.acceptProject({
+        appkey: this.$store.state.user.userinfo.appkey,
+        projectId: this.project.projectId,
+      }).then(() => {
+        this.$message.success('报名成功，请等待通知');
+      }).catch((err) => {
+        this.$message.error(err);
+      });
+    },
   },
 };
 </script>

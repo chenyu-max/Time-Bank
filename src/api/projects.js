@@ -14,4 +14,7 @@ export default {
   commitComment(params) {
     return axios.post('/api/comment', params);
   },
+  acceptProject(params) {
+    return axios.post('/api/acceptproject', params);
+  },
 };
