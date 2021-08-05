@@ -6,12 +6,14 @@ import user from './user';
 import nowCityList from './nowCityList';
 import customerService from './customerService';
 import myProjectHistory from './myProjectHistory';
+import addProject from './addProject';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
     leftMenuCollapsed,
+    addProject,
     menuRouters,
     user,
     nowCityList,

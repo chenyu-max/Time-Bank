@@ -8,7 +8,7 @@
         <fill-information @next="handleNext"/>
       </template>
       <template v-else>
-        <deposit/>
+        <deposit :projectInfo="projectInfo" @previous="handlePrevious" @pay="handlePay"/>
       </template>
     </div>
   </div>
@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      current: 1,
+      current: 0,
       steps: [
         {
           title: '填写信息',
@@ -44,7 +44,13 @@ export default {
     handleNext(projectInfo) {
       this.current = 1;
       this.projectInfo = projectInfo;
-      console.log(projectInfo);
+      this.$store.dispatch('addProject/changeNowInfo', this.projectInfo);
+    },
+    handlePay() {
+      this.current = 0;
+    },
+    handlePrevious() {
+      this.current = 0;
     },
   },
 };

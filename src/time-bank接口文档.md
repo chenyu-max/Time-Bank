@@ -424,6 +424,30 @@ method:get
 
 
 
+## 发起项目至审核人接口
+
+**url:**/api/newproject
+
+**method**:post
+
+| 字段               |  类型  | 是否必须 | 备注                     |
+| :----------------- | :----: | :------: | ------------------------ |
+| appkey             | String |   必须   | 用户appkey               |
+| projectName        | String |   必须   | 项目名称                 |
+| description        | String |   必须   | 项目描述                 |
+| needPeople         | Number |   必须   | 项目所需人数             |
+| category           | String |   必须   | 项目分类                 |
+| value              | Number |   必须   | 每个志愿者给予的时间币   |
+| workTime           | Number |   必须   | 每个志愿者需要工作的时间 |
+| address            | String |   必须   | 公益项目所在地址         |
+| contactPersonName  | String |   必须   | 项目联系人名字           |
+| contactPersonSex   | String |   必须   | 项目联系人性别           |
+| contactPersonPhone | String |   必须   | 项目联系人电话           |
+| startTime          | String |   必须   | 项目有效开始时间         |
+| endTime            | String |   必须   | 项目结束时间             |
+
+
+
 ## 商场物品列表获取
 
 **url:**/api/shoplist

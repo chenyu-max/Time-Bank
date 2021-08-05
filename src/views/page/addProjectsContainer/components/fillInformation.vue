@@ -86,9 +86,18 @@
 </template>
 
 <script>
+import moment from 'moment';
+import deepCopy from '../../../../utils/deepCopy';
 
 export default {
   name: 'fillInformation',
+  created() {
+    if (this.$store.state.addProject.nowInfo.projectName) {
+      this.infoForm = deepCopy(this.$store.state.addProject.nowInfo);
+      this.infoForm.startTime = moment(this.infoForm.startTime);
+      this.infoForm.endTime = moment(this.infoForm.endTime);
+    }
+  },
   data() {
     const validateProjectName = (rule, value, callback) => {
       if (value === '') {
@@ -241,6 +250,9 @@ export default {
         const projectInfo = {
           ...this.infoForm,
         };
+        projectInfo.needPeople = +projectInfo.needPeople;
+        projectInfo.value = +projectInfo.value;
+        projectInfo.workTime = +projectInfo.workTime;
         projectInfo.startTime = projectInfo.startTime.format('YYYY-MM-DD HH:MM');
         projectInfo.endTime = projectInfo.endTime.format('YYYY-MM-DD HH:MM');
         if (valid) {
@@ -252,6 +264,20 @@ export default {
       });
     },
     resetForm() {
+      this.infoForm = {
+        projectName: '',
+        description: '',
+        needPeople: '',
+        category: '',
+        value: '',
+        workTime: '',
+        address: '',
+        contactPersonName: '',
+        contactPersonSex: 'male',
+        contactPersonPhone: '',
+        startTime: '',
+        endTime: '',
+      };
       this.$refs.infoForm.resetFields();
     },
   },
