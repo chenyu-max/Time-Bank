@@ -124,7 +124,7 @@ export default {
   .avatar {
     transition: all 0.6s ease-in-out;
     cursor: pointer;
-    z-index: 10000;
+    z-index: 999;
     .user-info {
       padding-top: 30px;
       display: none;
@@ -136,7 +136,7 @@ export default {
       top: 30px;
       left: 50%;
       margin-left: -50px;
-      z-index: 9999;
+      z-index: 998;
       border-radius: 4px;
       -webkit-box-shadow: 0 0 10px 2px rgb(0 0 0 / 6%);
       box-shadow: 0 0 10px 2px rgba(0, 0, 0, .2);
@@ -159,7 +159,7 @@ export default {
       .avatar-img {
         transition: all 0.6s ease-in-out;
         transform: rotate(360deg);
-        z-index: 10000;
+        z-index: 999;
       }
 
       .user-info {

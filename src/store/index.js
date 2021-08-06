@@ -7,6 +7,7 @@ import nowCityList from './nowCityList';
 import customerService from './customerService';
 import myProjectHistory from './myProjectHistory';
 import addProject from './addProject';
+import myAddProject from './myAddProject';
 
 Vue.use(Vuex);
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     nowCityList,
     customerService,
     myProjectHistory,
+    myAddProject,
   },
   strict: true,
 });

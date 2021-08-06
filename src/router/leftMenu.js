@@ -73,7 +73,7 @@ export default [
           fatherTitle: '发起项目',
           icon: 'hdd',
         },
-        component: () => import(/* webpackChunkName: "index" */ '../views/page/addProjectsContainer/addProjectsHistory.vue'),
+        component: () => import(/* webpackChunkName: "index" */ '../views/page/addProjectsContainer/addProjectsHistory/index.vue'),
       },
     ],
   },

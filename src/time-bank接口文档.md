@@ -397,7 +397,8 @@ method:post
 			},
 		],
 		waitForComment:[
-            id: String , // 项目的唯一编号id
+			{
+		 		id: String , // 项目的唯一编号id
 				name:String, // 项目的名称
 				ownerName:String, // 项目发起者的用户名
 				value:Sting, // 项目的时间货币
@@ -406,6 +407,7 @@ method:post
 				finishtTime: date, // 项目完成时间
 				startTime: date, // 项目的开始时间
 				endTime: date, // 项目的结束时间
+			}  
 		],
 		finish:[
 			{
@@ -438,6 +440,109 @@ method:post
 | :-------- | :----: | :------: | ---------- |
 | appkey    | String |   必须   | 用户appkey |
 | projectId | String |   必须   | 公益项目ID |
+
+
+
+## 获取我发布的项目信息接口
+
+url:/api/myaddproject
+
+**method**:get
+
+
+
+| 字段   |  类型  | 是否必须 | 备注       |
+| :----- | :----: | :------: | ---------- |
+| appkey | String |   必须   | 用户appkey |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: {
+		doing:[
+			{
+				id: String , // 项目的唯一编号id
+				projectName: String, // 项目名称
+                description: String, // 项目描述
+                needPeople: Number,  // 项目所需要的人数
+                category: String,	// 项目的分类
+                value: Number,		// 项目每人所需要支付的时间币
+                workTime: Number,	// 项目每人所需要工作的时间
+                address: String,	// 项目工作的地点
+                contactPersonName: String, // 项目联系人名字
+                contactPersonSex: String, // 项目联系人的性别
+                contactPersonPhone: String,	 // 项目联系人的电话
+                startTime: String,	// 项目开始的时间
+                endTime: String,	// 项目结束的时间
+			},
+		],
+		waitCheck:[
+            {
+            	id: String , // 项目的唯一编号id
+				projectName: String, // 项目名称
+                description: String, // 项目描述
+                needPeople: Number,  // 项目所需要的人数
+                category: String,	// 项目的分类
+                value: Number,		// 项目每人所需要支付的时间币
+                workTime: Number,	// 项目每人所需要工作的时间
+                address: String,	// 项目工作的地点
+                contactPersonName: String, // 项目联系人名字
+                contactPersonSex: String, // 项目联系人的性别
+                contactPersonPhone: String,	 // 项目联系人的电话
+                startTime: String,	// 项目开始的时间
+                endTime: String,	// 项目结束的时间
+            }
+		],
+		finish:[
+			{
+				id: String , // 项目的唯一编号id
+				projectName: String, // 项目名称
+                description: String, // 项目描述
+                needPeople: Number,  // 项目所需要的人数
+                category: String,	// 项目的分类
+                value: Number,		// 项目每人所需要支付的时间币
+                workTime: Number,	// 项目每人所需要工作的时间
+                address: String,	// 项目工作的地点
+                contactPersonName: String, // 项目联系人名字
+                contactPersonSex: String, // 项目联系人的性别
+                contactPersonPhone: String,	 // 项目联系人的电话
+                startTime: String,	// 项目开始的时间
+                endTime: String,	// 项目结束的时间
+			}
+		],
+	},        
+}
+```
+
+
+
+## 修改项目信息接口
+
+**url:**/api/projectinfo
+
+**method**:put
+
+| 字段               |  类型  | 是否必须 | 备注                     |
+| :----------------- | :----: | :------: | ------------------------ |
+| appkey             | String |   必须   | 用户appkey               |
+| id                 | String |   必须   | 项目id                   |
+| projectName        | String |   必须   | 项目名称                 |
+| description        | String |   必须   | 项目描述                 |
+| needPeople         | Number |   必须   | 项目所需人数             |
+| category           | String |   必须   | 项目分类                 |
+| value              | Number |   必须   | 每个志愿者给予的时间币   |
+| workTime           | Number |   必须   | 每个志愿者需要工作的时间 |
+| address            | String |   必须   | 公益项目所在地址         |
+| contactPersonName  | String |   必须   | 项目联系人名字           |
+| contactPersonSex   | String |   必须   | 项目联系人性别           |
+| contactPersonPhone | String |   必须   | 项目联系人电话           |
+| startTime          | String |   必须   | 项目有效开始时间         |
+| endTime            | String |   必须   | 项目结束时间             |
+
+
 
 
 
