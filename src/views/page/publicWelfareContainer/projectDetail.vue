@@ -113,7 +113,6 @@
 
 <script>
 import api from '@/api/projects';
-import deepCopy from '../../../utils/deepCopy';
 
 export default {
   name: 'projectDetail',
@@ -154,26 +153,7 @@ export default {
   computed: {
     isShow: {
       get() {
-        const { projectId } = this.$route.params;
-        const doingList = deepCopy(this.$store.state.myProjectHistory.doingList);
-        const finishList = deepCopy(this.$store.state.myProjectHistory.finishList);
-        let flag = true;
-        if (this.project.state !== '可承接') {
-          flag = false;
-        }
-        for (let i = 0; i < doingList.length; i += 1) {
-          if (doingList[i].projectId === projectId) {
-            flag = false;
-            break;
-          }
-        }
-        for (let i = 0; i < finishList.length; i += 1) {
-          if (finishList[i].projectId === projectId) {
-            flag = false;
-            break;
-          }
-        }
-        return flag;
+        return this.$route.params.couldAccept;
       },
     },
   },

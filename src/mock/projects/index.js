@@ -6,3 +6,4 @@ import './addNewProject';
 import './acceptProject';
 import './getMyAddProject';
 import './changeProjectInfo';
+import './declareProject';

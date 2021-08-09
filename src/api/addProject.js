@@ -10,4 +10,7 @@ export default {
   changeProjectInfo(params) {
     return axios.put('/api/newproject', params);
   },
+  declareProject(params) {
+    return axios.post('/api/declareproject', params);
+  },
 };

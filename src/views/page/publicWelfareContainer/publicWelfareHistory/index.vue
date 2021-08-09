@@ -124,6 +124,7 @@ export default {
         name: 'ProjectDetail',
         params: {
           projectId: project.id,
+          couldAccept: false,
         },
       });
     },

@@ -4,6 +4,7 @@ export default {
     waitList: [],
     doingList: [],
     finishList: [],
+    declareList: [],
   },
   mutations: {
     changeWaitList(state, list) {
@@ -14,6 +15,9 @@ export default {
     },
     changeFinishList(state, list) {
       state.finishList = list;
+    },
+    changeDeclareList(state, id) {
+      state.declareList.push(id);
     },
     deleteAll(state) {
       state.waitList = [];
@@ -30,6 +34,9 @@ export default {
     },
     changeFinishList({ commit }, list) {
       commit('changeFinishList', list);
+    },
+    changeDeclareList({ commit }, list) {
+      commit('changeDeclareList', list);
     },
     deleteAll({ commit }) {
       commit('deleteAll');

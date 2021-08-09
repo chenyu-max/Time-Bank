@@ -202,6 +202,7 @@ export default {
         name: 'ProjectDetail',
         params: {
           projectId: project.id,
+          couldAccept: project.state === '可承接',
         },
       });
     },

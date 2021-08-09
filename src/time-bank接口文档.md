@@ -28,7 +28,13 @@
 
 
 
-## 用户登录
+## 用户以及用户信息
+
+
+
+
+
+### 用户登录
 
 
 
@@ -72,7 +78,7 @@ method: post
 
 - 说明：appkey是每个用户唯一的id，一个用户一个appkey
 
-## 用户注册
+### 用户注册
 
 
 
@@ -97,7 +103,7 @@ method: post
 
 
 
-## 获取验证码
+### 获取验证码
 
 
 
@@ -121,7 +127,7 @@ method: post
 
 
 
-## 找回密码
+### 找回密码
 
 
 
@@ -153,7 +159,7 @@ method: post
 
 
 
-## 更改密码
+### 更改密码
 
 
 
@@ -175,7 +181,7 @@ method: post
 
 
 
-## 用户信息填写
+### 用户信息填写
 
 
 
@@ -243,7 +249,11 @@ method: get
 
 
 
-## 公益项目列表获取
+## 公益项目
+
+
+
+### 公益项目列表获取
 
 url: /api/projectslist
 
@@ -290,7 +300,7 @@ method:get
 
 
 
-## 通过id获取公益项目详细信息
+### 通过id获取公益项目详细信息
 
 url: /api/projectbyid
 
@@ -349,7 +359,7 @@ method:get
 
 
 
-## 承接任务接口
+### 承接任务接口
 
 url: /api/acceptproject
 
@@ -366,7 +376,7 @@ method:post
 
 
 
-## 获取个人公益项目历史记录接口
+### 获取个人公益项目历史记录接口
 
 **url:**/api/myproject
 
@@ -428,7 +438,11 @@ method:post
 
 
 
-## 上传项目评论接口
+## 发起项目
+
+
+
+### 上传项目评论接口
 
 **url:**/api/comment
 
@@ -443,7 +457,7 @@ method:post
 
 
 
-## 获取我发布的项目信息接口
+### 获取我发布的项目信息接口
 
 url:/api/myaddproject
 
@@ -467,16 +481,16 @@ url:/api/myaddproject
 				id: String , // 项目的唯一编号id
 				projectName: String, // 项目名称
                 description: String, // 项目描述
+                nowPeople: Number, // 现在的人数
                 needPeople: Number,  // 项目所需要的人数
                 category: String,	// 项目的分类
                 value: Number,		// 项目每人所需要支付的时间币
                 workTime: Number,	// 项目每人所需要工作的时间
                 address: String,	// 项目工作的地点
                 contactPersonName: String, // 项目联系人名字
-                contactPersonSex: String, // 项目联系人的性别
-                contactPersonPhone: String,	 // 项目联系人的电话
-                startTime: String,	// 项目开始的时间
-                endTime: String,	// 项目结束的时间
+                createTime: String, // 项目创建的时间（项目被审核人通过的时间）
+                startTime: String,	// 项目开始的时间 "yyyy-MM-dd HH:mm"
+                endTime: String,	// 项目结束的时间 "yyyy-MM-dd HH:mm"
 			},
 		],
 		waitCheck:[
@@ -502,15 +516,25 @@ url:/api/myaddproject
 				projectName: String, // 项目名称
                 description: String, // 项目描述
                 needPeople: Number,  // 项目所需要的人数
+                nowPeople: Number, // 现在的人数
                 category: String,	// 项目的分类
                 value: Number,		// 项目每人所需要支付的时间币
                 workTime: Number,	// 项目每人所需要工作的时间
                 address: String,	// 项目工作的地点
                 contactPersonName: String, // 项目联系人名字
-                contactPersonSex: String, // 项目联系人的性别
-                contactPersonPhone: String,	 // 项目联系人的电话
+                createTime: String, // 项目创建的时间（项目被审核人通过的时间）
                 startTime: String,	// 项目开始的时间
                 endTime: String,	// 项目结束的时间
+                userList: [
+                	{
+                		username: String, // 参与用户用户名
+                		userAvatar: url, // 用户头像
+                		workTime: Number, // 参与用户工作时间
+                		overTime: String, // 用户完成时间
+                		userComment: String, // 参与用户的评论信息
+                		userStar: Number, // 用户对项目的评分
+                	}
+                ],
 			}
 		],
 	},        
@@ -519,7 +543,7 @@ url:/api/myaddproject
 
 
 
-## 修改项目信息接口
+### 修改项目信息接口
 
 **url:**/api/projectinfo
 
@@ -544,9 +568,22 @@ url:/api/myaddproject
 
 
 
+### 项目申报接口
+
+**url:**/api/declareproject
+
+**method**:post
+
+| 字段       |  类型  | 是否必须 | 备注       |
+| :--------- | :----: | :------: | ---------- |
+| appkey     | String |   必须   | 用户appkey |
+| projectId  | String |   必须   | 项目id     |
+| userList   | Array  |   必须   | 项目       |
+| remarkText | String |   必须   | 备注       |
 
 
-## 发起项目至审核人接口
+
+### 发起项目至审核人接口
 
 **url:**/api/newproject
 
@@ -570,7 +607,11 @@ url:/api/myaddproject
 
 
 
-## 商场物品列表获取
+## 时间商城
+
+
+
+### 商场物品列表获取
 
 **url:**/api/shoplist
 
@@ -602,7 +643,7 @@ url:/api/myaddproject
 
 
 
-## 通过商品id获取商品信息
+### 通过商品id获取商品信息
 
 **url:**/api/goodsdetails
 
@@ -637,7 +678,11 @@ url:/api/myaddproject
 
 
 
-## AI客服发送信息接口
+## 客服
+
+
+
+### AI客服发送信息接口
 
 **url:**/api/msgtoai
 
@@ -660,7 +705,7 @@ url:/api/myaddproject
 
 
 
-## 人工客服初始化接口
+### 人工客服初始化接口
 
 **url:**/api/menserviceinit
 
@@ -686,7 +731,7 @@ url:/api/myaddproject
 
 
 
-## 人工客服发送信息接口
+### 人工客服发送信息接口
 
 **url:**/api/msgtomen
 

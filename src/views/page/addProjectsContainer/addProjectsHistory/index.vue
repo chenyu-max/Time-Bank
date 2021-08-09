@@ -2,7 +2,13 @@
   <div class="add-projects-history-container">
     <a-tabs :activeKey="activeKey" @change="changeTab">
       <a-tab-pane key="进行中" tab="进行中">
-        1
+        <div v-if="showList.length">
+          <div v-for="item in showList" :key="item.id">
+            <doing :project="item" @checkDetail="handleCheckDetail"/>
+          </div>
+        </div>
+        <a-empty v-else/>
+        <pager :total="nowList.length" :current="nowPage" @pageChange="changePage"/>
       </a-tab-pane>
       <a-tab-pane key="审核中" tab="审核中">
         <div v-if="showList.length">
@@ -14,7 +20,13 @@
         <pager :total="nowList.length" :current="nowPage" @pageChange="changePage"/>
       </a-tab-pane>
       <a-tab-pane key="已结束" tab="已结束">
-        3
+        <div v-if="showList.length">
+          <div v-for="item in showList" :key="item.id">
+            <finish :project="item" @checkDetail="handleCheckDetail"/>
+          </div>
+        </div>
+        <a-empty v-else/>
+        <pager :total="nowList.length" :current="nowPage" @pageChange="changePage"/>
       </a-tab-pane>
     </a-tabs>
   </div>
@@ -25,12 +37,16 @@ import api from '@/api/addProject';
 import pager from '@/components/pager/index.vue';
 import deepCopy from '../../../../utils/deepCopy';
 import waitCheck from './components/waitCheck.vue';
+import doing from './components/doing.vue';
+import finish from './components/finish.vue';
 
 export default {
   name: 'addProjectsHistory',
   components: {
     waitCheck,
     pager,
+    doing,
+    finish,
   },
   async created() {
     const storeDoingList = deepCopy(this.$store.state.myAddProject.doingList);
@@ -88,6 +104,15 @@ export default {
       this.nowPage = newPage;
       const max = newPage * 10 >= this.nowList.length ? this.nowList.length : newPage * 10;
       this.showList = this.nowList.slice((newPage - 1) * 10, max);
+    },
+    handleCheckDetail(project) {
+      this.$router.push({
+        name: 'ProjectDetail',
+        params: {
+          projectId: project.id,
+          couldAccept: false,
+        },
+      });
     },
     handleChange(projectInfo) {
       let index = -1;
