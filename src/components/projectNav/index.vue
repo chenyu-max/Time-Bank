@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: 'index.vue',
+  name: 'projectNav',
   props: {
     project: {
       type: Object,

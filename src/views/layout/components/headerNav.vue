@@ -1,10 +1,12 @@
 <template>
   <div class="header-nav-container">
+    <!--  左侧菜单栏的缩放btn  -->
     <div class="collapsed-btn">
       <a-button type="primary" @click="toggleCollapsed">
         <a-icon :type="$store.state.leftMenuCollapsed.collapsed ? 'menu-unfold' : 'menu-fold'"/>
       </a-button>
     </div>
+    <!--  面包屑  -->
     <div class="breadcrumb">
       <a-breadcrumb>
         <a-breadcrumb-item v-for="(title,i) in breadcrumbArr" :key="i">
@@ -12,6 +14,7 @@
         </a-breadcrumb-item>
       </a-breadcrumb>
     </div>
+    <!--  切换城市  -->
     <div class="location">
       <div class="current-city">
         <a-icon type="environment"></a-icon>
@@ -23,7 +26,9 @@
         <router-link :to="{name : 'ChangeCity'}">切换城市</router-link>
       </div>
     </div>
+    <!--  用户头像 and 用户名  -->
     <div class="user">
+      <!--   用户头像 以及 用户头像hover后下拉列表   -->
       <div class="avatar">
         <a-avatar class="avatar-img"
                   :size="36"
@@ -49,6 +54,7 @@ export default {
   computed: {
     breadcrumbArr: {
       get() {
+        // 通过在 meta 中设置的 title 和 fatherTitle 来 设置面包屑的展示数据
         const temp = this.$route.meta;
         const arr = temp.fatherTitle ? temp.fatherTitle.split('/') : [];
         return arr.concat([temp.title]);
