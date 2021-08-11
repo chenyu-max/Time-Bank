@@ -123,6 +123,7 @@ export default {
     })
       .then((res) => {
         this.project = res;
+        // 对用户展示项目联系人时候 使用 某先生 或者 某女士
         const contactName = res.contactPerson.sex === 'male' ? `${res.contactPerson.name[0]}先生` : `${res.contactPerson.name[0]}女士`;
         this.contactPerson = {
           name: contactName,

@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'index',
+  name: 'selectNav',
   props: {
     title: {
       type: String,
@@ -25,9 +25,12 @@ export default {
       required: true,
     },
   },
+  created() {
+    this.list = this.propList;
+  },
   data() {
     return {
-      list: this.propList,
+      list: [],
     };
   },
   methods: {
