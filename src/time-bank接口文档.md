@@ -607,6 +607,72 @@ url:/api/myaddproject
 
 
 
+## 审核人
+
+
+
+### 申请成为审核人
+
+**url:**/api/applyreviewer
+
+**method**:post
+
+| 字段            |  类型  | 是否必须 | 备注             |
+| :-------------- | :----: | :------: | ---------------- |
+| appkey          | String |   必须   | 用户appkey       |
+| name            | String |   必须   | 用户真实姓名     |
+| identity_number | String |   必须   | 用户身份证       |
+| resource        | String |   必须   | 是否读取信用口碑 |
+| desc            | String |   必须   | 申请的理由       |
+| xuanyan         | String |   必须   | 竞争宣言         |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: null,        
+}
+```
+
+
+
+### 候选审核人界面信息获取
+
+**url:**/api/getreviewerinfo
+
+**method**:get
+
+| 字段   |  类型  | 是否必须 | 备注       |
+| :----- | :----: | :------: | ---------- |
+| appkey | String |   必须   | 用户appkey |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: {
+		likeName: id, // 用户自己今日投票给谁了，如果有，则返回他的id，如果没有，则返回null
+		candidate:[
+			{
+				name: String, // 候选人用户名
+				id: id, // 候选人id
+				avatar: url, // 候选人头像
+				xuanyan: String, // 候选人竞争宣言
+				votes: Number, // 候选人票数
+			}
+		],
+	},        
+}
+```
+
+
+
+
+
 ## 时间商城
 
 
