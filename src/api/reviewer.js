@@ -7,4 +7,10 @@ export default {
   getReviewerInfo(params) {
     return axios.get('/api/getreviewerinfo', params);
   },
+  vote(params) {
+    return axios.post('/api/vote', params);
+  },
+  getCandidateInfoById(params) {
+    return axios.get('/api/candidateinfo', params);
+  },
 };

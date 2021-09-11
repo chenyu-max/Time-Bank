@@ -655,7 +655,7 @@ url:/api/myaddproject
 	code: 0,
 	msg: "",
 	data: {
-		likeName: id, // 用户自己今日投票给谁了，如果有，则返回他的id，如果没有，则返回null
+		likeName: id, // 用户自己今日投票给谁了，如果有，则返回他的id，如果没有，则返回“”
 		candidate:[
 			{
 				name: String, // 候选人用户名
@@ -670,6 +670,57 @@ url:/api/myaddproject
 ```
 
 
+
+### 给审核人投票
+
+**url:**/api/vote
+
+**method**:post
+
+| 字段   |  类型  | 是否必须 | 备注       |
+| :----- | :----: | :------: | ---------- |
+| appkey | String |   必须   | 用户appkey |
+| id     | String |   必须   | 候选人id   |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: null,        
+}
+```
+
+
+
+### 通过候选人ID 查看候选人详细信息
+
+**url:**/api/candidateinfo
+
+**method**:get
+
+| 字段   |  类型  | 是否必须 | 备注       |
+| :----- | :----: | :------: | ---------- |
+| appkey | String |   必须   | 用户appkey |
+| id     | String |   必须   | 候选人id   |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: {
+		name: String, // 候选人用户名
+		level: Number, // 候选人等级
+		workTime: Number, // 候选人志愿服务时长
+		xuanyan: String, // 候选人宣言
+		desc: String, // 候选人申请理由
+		reviewerDays: Number , // 当过审核人的次数
+	},        
+}
+```
 
 
 

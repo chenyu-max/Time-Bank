@@ -132,10 +132,7 @@ export default {
             appkey: this.$store.state.user.userinfo.appkey,
             ...this.form,
           };
-          api.applyToBeReviewer(tempObj)
-            .then(() => {
-              console.log('aaa');
-            });
+          api.applyToBeReviewer(tempObj);
         } else {
           return false;
         }
