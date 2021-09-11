@@ -8,6 +8,7 @@ import customerService from './customerService';
 import myProjectHistory from './myProjectHistory';
 import addProject from './addProject';
 import myAddProject from './myAddProject';
+import candidate from './candidate';
 
 Vue.use(Vuex);
 
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     customerService,
     myProjectHistory,
     myAddProject,
+    candidate,
   },
   strict: true,
 });

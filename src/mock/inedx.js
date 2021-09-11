@@ -3,3 +3,4 @@ import './city';
 import './projects';
 import './shop';
 import './customerService';
+import './reviewer';
