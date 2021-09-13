@@ -13,4 +13,7 @@ export default {
   getCandidateInfoById(params) {
     return axios.get('/api/candidateinfo', params);
   },
+  getReviewerList(params) {
+    return axios.get('/api/reviewerlist', params);
+  },
 };
