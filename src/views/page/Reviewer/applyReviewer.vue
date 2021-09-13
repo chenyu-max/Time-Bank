@@ -56,6 +56,9 @@
         <a-form-model-item ref="xuanyan" label="您的竞争宣言" prop="xunayan">
           <a-input v-model="form.xuanyan"/>
         </a-form-model-item>
+        <a-form-model-item ref="declaration" label="您的任职保证" prop="declaration">
+          <a-input v-model="form.declaration" placeholder="若成功任职，你的任职保证"/>
+        </a-form-model-item>
         <a-form-model-item :wrapper-col="{ span: 13, offset: 10 }">
           <a-button type="primary" @click="onSubmit">提交申请</a-button>
           <a-button style="margin-left: 60px;" @click="resetForm">重置</a-button>
@@ -85,6 +88,7 @@ export default {
         resource: '',
         desc: '',
         xuanyan: '',
+        declaration: '',
       },
       rules: {
         name: [
@@ -111,6 +115,13 @@ export default {
         resource: [
           {
             required: true,
+            trigger: 'change',
+          },
+        ],
+        declaration: [
+          {
+            required: true,
+            message: '请输入你的任职保证',
             trigger: 'change',
           },
         ],

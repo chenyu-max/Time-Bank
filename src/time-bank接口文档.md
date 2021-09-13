@@ -625,6 +625,7 @@ url:/api/myaddproject
 | resource        | String |   必须   | 是否读取信用口碑 |
 | desc            | String |   必须   | 申请的理由       |
 | xuanyan         | String |   必须   | 竞争宣言         |
+| declaration     | String |   必须   | 任职宣言         |
 
 **响应规格：**
 
@@ -721,6 +722,40 @@ url:/api/myaddproject
 	},        
 }
 ```
+
+
+
+### 获取一天的审核人公示列表
+
+**url:**/api/reviewerlist
+
+**method**:get
+
+| 字段   |  类型  | 是否必须 | 备注       |
+| :----- | :----: | :------: | ---------- |
+| appkey | String |   必须   | 用户appkey |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: [
+		{
+			avatar: url, // 审核人头像
+			declaration: String, // 任职宣言
+			name: String, // 用户名,
+			tasksNumber: Number, // 一天到目前位置处理的任务数量（总）
+			reportTasks: Number, // 举报处理数量
+			reviewTasks: Number, // 审核处理数量
+			id: String, // 审核人ID
+		}
+	],        
+}
+```
+
+
 
 
 
