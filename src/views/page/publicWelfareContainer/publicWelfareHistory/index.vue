@@ -17,7 +17,7 @@
           </div>
         </div>
         <a-empty v-else/>
-        <pager :total="nowList.length" :current="nowPage" @checkDetail="checkDetail"/>
+        <pager :total="nowList.length" :current="nowPage" @pageChange="changePage"/>
         <a-modal
             title="评论"
             :visible="visible"
