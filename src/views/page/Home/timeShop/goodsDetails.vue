@@ -21,13 +21,13 @@
       </div>
       <div class="goods-sale-info-show">
         <div class="goods-name">
-          {{ goodsInfo.goodsName }}
+          {{ goodsInfo.name }}
         </div>
         <div>商品编号: {{ goodsInfo.goodsNumber }}</div>
         <div>兑换方式: 服务时长</div>
-        <div>兑换时长: {{ goodsInfo.goodsValue }}h</div>
+        <div>兑换时长: {{ goodsInfo.value }}h</div>
         <div>已兑换数: {{ goodsInfo.saleNumber }}</div>
-        <div>商品库存: {{ goodsInfo.goodsTotal }}</div>
+        <div>商品库存: {{ goodsInfo.total }}</div>
         <div>数量:
           <i class="btn-class" @click="changeNeedNum(-1)">-</i>
           <input type="text" class="input" v-model="needNumber">
@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import api from '@/api/shop';
 import imageLoader from '@/components/ImageLoader/index.vue';
 
 export default {
@@ -53,16 +52,10 @@ export default {
   components: {
     imageLoader,
   },
-  async created() {
-    api.getGoodsDetails({
-      appkey: this.$store.state.user.userinfo,
-      goodsId: this.$route.params.goodsId,
-    })
-      .then((res) => {
-        this.goodsInfo = res;
-        this.goodsTitleImg = res.goodsTitleImgList;
-        this.goodsInfoImg = res.goodsInfoImg;
-      });
+  created() {
+    this.goodsInfo = this.$route.params;
+    this.goodsTitleImg = this.goodsInfo.goodsTitleImgList;
+    this.goodsInfoImg = this.goodsInfo.goodsInfoImg;
   },
   data() {
     return {
