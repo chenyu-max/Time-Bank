@@ -1,5 +1,9 @@
 <template>
   <div class="publicity-reviewer-container">
+    <div class="top">
+      <img class="img1" src="../../../assets/reviewer_poster1.png" alt/>
+      <img class="img2" src="../../../assets/logo.png" alt/>
+    </div>
     <a-list
         item-layout="horizontal"
         :data-source="reviewerList"
@@ -53,6 +57,20 @@ export default {
 </script>
 
 <style scoped lang="less">
+.top {
+  background-color: #a8c0eb;
+  height: 25vh;
+
+  .img1 {
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+
+  .img2 {
+    margin-top: 20px;
+    margin-left: 200px;
+  }
+}
 .task {
   margin: 0 10px;
 

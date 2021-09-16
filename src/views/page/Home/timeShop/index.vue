@@ -7,7 +7,7 @@
     </div>
     <a-list :grid="{ gutter: 16, column: 4 }" :data-source="showShopList">
       <template #renderItem="item">
-        <a-list-item @click="goToDetails(item.goodsId)">
+        <a-list-item @click="goToDetails(item)">
           <a-card hoverable style="width: 240px">
             <template #cover>
               <div style="width:240px; height: 240px">
@@ -56,11 +56,11 @@ export default {
     };
   },
   methods: {
-    goToDetails(goodsId) {
+    goToDetails(item) {
       this.$router.push({
         name: 'GoodDetails',
         params: {
-          goodsId,
+          ...item,
         },
       });
     },
