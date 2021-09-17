@@ -4,3 +4,4 @@ import './projects';
 import './shop';
 import './customerService';
 import './reviewer';
+import './report';

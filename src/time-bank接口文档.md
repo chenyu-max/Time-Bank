@@ -830,6 +830,88 @@ url:/api/myaddproject
 
 
 
+## 举报
+
+### 举报项目
+
+**url:**/api/reportproject
+
+**method**:post
+
+| 字段        |  类型  | 是否必须 | 备注           |
+| :---------- | :----: | :------: | -------------- |
+| appkey      | String |   必须   | 用户appkey     |
+| projectName | String |   必须   | 项目名称       |
+| name        | String |   必须   | 投诉人姓名     |
+| phone       | String |   必须   | 投诉人电话号码 |
+| desc        | String |   必须   | 具体投诉详情   |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: null，
+}
+```
+
+
+
+### 举报发起者
+
+**url:**/api/reportoriginator
+
+**method**:post
+
+| 字段           |  类型  | 是否必须 | 备注           |
+| :------------- | :----: | :------: | -------------- |
+| appkey         | String |   必须   | 用户appkey     |
+| originatorName | String |   必须   | 发起者名称     |
+| name           | String |   必须   | 投诉人姓名     |
+| phone          | String |   必须   | 投诉人电话号码 |
+| desc           | String |   必须   | 具体投诉详情   |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: null，
+}
+```
+
+
+
+### 举报审核人
+
+**url:**/api/reportreviewer
+
+**method**:post
+
+| 字段         |  类型  | 是否必须 | 备注           |
+| :----------- | :----: | :------: | -------------- |
+| appkey       | String |   必须   | 用户appkey     |
+| reviewerName | String |   必须   | 审核人名称     |
+| name         | String |   必须   | 投诉人姓名     |
+| phone        | String |   必须   | 投诉人电话号码 |
+| desc         | String |   必须   | 具体投诉详情   |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: null，
+}
+```
+
+
+
+
+
 ## 客服
 
 

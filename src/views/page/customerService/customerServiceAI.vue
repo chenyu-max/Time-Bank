@@ -18,7 +18,7 @@
           <a-icon type="folder-open" class="icon"/>
         </div>
         <div class="input">
-          <a-textarea  class="input-area"
+          <a-textarea class="input-area"
                       @keydown.native="keyDown"
                       placeholder="请输入您想要询问的问题"
                       v-model="myMsg"/>
@@ -34,7 +34,8 @@
 </template>
 
 <script>
-import api from '@/api/customerService';
+// import api from '@/api/customerService';
+import question from './question';
 import deepCopy from '../../../utils/deepCopy';
 import formatDate from '../../../utils/formatDate';
 import msgBubble from './components/msgBubble.vue';
@@ -108,18 +109,31 @@ export default {
         text: this.myMsg,
       });
       this.isChat = true;
-      api.sendMsgToAI({
-        appkey: this.$store.state.user.userinfo.appkey,
-        text: this.myMsg,
-      })
-        .then((res) => {
-          for (let i = 0; i < res.length; i += 1) {
-            this.showMsgList.push({
-              type: 'left',
-              text: res[i],
-            });
-          }
-        });
+      let left = '';
+      question.forEach((item) => {
+        if (item.q === this.myMsg) {
+          left = item.a;
+        }
+      });
+      if (!left) {
+        left = '很抱歉，这个问题我无法为您解答';
+      }
+      this.showMsgList.push({
+        type: 'left',
+        text: left,
+      });
+      // api.sendMsgToAI({
+      //   appkey: this.$store.state.user.userinfo.appkey,
+      //   text: this.myMsg,
+      // })
+      //   .then((res) => {
+      //     for (let i = 0; i < res.length; i += 1) {
+      //       this.showMsgList.push({
+      //         type: 'left',
+      //         text: res[i],
+      //       });
+      //     }
+      //   });
       this.myMsg = '';
     },
   },
