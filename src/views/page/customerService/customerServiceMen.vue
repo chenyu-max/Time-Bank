@@ -34,7 +34,8 @@
 </template>
 
 <script>
-import api from '@/api/customerService';
+// import api from '@/api/customerService';
+import question from './question';
 import deepCopy from '../../../utils/deepCopy';
 import formatDate from '../../../utils/formatDate';
 import msgBubble from './components/msgBubble.vue';
@@ -63,15 +64,15 @@ export default {
       type: 'time',
       text: `对话开始于 ${startTime}`,
     });
-    let name = '';
-    await api.menServiceInit({
-      appkey: this.$store.state.user.userinfo.appkey,
-    }).then((res) => {
-      name = res.name;
-    });
+    // let name = '';
+    // await api.menServiceInit({
+    //   appkey: this.$store.state.user.userinfo.appkey,
+    // }).then((res) => {
+    //   name = res.name;
+    // });
     this.showMsgList.push({
       type: 'left',
-      text: `您好，我是xxx时间银行的人工客服${name}，请问我有什么可以帮到您的吗？`,
+      text: '您好，我是xxx时间银行的人工客服 小王，请问我有什么可以帮到您的吗？',
     });
   },
   data() {
@@ -114,18 +115,32 @@ export default {
         text: this.myMsg,
       });
       this.isChat = true;
-      api.sendMsgToMen({
-        appkey: this.$store.state.user.userinfo.appkey,
-        text: this.myMsg,
-      })
-        .then((res) => {
-          for (let i = 0; i < res.length; i += 1) {
-            this.showMsgList.push({
-              type: 'left',
-              text: res[i],
-            });
-          }
-        });
+      this.isChat = true;
+      let left = '';
+      question.forEach((item) => {
+        if (item.q === this.myMsg) {
+          left = item.a;
+        }
+      });
+      if (!left) {
+        left = '很抱歉，这个问题我无法为您解答';
+      }
+      this.showMsgList.push({
+        type: 'left',
+        text: left,
+      });
+      // api.sendMsgToMen({
+      //   appkey: this.$store.state.user.userinfo.appkey,
+      //   text: this.myMsg,
+      // })
+      //   .then((res) => {
+      //     for (let i = 0; i < res.length; i += 1) {
+      //       this.showMsgList.push({
+      //         type: 'left',
+      //         text: res[i],
+      //       });
+      //     }
+      //   });
       this.myMsg = '';
     },
   },
