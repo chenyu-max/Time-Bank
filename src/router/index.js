@@ -5,11 +5,48 @@ import leftMenu from './leftMenu';
 
 import Login from '../views/passport/Login.vue';
 import Home from '../views/layout/Home.vue';
+import Index from '../views/passport/Main_Home.vue';
+
 // import store from '@/store';
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: '/',
+    redirect: '/mainhomee',
+    name: 'Index',
+    component: Index,
+    children: [
+      {
+        path: 'mainhomee',
+        name: 'Mainhomee',
+        meta: {
+          title: '切换首页',
+          fatherTitle: '首页',
+        },
+        component: () => import(/* webpackChunkName: "index" */ '../views/passport/components/main_homee.vue'),
+      },
+      {
+        path: 'introduction',
+        name: 'Introduction',
+        meta: {
+          title: '时间银行介绍',
+          fatherTitle: '首页',
+        },
+        component: () => import(/* webpackChunkName: "index" */ '../views/passport/components/introduction.vue'),
+      },
+      {
+        path: 'about',
+        name: 'About',
+        meta: {
+          title: '关于我',
+          fatherTitle: '首页',
+        },
+        component: () => import(/* webpackChunkName: "index" */ '../views/passport/components/about.vue'),
+      },
+    ],
+  },
   {
     path: '/login',
     name: 'Login',
@@ -35,7 +72,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "index" */ '../views/passport/findBackPwd.vue'),
   },
   {
-    path: '/',
+    path: '/home',
     redirect: '/publicwelfare/nowpublicwelfare',
     name: 'Home',
     meta: {
@@ -105,7 +142,10 @@ VueRouter.prototype.replace = function replace(location) {
 
 router.beforeEach((to, from, next) => {
   // 如果想要进入其他的路由，会进行判断
-  if (to.path !== '/login' && to.path !== '/findbackpwd' && to.path !== '/register') {
+  if (to.path !== '/login' && to.path !== '/findbackpwd' && to.path !== '/register'
+    && to.path !== '/mainhomee'
+    && to.path !== '/introduction'
+    && to.path !== '/about') {
     // 从非登录页面进入 系统内部页面 开始进行判断
     // 或者从非登录页面 改变路由的方式进入系统内部页面 进行判断
     if (from.path !== '/login') {

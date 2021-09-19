@@ -85,7 +85,7 @@ export default {
       this.$store.dispatch('nowCityList/deleteNowCityList');
       this.$store.dispatch('customerService/logout');
       this.$router.replace({
-        name: 'login',
+        name: 'Index',
       });
     },
   },

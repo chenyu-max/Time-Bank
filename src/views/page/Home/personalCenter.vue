@@ -1,6 +1,6 @@
 <template>
   <div class="personal-center-container">
-    个人中心界面
+    <div class="title">个人基本资料</div>
   </div>
 </template>
 
