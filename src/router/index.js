@@ -116,6 +116,15 @@ const routes = [
         },
         component: () => import(/* webpackChunkName: "index" */ '../views/page/Home/timeShop/goodsDetails.vue'),
       },
+      {
+        path: 'certificate',
+        name: 'Certificate',
+        meta: {
+          title: '官方认证',
+          fatherTitle: '主页',
+        },
+        component: () => import(/* webpackChunkName: "index" */ '../views/page/Home/certification.vue'),
+      },
     ],
   },
   ...leftMenu,

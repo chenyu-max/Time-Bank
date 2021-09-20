@@ -163,7 +163,7 @@
             尚未认证
           </div>
           <div>
-            <a-button>去认证</a-button>
+            <a-button @click="goToCertificate">去认证</a-button>
           </div>
         </div>
       </div>
@@ -174,6 +174,13 @@
 <script>
 export default {
   name: 'personalCenter',
+  methods: {
+    goToCertificate() {
+      this.$router.push({
+        name: 'Certificate',
+      });
+    },
+  },
 };
 </script>
 
