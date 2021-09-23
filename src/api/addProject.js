@@ -13,4 +13,7 @@ export default {
   declareProject(params) {
     return axios.post('/api/declareproject', params);
   },
+  getVolunteerList(params) {
+    return axios.get('/api/volunteerlist', params);
+  },
 };
