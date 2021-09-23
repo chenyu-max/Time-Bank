@@ -607,6 +607,82 @@ url:/api/myaddproject
 
 
 
+### 获取项目报名者申请
+
+**url:**/api/volunteerlist
+
+**method**:get
+
+| 字段   |  类型  | 是否必须 | 备注       |
+| :----- | :----: | :------: | ---------- |
+| appkey | String |   必须   | 用户appkey |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: [
+		{
+			userId: String,
+			userName: String,
+			level: Number,
+			projectId: String,
+			projectName: String,
+			time: String,
+		}
+	]
+}
+```
+
+
+
+### 项目报名者详细信息获取
+
+**url:**/api/volunteerdeatil
+
+**method**:get
+
+| 字段        |  类型  | 是否必须 | 备注                   |
+| :---------- | :----: | :------: | ---------------------- |
+| appkey      | String |   必须   | 用户appkey             |
+| userId      | String |   必须   | 报名用户ID             |
+| userProject | String |   必须   | 报名用户所报名的项目ID |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: {
+		userName: String,
+		ProjectName: String,
+		
+	}
+}
+```
+
+
+
+
+
+### 项目报名者申请处理结果返回
+
+**url:**/api/volunteerapply
+
+**method**:post
+
+| 字段        |  类型   | 是否必须 | 备注                    |
+| :---------- | :-----: | :------: | ----------------------- |
+| appkey      | String  |   必须   | 用户appkey              |
+| userId      | String  |   必须   | 报名用户ID              |
+| userProject | String  |   必须   | 报名用户所报名的项目ID  |
+| result      | Boolean |   必须   | 同意返回 true 反之false |
+
+
+
 ## 审核人
 
 
