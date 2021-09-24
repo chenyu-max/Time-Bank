@@ -171,9 +171,8 @@ export default {
 .bg1 {
   background-image: url("../../../assets/main_bg/bg1.jpg");
   width: 100%;
-  height: 654px;
-  background-repeat: no-repeat;
-  background-position: 0px -50px;
+  background-size: cover;
+  height: 85vh;
 
   .bg1-text {
     margin: 0 auto;
