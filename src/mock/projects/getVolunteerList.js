@@ -11,6 +11,8 @@ Mock.mock('/api/volunteerlist', 'get', {
       projectId: '@id',
       projectName: '@cword(3,5)',
       time: '@datetime("yyyy-MM-dd HH:mm:ss")',
+      'workTime|10-50': 0,
+      'cishu|5-20': 0, // 完成项目的次数
     },
   ],
 });

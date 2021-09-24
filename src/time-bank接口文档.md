@@ -631,40 +631,12 @@ url:/api/myaddproject
 			projectId: String,
 			projectName: String,
 			time: String,
+            workTime: Number,
+            cishu: Number, // 完成项目的次数
 		}
 	]
 }
 ```
-
-
-
-### 项目报名者详细信息获取
-
-**url:**/api/volunteerdeatil
-
-**method**:get
-
-| 字段        |  类型  | 是否必须 | 备注                   |
-| :---------- | :----: | :------: | ---------------------- |
-| appkey      | String |   必须   | 用户appkey             |
-| userId      | String |   必须   | 报名用户ID             |
-| userProject | String |   必须   | 报名用户所报名的项目ID |
-
-**响应规格：**
-
-```yaml
-{
-	code: 0,
-	msg: "",
-	data: {
-		userName: String,
-		ProjectName: String,
-		
-	}
-}
-```
-
-
 
 
 

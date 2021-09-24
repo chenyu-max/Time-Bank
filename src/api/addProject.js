@@ -16,4 +16,7 @@ export default {
   getVolunteerList(params) {
     return axios.get('/api/volunteerlist', params);
   },
+  volunteerApply(params) {
+    return axios.post('/api/volunteerapply', params);
+  },
 };

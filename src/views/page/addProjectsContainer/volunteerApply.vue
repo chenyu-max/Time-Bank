@@ -33,10 +33,10 @@
         <div
         >
         </div>
-        <a-list-item slot="renderItem" slot-scope="item">
-          <a slot="actions">详情</a>
-          <a slot="actions">同意</a>
-          <a slot="actions">拒绝</a>
+        <a-list-item slot="renderItem" slot-scope="item, index">
+          <a slot="actions" @click="checkDetail(item)">详情</a>
+          <a slot="actions" @click="volunteerApply(index,true)">同意</a>
+          <a slot="actions" @click="volunteerApply(index,false)">拒绝</a>
           <a-list-item-meta
               :description="item.time"
           >
@@ -48,21 +48,54 @@
         </a-list-item>
       </a-list>
     </div>
+    <a-modal v-model="visible" title="用户详情" :footer="null"
+             @cancel="handleCancel">
+      <div class="modal-child">
+        <span>用户名：</span>
+        <span>{{ showDetailInfo.userName }}</span>
+      </div>
+      <div>
+        <span>申请的项目名：</span>
+        <span>{{ showDetailInfo.projectName }}</span>
+      </div>
+      <div>
+        <span>用户等级：</span>
+        <span>{{ showDetailInfo.level }} LV</span>
+      </div>
+      <div>
+        <span>报名时间：</span>
+        <span>{{ showDetailInfo.time }}</span>
+      </div>
+      <div>
+        <span>志愿服务时长：</span>
+        <span>{{ showDetailInfo.workTime }} h</span>
+      </div>
+      <div>
+        <span>完成项目次数：</span>
+        <span>{{ showDetailInfo.cishu }} 次</span>
+      </div>
+    </a-modal>
   </div>
 </template>
 
 <script>
 import api from '@/api/addProject';
+import deepCopy from '../../../utils/deepCopy';
 
 export default {
   name: 'volunteerApply',
   async created() {
-    await api.getVolunteerList({
-      appkey: this.$store.state.user.userinfo.appkey,
-    })
-      .then((res) => {
-        this.list = res;
-      });
+    if (this.$store.state.volunteerList.list.length > 0) {
+      this.list = deepCopy(this.$store.state.volunteerList.list);
+    } else {
+      await api.getVolunteerList({
+        appkey: this.$store.state.user.userinfo.appkey,
+      })
+        .then((res) => {
+          this.list = res;
+          this.$store.dispatch('volunteerList/changeList', this.list);
+        });
+    }
   },
   data() {
     return {
@@ -70,7 +103,31 @@ export default {
       pagination: {
         pageSize: 10,
       },
+      visible: false,
+      showDetailInfo: {},
     };
+  },
+  methods: {
+    checkDetail(item) {
+      this.visible = true;
+      this.showDetailInfo = item;
+    },
+    volunteerApply(index, result) {
+      api.volunteerApply({
+        appkey: this.$store.state.user.userinfo.appkey,
+        userId: this.list[index].userId,
+        userProject: this.list[index].projectId,
+        result,
+      })
+        .then(() => {
+          this.$message.success('申请处理成功');
+          this.list.splice(index, 1);
+          this.$store.dispatch('volunteerList/changeList', this.list);
+        });
+    },
+    handleCancel() {
+      this.visible = false;
+    },
   },
 };
 </script>
@@ -121,6 +178,21 @@ export default {
 
   .ant-list-item-action {
     margin-right: 10px;
+  }
+}
+
+.ant-modal-body {
+  > div {
+    margin: 10px 0;
+
+    span:first-child {
+      color: #4a4a4a;
+      font-weight: bold;
+    }
+
+    span:last-child {
+      line-height: 30px;
+    }
   }
 }
 
