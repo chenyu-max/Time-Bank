@@ -85,10 +85,10 @@
     <div class="kefu">
       <div class="lf-content">
         <h2>咨询电话</h2>
-        <h1>666-lt666</h1>
+        <h1>12345678900</h1>
         <br/>
         <h2>邮箱</h2>
-        <h3>666lt666@126.com</h3>
+        <h3>sjyh@126.com</h3>
       </div>
       <div class="rf-content">
         <div>

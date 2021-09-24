@@ -41,7 +41,7 @@ export default {
 }
 
 .head-main {
-  height: 80px;
+  height: 15vh;
   width: 100%;
   background-color: #202324;
   display: flex;

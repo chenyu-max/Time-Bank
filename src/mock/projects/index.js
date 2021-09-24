@@ -7,3 +7,5 @@ import './acceptProject';
 import './getMyAddProject';
 import './changeProjectInfo';
 import './declareProject';
+import './getVolunteerList';
+import './volunteerApply';

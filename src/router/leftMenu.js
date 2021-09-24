@@ -75,6 +75,16 @@ export default [
         },
         component: () => import(/* webpackChunkName: "index" */ '../views/page/addProjectsContainer/addProjectsHistory/index.vue'),
       },
+      {
+        path: 'volunteer',
+        name: 'VolunteerApply',
+        meta: {
+          title: '报名管理',
+          fatherTitle: '发起项目',
+          icon: 'alert',
+        },
+        component: () => import(/* webpackChunkName: "index" */ '../views/page/addProjectsContainer/volunteerApply.vue'),
+      },
     ],
   },
   {

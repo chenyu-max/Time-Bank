@@ -9,6 +9,8 @@ import myProjectHistory from './myProjectHistory';
 import addProject from './addProject';
 import myAddProject from './myAddProject';
 import candidate from './candidate';
+import certificated from './certificated';
+import volunteerList from './volunteerList';
 
 Vue.use(Vuex);
 
@@ -23,6 +25,8 @@ export default new Vuex.Store({
     myProjectHistory,
     myAddProject,
     candidate,
+    certificated,
+    volunteerList,
   },
   strict: true,
 });

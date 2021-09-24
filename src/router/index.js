@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '@/store';
 import leftMenu from './leftMenu';
+import reviewer from './reviewer';
 
 import Login from '../views/passport/Login.vue';
 import Home from '../views/layout/Home.vue';
@@ -116,9 +117,19 @@ const routes = [
         },
         component: () => import(/* webpackChunkName: "index" */ '../views/page/Home/timeShop/goodsDetails.vue'),
       },
+      {
+        path: 'certificate',
+        name: 'Certificate',
+        meta: {
+          title: '官方认证',
+          fatherTitle: '主页',
+        },
+        component: () => import(/* webpackChunkName: "index" */ '../views/page/Home/certification.vue'),
+      },
     ],
   },
   ...leftMenu,
+  reviewer,
 ];
 
 const router = new VueRouter({
@@ -149,8 +160,12 @@ router.beforeEach((to, from, next) => {
     // 从非登录页面进入 系统内部页面 开始进行判断
     // 或者从非登录页面 改变路由的方式进入系统内部页面 进行判断
     if (from.path !== '/login') {
+      let obj = null;
+      if (store.state.user.userinfo.role === 'Reviewer') {
+        obj = [...leftMenu, reviewer];
+      }
       if (store.state.user.userinfo.appkey) {
-        store.dispatch('menuRouters/changeMenuRoutes', leftMenu)
+        store.dispatch('menuRouters/changeMenuRoutes', obj)
           .then(() => {
           });
         return next();
@@ -159,7 +174,11 @@ router.beforeEach((to, from, next) => {
     }
     if (from.path === '/login') {
       // 从登录页面进入系统页面，进行数据填写，并进入系统
-      store.dispatch('menuRouters/changeMenuRoutes', leftMenu)
+      let obj = null;
+      if (store.state.user.userinfo.role === 'Reviewer') {
+        obj = [...leftMenu, reviewer];
+      }
+      store.dispatch('menuRouters/changeMenuRoutes', obj)
         .then(() => {
           next();
         });

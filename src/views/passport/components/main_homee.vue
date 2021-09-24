@@ -135,9 +135,9 @@
     <div class="kefu">
       <div class="lf-content">
         <h2>咨询电话</h2>
-        <h1>666-lt666</h1><br>
+        <h1>12345678900</h1><br>
         <h2>邮箱</h2>
-        <h3>666lt666@126.com</h3>
+        <h3>sjyh@126.com</h3>
       </div>
       <div class="rf-content">
         <div>
@@ -171,9 +171,8 @@ export default {
 .bg1 {
   background-image: url("../../../assets/main_bg/bg1.jpg");
   width: 100%;
-  height: 654px;
-  background-repeat: no-repeat;
-  background-position: 0px -50px;
+  background-size: cover;
+  height: 85vh;
 
   .bg1-text {
     margin: 0 auto;
