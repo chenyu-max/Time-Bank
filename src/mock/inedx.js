@@ -5,3 +5,4 @@ import './shop';
 import './customerService';
 import './reviewer';
 import './report';
+import './reviewerWork';

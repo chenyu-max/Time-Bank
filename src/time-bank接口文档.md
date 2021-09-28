@@ -805,6 +805,127 @@ url:/api/myaddproject
 
 
 
+## 审核人工作
+
+### 添加项目审核列表获取
+
+**url:**/api/addprojectlist
+
+**method**:get
+
+| 字段   |  类型  | 是否必须 | 备注       |
+| :----- | :----: | :------: | ---------- |
+| appkey | String |   必须   | 用户appkey |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: {
+		ingProject: Number, // 等待审核的项目
+		overProject: Number, // 审核完成的项目
+		list: [
+			{
+                projectId: String,
+                projectName: String,
+                desc: String, // 简介
+                owner: String, // 发起人
+                needPeople: Number, // 需要的人数
+                agree: Number, // 同意票数
+                reject: Number, // 拒绝票数
+                state: String, // over：已审核  ing：待审核
+			}
+		],        
+	}
+}
+```
+
+
+
+### 项目审核审核列表获取
+
+**url:**/api/declareprojectlist
+
+**method**:get
+
+| 字段   |  类型  | 是否必须 | 备注       |
+| :----- | :----: | :------: | ---------- |
+| appkey | String |   必须   | 用户appkey |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: {
+		ingProject: Number, // 等待审核的项目
+		overProject: Number, // 审核完成的项目
+		list: [
+			{
+                projectId: String,
+                projectName: String,
+                desc: String, // 简介
+                owner: String, // 发起人
+                overTime: String, // 项目结束时间
+                agree: Number, // 同意票数
+                reject: Number, // 拒绝票数
+                state: String, // over：已审核  ing：待审核
+			}
+		],        
+	}
+}
+```
+
+
+
+
+
+### 举报审核列表获取
+
+**url:**/api/reportreviewlist
+
+**method**:get
+
+| 字段   |  类型  | 是否必须 | 备注       |
+| :----- | :----: | :------: | ---------- |
+| appkey | String |   必须   | 用户appkey |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: {
+		ingNum: Number, // 等待审核的举报数量
+		overNum: Number, // 审核完成的举报数量
+		list: [
+			{
+                reportId: String, // 被举报的
+                reportName: String, // 被举报的对象
+                desc: String, // 举报理由
+                time: String, // 举报任务创建提交时间
+                category: String, // 举报类型 ['举报项目','举报审核人','举报发起者']
+                owner: String, // 举报人
+                owner: String, // 举报人id
+                agree: Number, // 同意票数
+                reject: Number, // 拒绝票数
+                state: String, // over：已审核  ing：待审核
+			}
+		],        
+	}
+}
+```
+
+
+
+
+
+
+
 
 
 ## 时间商城
