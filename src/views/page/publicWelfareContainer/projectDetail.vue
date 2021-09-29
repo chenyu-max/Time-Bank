@@ -4,22 +4,27 @@
       {{ project.name }}
     </h1>
     <div class="project-info-1">
+      <div class="project-id">
+        <span>项目ID: &nbsp;</span>
+        {{ project.id }}
+      </div>
+      <div>|</div>
       <div class="owner">
         <span>项目发起人: &nbsp;</span>
-        {{ project.ownerName }}
+        {{ project.ownerName + '——ID：' + project.ownerId}}
       </div>
       <div>|</div>
       <div class="create-time">
         <span>发布时间: &nbsp;</span>
         {{ project.createTime }}
       </div>
-      <div>|</div>
+    </div>
+    <div class="project-info-2">
       <div class="project-state">
         <span>项目状态: &nbsp;</span>
         {{ project.state }}
       </div>
-    </div>
-    <div class="project-info-2">
+      <div>|</div>
       <div class="project-need-people">
         <span>项目所需人数: &nbsp;</span>
         {{ project.needPeople }}

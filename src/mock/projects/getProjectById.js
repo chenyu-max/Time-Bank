@@ -7,6 +7,7 @@ Mock.mock('/api/projectbyid', 'get', {
     id: '@guid',
     name: '@cword(3,7)',
     ownerName: '@cname',
+    ownerId: '@id',
     contactPerson: {
       name: '@cname',
       phone: /^1[3456789]\d{9}$/,

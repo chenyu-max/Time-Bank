@@ -8,6 +8,9 @@
       <template v-if="current === 0">
         <a-form-model ref="form" class="form"
                       :model="form" :rules="rules" v-bind="layout">
+          <a-form-model-item has-feedback label="项目ID" prop="projectId">
+            <a-input v-model="form.projectId"/>
+          </a-form-model-item>
           <a-form-model-item has-feedback label="项目名称" prop="projectName">
             <a-input v-model="form.projectName"/>
           </a-form-model-item>
@@ -48,6 +51,13 @@ import api from '@/api/report';
 export default {
   name: 'reportProjects',
   data() {
+    const validateProjecId = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入项目ID'));
+      } else {
+        callback();
+      }
+    };
     const validateProjectName = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入项目名称'));
@@ -81,12 +91,17 @@ export default {
     };
     return {
       form: {
+        projectId: '',
         projectName: '',
         name: '',
         phone: '',
         desc: '',
       },
       rules: {
+        projectId: [{
+          validator: validateProjecId,
+          trigger: 'change',
+        }],
         projectName: [{
           validator: validateProjectName,
           trigger: 'change',
@@ -149,7 +164,7 @@ export default {
 .title {
   margin-top: 15px;
   text-align: center;
-  height: 20px;
+  height: 12px;
   font-size: 20px;
   font-weight: bold;
 }

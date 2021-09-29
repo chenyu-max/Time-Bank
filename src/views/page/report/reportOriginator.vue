@@ -8,6 +8,9 @@
       <template v-if="current === 0">
         <a-form-model ref="form" class="form"
                       :model="form" :rules="rules" v-bind="layout">
+          <a-form-model-item has-feedback label="发起者ID" prop="originatorId">
+            <a-input v-model="form.originatorId"/>
+          </a-form-model-item>
           <a-form-model-item has-feedback label="发起者姓名" prop="originatorName">
             <a-input v-model="form.originatorName"/>
           </a-form-model-item>
@@ -48,6 +51,13 @@ import api from '@/api/report';
 export default {
   name: 'reportOriginator',
   data() {
+    const validateOriginatorId = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入发起者ID'));
+      } else {
+        callback();
+      }
+    };
     const validateOriginatorName = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入发起者名字'));
@@ -81,12 +91,17 @@ export default {
     };
     return {
       form: {
+        originatorId: '',
         originatorName: '',
         name: '',
         phone: '',
         desc: '',
       },
       rules: {
+        originatorId: [{
+          validator: validateOriginatorId,
+          trigger: 'change',
+        }],
         originatorName: [{
           validator: validateOriginatorName,
           trigger: 'change',
@@ -149,7 +164,7 @@ export default {
 .title {
   margin-top: 15px;
   text-align: center;
-  height: 20px;
+  height: 12px;
   font-size: 20px;
   font-weight: bold;
 }

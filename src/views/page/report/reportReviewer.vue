@@ -8,6 +8,9 @@
       <template v-if="current === 0">
         <a-form-model ref="form" class="form"
                       :model="form" :rules="rules" v-bind="layout">
+          <a-form-model-item has-feedback label="审核人ID" prop="reviewerId">
+            <a-input v-model="form.reviewerId"/>
+          </a-form-model-item>
           <a-form-model-item has-feedback label="审核人姓名" prop="reviewerName">
             <a-input v-model="form.reviewerName"/>
           </a-form-model-item>
@@ -48,6 +51,13 @@ import api from '@/api/report';
 export default {
   name: 'reportReviewer',
   data() {
+    const validateReviewerId = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入审核人ID'));
+      } else {
+        callback();
+      }
+    };
     const validateReviewerName = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入审核人名字'));
@@ -81,12 +91,17 @@ export default {
     };
     return {
       form: {
+        reviewerId: '',
         reviewerName: '',
         name: '',
         phone: '',
         desc: '',
       },
       rules: {
+        reviewerId: [{
+          validator: validateReviewerId,
+          trigger: 'change',
+        }],
         reviewerName: [{
           validator: validateReviewerName,
           trigger: 'change',
@@ -149,7 +164,7 @@ export default {
 .title {
   margin-top: 15px;
   text-align: center;
-  height: 20px;
+  height: 12px;
   font-size: 20px;
   font-weight: bold;
 }
