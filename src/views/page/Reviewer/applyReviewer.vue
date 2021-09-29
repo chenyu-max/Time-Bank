@@ -16,7 +16,7 @@
           <p>2.审核人必须遵守<a>《时间银行审核规章制度》</a>，有违规者，将永久失去申请审核员权益</p>
           <p>3.审核员等级必须在<a>LV5</a>以上，并拥有良好的口碑。</p>
           <p>4.审核人每次审核都用有相对应时间货币作为报酬</p>
-          <p>5.还有啥你们想想。。。。。。。。。。。。。。。。。。。。</p>
+          <p>5.申请成为候选审核人需要质押一定的时间余额，质押金额将在审核结束之后归还账户</p>
         </div>
         <div class="care-tips">
           <div class="care-tips-head">
@@ -59,6 +59,9 @@
         <a-form-model-item ref="declaration" label="您的任职保证" prop="declaration">
           <a-input v-model="form.declaration" placeholder="若成功任职，你的任职保证"/>
         </a-form-model-item>
+        <a-form-model-item ref="declaration" label="质押金额" prop="deposit">
+          <a-input v-model="form.deposit" disabled/>
+        </a-form-model-item>
         <a-form-model-item :wrapper-col="{ span: 13, offset: 10 }">
           <a-button type="primary" @click="onSubmit">提交申请</a-button>
           <a-button style="margin-left: 60px;" @click="resetForm">重置</a-button>
@@ -89,6 +92,7 @@ export default {
         desc: '',
         xuanyan: '',
         declaration: '',
+        deposit: '50时间币',
       },
       rules: {
         name: [

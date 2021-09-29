@@ -10,7 +10,9 @@ Mock.mock('/api/reviewerlist', 'get', {
       declaration: '@cparagraph(1,2)',
       'tasksNumber|5-7': 0, // 一天到目前位置处理的任务数量（总）
       'reportTasks|1-5': 0, // 举报处理数量
-      'reviewTasks|3-7': 0, // 审核处理数量
+      'reviewTasks|8-10': 0, // 审核处理数量
+      'reviewAddTasks|4-5': 0, // 审核项目添加任务数量
+      'reviewDeclareTasks|3-4': 0, // 审核项目申报任务数量
       id: '@id', // 审核人ID
     },
   ],

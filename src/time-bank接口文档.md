@@ -794,9 +794,11 @@ url:/api/myaddproject
 			avatar: url, // 审核人头像
 			declaration: String, // 任职宣言
 			name: String, // 用户名,
-			tasksNumber: Number, // 一天到目前位置处理的任务数量（总）
+			tasksNumber: Number, // 一天到目前为止处理的任务数量（总）
 			reportTasks: Number, // 举报处理数量
 			reviewTasks: Number, // 审核处理数量
+			reviewAddTasks: Number, // 审核项目添加任务数量
+      		reviewDeclareTasks: Number, // 审核项目申报任务数量
 			id: String, // 审核人ID
 		}
 	],        
@@ -909,8 +911,8 @@ url:/api/myaddproject
                 desc: String, // 举报理由
                 time: String, // 举报任务创建提交时间
                 category: String, // 举报类型 ['举报项目','举报审核人','举报发起者']
-                owner: String, // 举报人
-                owner: String, // 举报人id
+                ownerName: String, // 举报人
+                ownerId: String, // 举报人id
                 agree: Number, // 同意票数
                 reject: Number, // 拒绝票数
                 state: String, // over：已审核  ing：待审核
@@ -1010,6 +1012,7 @@ url:/api/myaddproject
 | 字段        |  类型  | 是否必须 | 备注           |
 | :---------- | :----: | :------: | -------------- |
 | appkey      | String |   必须   | 用户appkey     |
+| projectId   | String |   必须   | 项目ID         |
 | projectName | String |   必须   | 项目名称       |
 | name        | String |   必须   | 投诉人姓名     |
 | phone       | String |   必须   | 投诉人电话号码 |
@@ -1036,6 +1039,7 @@ url:/api/myaddproject
 | 字段           |  类型  | 是否必须 | 备注           |
 | :------------- | :----: | :------: | -------------- |
 | appkey         | String |   必须   | 用户appkey     |
+| originatorId   | String |   必须   | 发起者ID       |
 | originatorName | String |   必须   | 发起者名称     |
 | name           | String |   必须   | 投诉人姓名     |
 | phone          | String |   必须   | 投诉人电话号码 |
@@ -1062,6 +1066,7 @@ url:/api/myaddproject
 | 字段         |  类型  | 是否必须 | 备注           |
 | :----------- | :----: | :------: | -------------- |
 | appkey       | String |   必须   | 用户appkey     |
+| reviewerId   | String |   必须   | 审核人ID       |
 | reviewerName | String |   必须   | 审核人名称     |
 | name         | String |   必须   | 投诉人姓名     |
 | phone        | String |   必须   | 投诉人电话号码 |

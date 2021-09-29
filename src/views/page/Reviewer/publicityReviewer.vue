@@ -9,14 +9,14 @@
         :data-source="reviewerList"
     >
       <a-list-item slot="renderItem" slot-scope="item">
-        <a slot="actions" @click="checkDetail(item.id)">详情</a>
+        <a slot="actions" @click="checkDetail(item)">详情</a>
         <a-list-item-meta
             :description="`任职保证：${item.declaration}`">
           <a-avatar
               slot="avatar"
               :src="item.avatar"
           />
-          <a slot="title">{{ item.name }}</a>
+          <a slot="title">{{ item.name + '——ID:' + item.id }}</a>
         </a-list-item-meta>
         <div class="task">
           <span>举报任务处理数量：</span>
@@ -32,11 +32,23 @@
         </div>
       </a-list-item>
     </a-list>
+    <a-modal
+        title="完成任务详情"
+        :footer="null"
+        :visible="visible"
+        @cancel="handleCancel"
+        :destroyOnClose="true"
+    >
+      <div>
+        <task-detail :detailInfo="showDetailInfo"/>
+      </div>
+    </a-modal>
   </div>
 </template>
 
 <script>
 import api from '@/api/reviewer';
+import taskDetail from './components/taskDetail.vue';
 
 export default {
   name: 'publicityReviewer',
@@ -48,10 +60,24 @@ export default {
         this.reviewerList = res;
       });
   },
+  components: {
+    taskDetail,
+  },
   data() {
     return {
       reviewerList: [],
+      visible: false,
+      showDetailInfo: {},
     };
+  },
+  methods: {
+    checkDetail(item) {
+      this.visible = true;
+      this.showDetailInfo = item;
+    },
+    handleCancel() {
+      this.visible = false;
+    },
   },
 };
 </script>
@@ -71,6 +97,7 @@ export default {
     margin-left: 200px;
   }
 }
+
 .task {
   margin: 0 10px;
 
