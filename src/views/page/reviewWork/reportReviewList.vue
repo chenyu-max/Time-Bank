@@ -131,7 +131,6 @@ export default {
       this.visible = false;
     },
     async changeActive(activeName) {
-      console.log('hello');
       this.activeName = activeName;
       this.showList = this.list.filter((item) => {
         if (activeName === 'all') {

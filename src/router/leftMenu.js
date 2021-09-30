@@ -79,7 +79,7 @@ export default [
   },
   {
     path: '/addprojects',
-    name: 'AddProjects',
+    name: 'AddProject',
     meta: {
       title: '发起项目',
       icon: 'form',
