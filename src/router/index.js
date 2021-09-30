@@ -74,7 +74,7 @@ const routes = [
   },
   {
     path: '/home',
-    redirect: '/publicwelfare/nowpublicwelfare',
+    redirect: '/mainabout/aboutme',
     name: 'Home',
     meta: {
       title: '主页',

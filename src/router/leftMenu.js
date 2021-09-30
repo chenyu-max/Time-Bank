@@ -4,6 +4,38 @@ import Home from '../views/layout/Home.vue';
 
 export default [
   {
+    path: '/mainabout',
+    name: 'MainAbout',
+    meta: {
+      title: '时间银行',
+      icon: 'home',
+      isMenu: true,
+    },
+    component: Home,
+    children: [
+      {
+        path: 'aboutme',
+        name: 'AboutMe',
+        meta: {
+          title: '关于我',
+          fatherTitle: '时间银行',
+          icon: 'area-chart',
+        },
+        component: () => import(/* webpackChunkName: "index" */ '../views/page/mainAbout/aboutMe.vue'),
+      },
+      {
+        path: 'mapmodule',
+        name: 'MapModule',
+        meta: {
+          title: '地图模块',
+          fatherTitle: '时间银行',
+          icon: 'bar-chart',
+        },
+        component: () => import(/* webpackChunkName: "index" */ '../views/page/mainAbout/mapModule.vue'),
+      },
+    ],
+  },
+  {
     path: '/publicwelfare',
     name: 'PublicWelfare',
     meta: {
