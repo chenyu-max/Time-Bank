@@ -386,7 +386,7 @@ export default {
       }
 
       > div:nth-child(2) {
-        display: 1 1 auto;
+        flex: 1 1 auto;
       }
 
       > div:nth-child(3) {
