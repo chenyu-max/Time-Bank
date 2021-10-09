@@ -115,7 +115,12 @@ export default {
       });
     },
     checkDetail(item) {
-      console.log(item);
+      this.$router.push({
+        name: 'AddProjectReviewDetails',
+        params: {
+          projectId: item.projectId,
+        },
+      });
     },
   },
 };

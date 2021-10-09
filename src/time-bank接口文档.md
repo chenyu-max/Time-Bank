@@ -915,7 +915,7 @@ url:/api/myaddproject
                 ownerId: String, // 举报人id
                 agree: Number, // 同意票数
                 reject: Number, // 拒绝票数
-                state: String, // over：已审核  ing：待审核
+                tips: String, // over：已审核  ing：待审核 back： 已打回
 			}
 		],        
 	}

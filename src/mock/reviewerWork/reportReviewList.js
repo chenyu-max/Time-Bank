@@ -17,9 +17,7 @@ Mock.mock('/api/reportreviewlist', 'get', {
         ownerId: '@id', // 举报人id
         'agree|0-10': 0, // 同意票数
         'reject|0-10': 0, // 拒绝票数
-        'state|1': ['over', 'ing'], // over：已审核  ing：待审核
         'tips|1': ['back', 'ing', 'agree'], // back： 已打回
-        // proveImage: '@image(46x46, @color, #fff, @natural)', // 举报证据
       },
     ],
   },

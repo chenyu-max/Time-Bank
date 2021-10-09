@@ -48,8 +48,10 @@
           <div class="category">{{ item.category }}</div>
           <div class="id">{{ item.ownerId }}</div>
           <div class="time">{{ item.time }}</div>
-          <!--          <div class="vote">投票数：{{ item.agree }}/{{ item.total }}</div>-->
-          <div @click="checkDetails(item)" class="vote">去投票</div>
+          <div @click="checkDetails(item)"
+               :class="{'vote' : true, 'disable': item.tips !== 'ing'}">
+            去投票
+          </div>
         </a-list-item>
 
       </a-list>
@@ -77,7 +79,8 @@
         <span>&nbsp;</span>
       </div>
       <template slot="footer">
-        <a-button key="submit" type="primary" @click="handleOk" :loading="loading">确认投票</a-button>
+        <a-button key="submit" type="primary" @click="handleOk" :loading="loading">同意</a-button>
+        <a-button key="submit" type="primary" @click="handleOk" :loading="loading">拒绝</a-button>
         <a-button key="back" @click="handleCancle">返回</a-button>
       </template>
     </a-modal>
@@ -191,10 +194,7 @@ export default {
 .list {
   .list-header {
     margin-top: 20px;
-    //margin-left: 2vw;
-    //margin-right: 10vw;
     display: flex;
-    //justify-content: space-between;
 
     > a {
       font-size: 20px;
@@ -223,7 +223,6 @@ export default {
 }
 
 .rp-check-list {
-  //padding-left: 20px;
 
   .title {
     flex: 0 0 16%;
@@ -251,6 +250,12 @@ export default {
     flex: 0 0 20%;
     text-align: center;
     color: #30A679;
+  }
+
+  .disable {
+    cursor: default;
+    color: #929292;
+    pointer-events: none;
   }
 
   .agree-class {
