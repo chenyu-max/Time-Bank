@@ -574,12 +574,12 @@ url:/api/myaddproject
 
 **method**:post
 
-| 字段       |  类型  | 是否必须 | 备注       |
-| :--------- | :----: | :------: | ---------- |
-| appkey     | String |   必须   | 用户appkey |
-| projectId  | String |   必须   | 项目id     |
-| userList   | Array  |   必须   | 项目       |
-| remarkText | String |   必须   | 备注       |
+| 字段       |  类型  | 是否必须 | 备注         |
+| :--------- | :----: | :------: | ------------ |
+| appkey     | String |   必须   | 用户appkey   |
+| projectId  | String |   必须   | 项目id       |
+| userList   | Array  |   必须   | 用户评论列表 |
+| remarkText | String |   必须   | 备注         |
 
 
 
@@ -846,7 +846,48 @@ url:/api/myaddproject
 
 
 
-### 项目审核审核列表获取
+### 添加项目审核详情页面信息获取
+
+**url:**/api/addprojectdetail
+
+**method**:get
+
+| 字段      |  类型  | 是否必须 | 备注       |
+| :-------- | :----: | :------: | ---------- |
+| appkey    | String |   必须   | 用户appkey |
+| projectId | String |   必须   | 项目id     |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: {
+		projectName: String, // 项目名称
+		projectId: String, // 项目id
+		desc: String, // 项目描述
+		needPeople: Number, // 项目所需人数
+		category: String, // 项目分类
+		value: Number, // 项目单人支付时间币
+		workTime: Number, // 项目需要的工作时间
+		address: String, // 项目地址
+		contactName: String, // 项目联系人姓名
+		contactSex: String, // 项目联系人性别
+		contactPhone: String, // 项目联系人电话
+		startTime: String, // 项目开始时间
+		endTime: String, // 项目结束时间
+	}
+}
+```
+
+
+
+
+
+
+
+### 项目申报审核列表获取
 
 **url:**/api/declareprojectlist
 
@@ -880,6 +921,44 @@ url:/api/myaddproject
 	}
 }
 ```
+
+
+
+### 添加项目审核详情页面信息获取
+
+**url:**/api/declareprojectdetail
+
+**method**:get
+
+| 字段      |  类型  | 是否必须 | 备注       |
+| :-------- | :----: | :------: | ---------- |
+| appkey    | String |   必须   | 用户appkey |
+| projectId | String |   必须   | 项目id     |
+
+**响应规格：**
+
+```yaml
+{
+	code: 0,
+	msg: "",
+	data: {
+		projectName: String, // 项目名称
+		projectId: String, // 项目id
+		needPeople: Number, // 项目所需人数
+		category: String, // 项目分类
+		value: Number, // 项目单人支付时间币
+		workTime: Number, // 项目需要的工作时间
+		address: String, // 项目地址
+		contactName: String, // 项目联系人姓名
+		startTime: String, // 项目开始时间
+		endTime: String, // 项目结束时间
+		userList: Array, // 用户评论列表
+		remarkText: String, // 备注
+	}
+}
+```
+
+
 
 
 

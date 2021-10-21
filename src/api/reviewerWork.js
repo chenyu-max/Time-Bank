@@ -4,8 +4,14 @@ export default {
   addProjectList(params) {
     return axios.get('/api/addprojectlist', params);
   },
+  addProjectDetail(params) {
+    return axios.get('/api/addprojectdetail', params);
+  },
   declareProjectList(params) {
     return axios.get('/api/declareprojectlist', params);
+  },
+  declareProjectDetail(params) {
+    return axios.get('/api/declareprojectdetail', params);
   },
   reportReviewList(params) {
     return axios.get('/api/reportreviewlist', params);
