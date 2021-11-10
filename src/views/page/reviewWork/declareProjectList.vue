@@ -43,7 +43,7 @@
              @click="checkDetail(item)"
              :class="{'gray': item.state === 'over'}">去审核</a>
           <a-list-item-meta
-              :description="'申报备注：' + item.desc"
+              :description="'申报备注：' + item.description"
           >
             <a slot="title">{{ item.projectName }}</a>
           </a-list-item-meta>

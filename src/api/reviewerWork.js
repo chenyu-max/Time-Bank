@@ -2,10 +2,10 @@ import axios from './axios';
 
 export default {
   addProjectList(params) {
-    return axios.get('/api/addprojectlist', params);
+    return axios.get('/api/addprojectlist', { params });
   },
   addProjectDetail(params) {
-    return axios.get('/api/addprojectdetail', params);
+    return axios.get('/api/addprojectdetail', { params });
   },
   declareProjectList(params) {
     return axios.get('/api/declareprojectlist', params);
@@ -15,5 +15,8 @@ export default {
   },
   reportReviewList(params) {
     return axios.get('/api/reportreviewlist', params);
+  },
+  sendAddProjectResult(params) {
+    return axios.post('/api/addproject/result', params);
   },
 };

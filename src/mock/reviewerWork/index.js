@@ -1,5 +1,5 @@
-import './addProjectList';
+// import './addProjectList';
 import './declareProjectList';
 import './reportReviewList';
-import './addProjectDetail';
+// import './addProjectDetail';
 import './declareProjectDetail';

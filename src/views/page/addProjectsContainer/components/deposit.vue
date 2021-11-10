@@ -59,8 +59,9 @@ export default {
       const params = {
         appkey: this.$store.state.user.userinfo.appkey,
         ...this.projectInfo,
-        payMoney: this.value,
+        // payMoney: this.value,
       };
+      console.log(params);
       await api.addNewProject(params)
         .then(() => {
           this.$message.success('添加项目成功，请等待项目审核', 1.5);

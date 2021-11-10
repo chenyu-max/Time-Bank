@@ -9,7 +9,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://test.time-bank.com',
+        target: 'http://192.168.43.65:8080/timebank/',
       },
     },
   },
