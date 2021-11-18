@@ -1,5 +1,5 @@
-import './getProjectsList';
-import './getProjectById';
+// import './getProjectsList';
+// import './getProjectById';
 import './getMyProjectHistory';
 import './commitComment';
 // import './addNewProject';

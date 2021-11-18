@@ -1,8 +1,6 @@
 <template>
   <div class="declare-project-list-container">
-    <div class="title">
-      项目申报审核列表
-    </div>
+    <div class="title">项目申报审核列表</div>
     <div class="top">
       <div class="left">
         <div>剩余审核个数</div>
@@ -17,39 +15,49 @@
       <div class="left-tips">项目列表</div>
       <div class="middle">
         <div class="tips">分类：</div>
-        <a-button :class="{'active': activeName === 'all'}" @click="changeActive('all')">
+        <a-button
+          :class="{ active: activeName === 'all' }"
+          @click="changeActive('all')"
+        >
           全部
         </a-button>
-        <a-button :class="{'active': activeName === 'ing'}" @click="changeActive('ing')">
+        <a-button
+          :class="{ active: activeName === 'ing' }"
+          @click="changeActive('ing')"
+        >
           待审核
         </a-button>
-        <a-button :class="{'active': activeName === 'over'}" @click="changeActive('over')">
+        <a-button
+          :class="{ active: activeName === 'over' }"
+          @click="changeActive('over')"
+        >
           已审核
         </a-button>
       </div>
       <div class="search">
         <div class="tips">查找：</div>
-        <a-input-search placeholder="请输入" style="width: 200px"/>
+        <a-input-search placeholder="请输入" style="width: 200px" />
       </div>
     </div>
     <div class="list">
       <a-list
-          item-layout="horizontal"
-          :data-source="showList"
-          :pagination="pagination"
+        item-layout="horizontal"
+        :data-source="showList"
+        :pagination="pagination"
       >
         <a-list-item slot="renderItem" slot-scope="item">
-          <a slot="actions"
-             @click="checkDetail(item)"
-             :class="{'gray': item.state === 'over'}">去审核</a>
-          <a-list-item-meta
-              :description="'申报备注：' + item.description"
+          <a
+            slot="actions"
+            @click="checkDetail(item)"
+            :class="{ gray: item.state === 'over' }"
+            >去审核</a
           >
+          <a-list-item-meta :description="'申报备注：' + item.description">
             <a slot="title">{{ item.projectName }}</a>
           </a-list-item-meta>
           <div class="info">
             <div class="up">申报人</div>
-            <div class="down">{{ item.owner }}</div>
+            <div class="down">{{ item.ownerName }}</div>
           </div>
           <div class="info">
             <div class="up">项目完成时间</div>
@@ -57,16 +65,29 @@
           </div>
           <div class="info">
             <div class="up">审核人投票情况</div>
-            <a-tooltip :title="'同意人数：' + item.agree + '否决人数：' + item.reject">
-              <a-progress :show-info="false"
-                          :percent="100 * ((item.agree + item.reject) / 21)"
-                          :success-percent="100 * (item.agree / 21)"
+            <a-tooltip
+              :title="
+                '同意人数：' +
+                item.remarkAgree +
+                '否决人数：' +
+                item.remarkDisagree
+              "
+            >
+              <a-progress
+                :show-info="false"
+                :percent="100 * ((item.remarkAgree + item.remarkDisagree) / 21)"
+                :success-percent="100 * (item.remarkAgree / 21)"
               />
             </a-tooltip>
           </div>
           <div class="info">
             <div class="up">状态</div>
-            <div :class="{'ing-class': item.state === 'ing','over-class': item.state === 'over'}">
+            <div
+              :class="{
+                'ing-class': item.state === 'ing',
+                'over-class': item.state === 'over',
+              }"
+            >
               {{ item.state === 'over' ? '完成' : '待审核' }}
             </div>
           </div>
@@ -78,18 +99,26 @@
 
 <script>
 import api from '@/api/reviewerWork';
+import formatDate from '@/utils/formatDate';
 
 export default {
   name: 'declareProjectList',
   async created() {
-    await api.declareProjectList({
-      appkey: this.$store.state.user.userinfo.appkey,
-    })
+    await api
+      .declareProjectList({
+        appkey: this.$store.state.user.userinfo.appkey,
+      })
       .then((res) => {
         this.ingProject = res.ingProject;
         this.overProject = res.overProject;
-        this.showList = res.list;
-        this.list = res.list;
+        this.list = res.list.map((item) => {
+          const overTime = formatDate(item.overTime, true);
+          return {
+            ...item,
+            overTime,
+          };
+        });
+        this.showList = this.list;
       });
   },
   data() {
@@ -199,7 +228,6 @@ export default {
 }
 
 .list {
-
   .gray {
     color: #929292;
     cursor: default;
@@ -233,7 +261,8 @@ export default {
     justify-content: space-between;
     flex: 0 0 15%;
 
-    .up, .down {
+    .up,
+    .down {
       color: #929292;
     }
 

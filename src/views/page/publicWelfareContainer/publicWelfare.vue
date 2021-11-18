@@ -35,11 +35,11 @@ export default {
       city: this.$store.state.nowCityList.nowCityList[1],
     })
       .then((res) => {
-        this.total = res.list.length;
-        this.nowTotal = res.list.length;
-        this.projectList = res.list;
-        this.selectedProjectList = res.list;
-        this.showProjectList = res.list.slice(0, 10);
+        this.total = res.length;
+        this.nowTotal = res.length;
+        this.projectList = res;
+        this.selectedProjectList = res;
+        this.showProjectList = res.slice(0, 10);
       });
   },
   data() {
@@ -82,7 +82,7 @@ export default {
           name: '已满员',
           isSelected: false,
         }, {
-          name: '已完成',
+          name: '已结束',
           isSelected: false,
         },
       ],
@@ -122,7 +122,7 @@ export default {
     selectJudgment: {
       handler(val) {
         this.selectedProjectList = this.projectList.filter((item) => {
-          if (!this.computeValue(item.value, val.value)) {
+          if (!this.computeValue(item.currency, val.value)) {
             return false;
           }
           if (!this.computeCategory(item.category, val.category)) {
@@ -201,7 +201,7 @@ export default {
       this.$router.push({
         name: 'ProjectDetail',
         params: {
-          projectId: project.id,
+          projectId: project.projectId,
           couldAccept: project.state === '可承接',
         },
       });

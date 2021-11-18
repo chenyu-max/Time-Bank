@@ -79,6 +79,7 @@ import api from '@/api/reviewerWork';
 export default {
   name: 'AddProjectDetail',
   async created() {
+    console.log(this.$route.params.projectId);
     await api
       .addProjectDetail({
         appkey: this.$store.state.user.userinfo.appkey,

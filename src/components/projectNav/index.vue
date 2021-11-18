@@ -1,19 +1,19 @@
 <template>
   <div class="project-nav-container">
     <div class="title">
-      <div class="name">{{ project.name }}</div>
+      <div class="name">{{ project.pname }}</div>
       <div class="owner"> 发起人: {{ project.ownerName }}</div>
       <div class="category">分类: {{ project.category }}</div>
       <div class="state">状态: {{ project.state }}</div>
     </div>
     <div class="info">
-      <div class="time-money">时间币: {{ project.value }}</div>
+      <div class="time-money">时间币: {{ project.currency }}</div>
       <div class="serve-time">服务时间: {{ project.time }}h</div>
       <div class="effective-time">
-        有效时间:&nbsp; {{ project.startTime }} &nbsp;到&nbsp; {{ project.endTime }}
+        有效时间:&nbsp; {{ startTime }} &nbsp;到&nbsp; {{ endTime }}
       </div>
       <div class="create-time">
-        发布日期: {{ project.createTime }}
+        发布日期: {{ createTime }}
       </div>
       <div class="check-details" @click="checkDetail">
         查看详情
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import formatDate from '../../utils/formatDate';
+
 export default {
   name: 'projectNav',
   props: {
@@ -30,6 +32,13 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      createTime: formatDate(this.project.createTime, true),
+      startTime: formatDate(this.project.startTime, true),
+      endTime: formatDate(this.project.endTime, true),
+    };
   },
   methods: {
     checkDetail() {
