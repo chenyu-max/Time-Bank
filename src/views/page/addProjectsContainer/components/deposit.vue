@@ -29,13 +29,20 @@
 
 <script>
 import api from '@/api/addProject';
+import userApi from '@/api/user';
 import deepCopy from '../../../../utils/deepCopy';
 
 export default {
   name: 'deposit',
-  created() {
+  async created() {
     this.projectInfo = deepCopy(this.$store.state.addProject.nowInfo);
-    this.balance = this.$store.state.user.userinfo.userMoney;
+    await userApi
+      .getUserInfo({
+        appkey: this.$store.state.user.userinfo.appkey,
+      })
+      .then((res) => {
+        this.balance = res.userMoney;
+      });
   },
   data() {
     return {
@@ -46,7 +53,7 @@ export default {
   computed: {
     value: {
       get() {
-        return (this.projectInfo.needPeople + 1) * this.projectInfo.value;
+        return (+this.projectInfo.needPeople) * (+this.projectInfo.value + 1);
       },
     },
   },

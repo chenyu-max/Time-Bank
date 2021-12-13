@@ -14,12 +14,15 @@ export default {
     return axios.get('/api/declareprojectdetail', { params });
   },
   reportReviewList(params) {
-    return axios.get('/api/reportreviewlist', params);
+    return axios.get('/api/reportreviewlist', { params });
   },
   sendAddProjectResult(params) {
     return axios.post('/api/addproject/result', params);
   },
   sendDeclareProjectResult(params) {
     return axios.post('/api/declareproject/result', params);
+  },
+  sendReportResult(params) {
+    return axios.post('/api/report/result', params);
   },
 };

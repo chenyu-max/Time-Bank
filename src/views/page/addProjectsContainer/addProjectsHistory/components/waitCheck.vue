@@ -1,39 +1,50 @@
 <template>
   <div class="wait-check-container">
     <div class="title">
-      <div class="name">{{ projectInfo.projectName }}</div>
-      <div class="connect-name">项目负责人: {{ projectInfo.contactPersonName }}</div>
-      <div class="connect-phone">负责人电话: {{ projectInfo.contactPersonPhone }}</div>
+      <div class="name">{{ projectInfo.pname }}</div>
+      <div class="connect-name">
+        项目负责人: {{ projectInfo.contactPersonName }}
+      </div>
+      <div class="connect-phone">
+        负责人电话: {{ projectInfo.contactPersonPhone }}
+      </div>
       <div class="category">分类: {{ projectInfo.category }}</div>
     </div>
     <div class="info">
-      <div class="time-money">时间币: {{ projectInfo.value }}</div>
-      <div class="serve-time">服务时间: {{ projectInfo.workTime }}h</div>
+      <div class="time-money">时间币: {{ projectInfo.currency }}</div>
+      <div class="serve-time">服务时间: {{ projectInfo.time }}h</div>
       <div class="need-people">需要人数: {{ projectInfo.needPeople }}</div>
       <div class="effective-time">
-        有效时间:&nbsp; {{ projectInfo.startTime }} &nbsp;到&nbsp; {{ projectInfo.endTime }}
+        有效时间:&nbsp;
+        {{ formatDate(projectInfo.startTime, true) }} &nbsp;到&nbsp;
+        {{ formatDate(projectInfo.endTime, true) }}
       </div>
       <div class="change-info" @click="changeInfo">修改详细信息</div>
     </div>
     <a-modal
-        :width="1000"
-        destroyOnClose
-        title="评论"
-        :visible="visible"
-        :confirm-loading="confirmLoading"
-        :footer="null"
-        cancelText="取消"
-        okText="提交评论"
-        @ok="handleOk"
-        @cancel="handleCancel"
+      :width="1000"
+      destroyOnClose
+      title="评论"
+      :visible="visible"
+      :confirm-loading="confirmLoading"
+      :footer="null"
+      cancelText="取消"
+      okText="提交评论"
+      @ok="handleOk"
+      @cancel="handleCancel"
     >
-      <info-form @submit="handleSubmit" @formChange="handleChange" :projectInfo="projectInfo"/>
+      <info-form
+        @submit="handleSubmit"
+        @formChange="handleChange"
+        :projectInfo="projectInfo"
+      />
     </a-modal>
   </div>
 </template>
 
 <script>
 import api from '@/api/addProject';
+import formatDate from '@/utils/formatDate';
 import infoForm from './infoForm.vue';
 import deepCopy from '../../../../../utils/deepCopy';
 
@@ -59,6 +70,7 @@ export default {
     };
   },
   methods: {
+    formatDate,
     changeInfo() {
       this.visible = true;
     },
@@ -78,10 +90,11 @@ export default {
     handleSubmit(projectInfo) {
       this.handleOk();
       this.$message.success('项目信息已经修改，项目需要重新审核，请耐心等待');
-      api.changeProjectInfo({
-        appkey: this.$store.state.user.userinfo.appkey,
-        ...projectInfo,
-      })
+      api
+        .changeProjectInfo({
+          appkey: this.$store.state.user.userinfo.appkey,
+          ...projectInfo,
+        })
         .then(() => {
           this.projectInfo = deepCopy(projectInfo);
           this.$emit('change', this.projectInfo);
@@ -159,7 +172,7 @@ export default {
       font-weight: bold;
       //margin-right: 20px;
       cursor: pointer;
-      color: #30A679;
+      color: #30a679;
     }
   }
 }

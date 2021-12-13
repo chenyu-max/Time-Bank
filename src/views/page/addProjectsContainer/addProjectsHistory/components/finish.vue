@@ -1,54 +1,58 @@
 <template>
   <div class="finish-container">
     <div class="title">
-      <div class="name">{{ project.projectName }}</div>
-      <div class="owner"> 联系人: {{ project.contactPersonName }}</div>
+      <div class="name">{{ project.pname }}</div>
+      <div class="owner">联系人: {{ project.contactPersonName }}</div>
       <div class="category">分类: {{ project.category }}</div>
-      <div class="people-num">最终人数: {{ project.nowPeople + '/' + project.needPeople }}</div>
+      <div class="people-num">
+        最终人数: {{ project.nowPeople + '/' + project.needPeople }}
+      </div>
     </div>
     <div class="info">
-      <div class="time-money">时间币: {{ project.value }}</div>
+      <div class="time-money">时间币: {{ project.currency }}</div>
       <!--      <div class="serve-time">服务时间: {{ project.workTime }}h</div>-->
       <div class="effective-time">
-        有效时间:&nbsp; {{ project.startTime }} &nbsp;到&nbsp; {{ project.endTime }}
+        有效时间:&nbsp; {{ formatDate(project.startTime, true) }} &nbsp;到&nbsp;
+        {{ formatDate(project.endTime, true) }}
       </div>
       <div class="create-time">
-        发布日期: {{ project.createTime }}
+        发布日期: {{ formatDate(project.createTime, true) }}
       </div>
-      <div class="check-details" @click="checkDetail">
-        查看详情
-      </div>
-      <div class="declare" @click="declare">
-        项目申报
-      </div>
+      <div class="check-details" @click="checkDetail">查看详情</div>
+      <div class="declare" @click="declare">项目申报</div>
     </div>
     <a-modal
-        title="项目申报"
-        :visible="visible"
-        :confirm-loading="confirmLoading"
-        @ok="handleOk"
-        @cancel="handleCancel"
+      title="项目申报"
+      :visible="visible"
+      :confirm-loading="confirmLoading"
+      @ok="handleOk"
+      @cancel="handleCancel"
     >
-      <a-list item-layout="horizontal" :data-source="userList" class="list-class">
-        <a-list-item slot="renderItem" slot-scope="item" class="list-item-class">
+      <a-list
+        item-layout="horizontal"
+        :data-source="userList"
+        class="list-class"
+      >
+        <a-list-item
+          slot="renderItem"
+          slot-scope="item"
+          class="list-item-class"
+        >
           <a-list-item-meta>
             <div slot="title">{{ item.username }}</div>
-            <a-avatar
-                slot="avatar"
-                :src="item.userAvatar"
-            />
+            <a-avatar slot="avatar" :src="item.userAvatar" />
           </a-list-item-meta>
           <div class="bottom-class">
             <div class="user-comment">{{ item.userComment }}</div>
             <div>用户评分 {{ item.userStar }}星</div>
-            <div>用户完成时间: {{ item.overTime }}</div>
-            <div>用户工作时间: {{ item.workTime }}h</div>
+            <div>用户完成时间: {{ formatDate(item.overTime) }}</div>
+            <div>用户工作时间: {{ formatDate(item.workTime) }}h</div>
           </div>
         </a-list-item>
       </a-list>
       <div class="remark">
         <span>备注</span>
-        <a-input type="textarea" v-model="remarkText"/>
+        <a-input type="textarea" v-model="remarkText" />
       </div>
     </a-modal>
   </div>
@@ -56,6 +60,7 @@
 
 <script>
 import api from '@/api/addProject';
+import formatDate from '@/utils/formatDate';
 
 export default {
   name: 'doing',
@@ -77,11 +82,14 @@ export default {
     };
   },
   methods: {
+    formatDate,
     checkDetail() {
       this.$emit('checkDetail', this.project);
     },
     declare() {
-      if (this.$store.state.myAddProject.declareList.indexOf(this.project.id) === -1) {
+      if (
+        this.$store.state.myAddProject.declareList.indexOf(this.project.projectId) === -1
+      ) {
         this.visible = true;
       } else {
         this.$message.warn('该项目已申报，无需重复申报');
@@ -89,19 +97,23 @@ export default {
     },
     handleOk() {
       this.confirmLoading = true;
-      api.declareProject({
-        appkey: this.$store.state.user.userinfo.appkey,
-        projectId: this.project.id,
-        userList: this.userList,
-        remarkText: this.remarkText,
-      })
+      api
+        .declareProject({
+          appkey: this.$store.state.user.userinfo.appkey,
+          projectId: this.project.projectId,
+          userList: this.userList,
+          remarkText: this.remarkText,
+        })
         .then(() => {
           setTimeout(() => {
             this.visible = false;
             this.confirmLoading = false;
           }, 1000);
           this.$message.success('项目已申报成功');
-          this.$store.dispatch('myAddProject/changeDeclareList', this.project.id);
+          this.$store.dispatch(
+            'myAddProject/changeDeclareList',
+            this.project.projectId,
+          );
         })
         .catch((err) => {
           this.$message.error(err);
@@ -177,7 +189,7 @@ export default {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    color: #30A679;
+    color: #30a679;
   }
 
   .declare {
@@ -185,7 +197,7 @@ export default {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    color: #30A679;
+    color: #30a679;
   }
 }
 
@@ -220,5 +232,4 @@ export default {
     height: 6em !important;
   }
 }
-
 </style>

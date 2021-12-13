@@ -142,9 +142,9 @@ export default {
           return {
             username: temp.username,
             avatar: temp.userAvatar,
-            overTime: formatDate(temp.overTime),
+            overTime: formatDate(temp.overTime, true),
             userComment: temp.userComment,
-            acceptTime: formatDate(temp.acceptTime),
+            acceptTime: formatDate(temp.acceptTime, true),
             userState: "已完成",
             star: temp.star,
           };

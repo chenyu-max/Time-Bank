@@ -9,11 +9,11 @@
             <div class="left-info">
               <div class="row">
                 <div class="label">名称:</div>
-                <div class="value">志愿者</div>
+                <div class="value">{{ userInfo.username }}</div>
               </div>
               <div class="row">
                 <div class="label">用户ID:</div>
-                <div class="value">zyz00101</div>
+                <div class="value">{{ userInfo.appkey }}</div>
               </div>
               <div class="row">
                 <div class="label">性别:</div>
@@ -21,7 +21,7 @@
               </div>
               <div class="row">
                 <div class="label">绑定手机号:</div>
-                <div class="value">135****4166</div>
+                <div class="value">{{ userInfo.phoneNumber }}</div>
               </div>
               <div class="row">
                 <div class="label">政治面貌:</div>
@@ -35,11 +35,11 @@
               </div>
               <div class="row">
                 <div class="label">剩余时间币:</div>
-                <div class="value">78</div>
+                <div class="value">{{ userInfo.userMoney }}</div>
               </div>
               <div class="row">
                 <div class="label">志愿服务时长:</div>
-                <div class="value">20h</div>
+                <div class="value">{{ userInfo.userWorkTime }}</div>
               </div>
               <div class="row">
                 <div class="label">绑定邮箱:</div>
@@ -53,55 +53,43 @@
           </div>
         </div>
         <div class="save-level">
-          <div class="top">
-            您的安全服务
-          </div>
+          <div class="top">您的安全服务</div>
           <div class="level">
             <div>安全等级:</div>
             <div>中</div>
             <div>
               <a-progress
-                  :stroke-color="{ '0%': '#108ee9','100%': '#87d068'}"
-                  :percent="50"
+                :stroke-color="{ '0%': '#108ee9', '100%': '#87d068' }"
+                :percent="50"
               />
             </div>
           </div>
           <div class="level-info">
-            <div class="left-content" style="color: #30A679">
-              <a-icon type="check-circle"/>
+            <div class="left-content" style="color: #30a679">
+              <a-icon type="check-circle" />
               <span>已完成</span>
             </div>
-            <div class="middle-content">
-              邮箱绑定
-            </div>
+            <div class="middle-content">邮箱绑定</div>
             <div class="right-content">
               用于提升账号的安全性和信任级别、找回密码
             </div>
-            <div class="last">
-              去修改
-            </div>
+            <div class="last">去修改</div>
           </div>
           <div class="level-info">
             <div class="left-content" style="color: #ffc238">
-              <a-icon type="exclamation-circle"/>
+              <a-icon type="exclamation-circle" />
               <span>未完成</span>
             </div>
-            <div class="middle-content">
-              身份认证
-            </div>
-            <div class="right-content">
-              用于提升账号的安全性和信任级别。
-            </div>
-            <div class="last">
-              去完成
-            </div>
+            <div class="middle-content">身份认证</div>
+            <div class="right-content">用于提升账号的安全性和信任级别。</div>
+            <div class="last">去完成</div>
           </div>
         </div>
         <div class="serve">
           <div class="serve-title">现在拥有的服务</div>
           <div class="serve-row">
             <div class="serve-left">
-              <a-icon type="eye"/>
+              <a-icon type="eye" />
               用户
             </div>
             <div class="serve-right">
@@ -111,7 +99,7 @@
           </div>
           <div class="serve-row">
             <div class="serve-left">
-              <a-icon type="eye"/>
+              <a-icon type="eye" />
               发起者
             </div>
             <div class="serve-right">
@@ -121,12 +109,19 @@
           </div>
           <div class="serve-row">
             <div class="serve-left">
-              <a-icon type="eye-invisible"/>
+              <a-icon
+                type="eye-invisible"
+                v-if="userInfo.role !== 'Reviewer'"
+              />
+              <a-icon type="eye" v-else />
               审核人
             </div>
             <div class="serve-right">
               <div>状态：</div>
-              <div style="color: #ff5a5a">未开通</div>
+              <div style="color: #ff5a5a" v-if="userInfo.role !== 'Reviewer'">
+                未开通
+              </div>
+              <div style="color: #31a5fc" v-else>已开通</div>
             </div>
           </div>
         </div>
@@ -135,13 +130,16 @@
         <div class="right-title">会员中心</div>
         <div class="middle">
           <div class="avatar">
-            <a-avatar :size="64" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
+            <a-avatar
+              :size="64"
+              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+            />
           </div>
           <div class="middle-right">
-            <div class="name">志愿者</div>
+            <div class="name">{{ userInfo.username }}</div>
             <div class="money">
-              <a-icon type="money-collect"/>
-              78
+              <a-icon type="money-collect" />
+              {{ userInfo.userMoney }}
             </div>
           </div>
         </div>
@@ -149,19 +147,15 @@
           <div>等级</div>
           <div>LV:5</div>
           <div>
-            <a-progress :percent="30" :showInfo="false"/>
+            <a-progress :percent="30" :showInfo="false" />
           </div>
         </div>
         <div class="authentication">
           <div>
-            <a-icon type="idcard"/>
+            <a-icon type="idcard" />
           </div>
-          <div>
-            官方认证：
-          </div>
-          <div>
-            尚未认证
-          </div>
+          <div>官方认证：</div>
+          <div>尚未认证</div>
           <div>
             <a-button @click="goToCertificate">去认证</a-button>
           </div>
@@ -172,8 +166,25 @@
 </template>
 
 <script>
+import api from '@/api/user';
+
 export default {
   name: 'personalCenter',
+  created() {
+    api
+      .getUserInfo({
+        appkey: this.$store.state.user.userinfo.appkey,
+      })
+      .then((res) => {
+        this.userInfo = res;
+        this.$store.dispatch('user/setUserMoney', res.userMoney);
+      });
+  },
+  data() {
+    return {
+      userInfo: null,
+    };
+  },
   methods: {
     goToCertificate() {
       this.$router.push({
@@ -185,7 +196,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-
 .title {
   width: 100%;
   height: 5vh;
@@ -212,7 +222,6 @@ export default {
       }
 
       > div:last-child {
-
         display: flex;
         flex: 1 1 auto;
         justify-content: space-around;
@@ -297,7 +306,7 @@ export default {
         .last {
           flex: 0 0 10%;
           cursor: pointer;
-          color: #30A679;
+          color: #30a679;
         }
       }
     }
@@ -323,9 +332,7 @@ export default {
           flex: 0 0 40%;
           display: flex;
         }
-
       }
-
     }
   }
 
@@ -333,7 +340,7 @@ export default {
     flex: 0 0 25%;
 
     .right-title {
-      color: #30A679;
+      color: #30a679;
       font-size: 20px;
       font-weight: bolder;
       margin: 5px 0;
@@ -398,7 +405,6 @@ export default {
         flex: 0 0 auto;
       }
     }
-
   }
 }
 </style>

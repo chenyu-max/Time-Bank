@@ -11,7 +11,7 @@
         <a-select default-value="default" style="width: 20vw;">
           <a-select-option value="default" @click="changeActive('all')">全部内容</a-select-option>
           <a-select-option value="doing" @click="changeActive('ing')">正在审核</a-select-option>
-          <a-select-option value="finished" @click="changeActive('agree')">已同意</a-select-option>
+          <a-select-option value="finished" @click="changeActive('over')">已同意</a-select-option>
           <a-select-option value="backed" @click="changeActive('back')">已打回</a-select-option>
         </a-select>
       </div>
@@ -42,12 +42,12 @@
             简述:&nbsp;</a>{{ item.desc }}
           </div>
           <div class="tips" :class="{'ing-class': item.tips === 'ing','agree-class':
-          item.tips === 'agree','back-class': item.tips === 'back'}">
-            {{ item.tips === 'agree' ? '已同意' : item.tips === 'back' ? '已打回' : '正在审核' }}
+          item.tips === 'over','back-class': item.tips === 'back'}">
+            {{ item.tips === 'over' ? '已同意' : item.tips === 'back' ? '已打回' : '正在审核' }}
           </div>
           <div class="category">{{ item.category }}</div>
           <div class="id">{{ item.ownerId }}</div>
-          <div class="time">{{ item.time }}</div>
+          <div class="time">{{ formatDate(item.time, true) }}</div>
           <div @click="checkDetails(item)"
                :class="{'vote' : true, 'disable': item.tips !== 'ing'}">
             去投票
@@ -75,12 +75,14 @@
       <div>
         <span><h3>当前投票情况</h3></span>
         <span><a>举报通过人数：&nbsp;</a>{{ votingDetails.agree }}</span><br>
-        <span><a>举报未通过人数：&nbsp;</a>{{ votingDetails.reject }}</span><br>
+        <span><a>举报未通过人数：&nbsp;</a>{{ votingDetails.disagree }}</span><br>
         <span>&nbsp;</span>
       </div>
       <template slot="footer">
-        <a-button key="submit" type="primary" @click="handleOk" :loading="loading">同意</a-button>
-        <a-button key="submit" type="primary" @click="handleOk" :loading="loading">拒绝</a-button>
+        <a-button key="submit" type="primary"
+        @click="handleOk(true)" :loading="loading">同意</a-button>
+        <a-button key="submit" type="primary"
+        @click="handleOk(false)" :loading="loading">拒绝</a-button>
         <a-button key="back" @click="handleCancle">返回</a-button>
       </template>
     </a-modal>
@@ -89,6 +91,7 @@
 
 <script>
 import api from '@/api/reviewerWork';
+import formatDate from '@/utils/formatDate';
 
 export default {
   name: 'reportReviewList',
@@ -117,18 +120,36 @@ export default {
     };
   },
   methods: {
+    formatDate,
     checkDetails(item) {
       this.visible = true;
       this.votingDetails = item;
       const temp = item.category.split('举报')[1];
       this.reportName = temp;
     },
-    handleOk() {
-      this.loading = true;
-      setTimeout(() => {
-        this.visible = false;
-        this.loading = false;
-      }, 2500);
+    handleOk(result) {
+      api.sendReportResult({
+        appkey: this.$store.state.user.userinfo.appkey,
+        userId: this.votingDetails.ownerId,
+        category: this.votingDetails.category,
+        id: this.votingDetails.reportId,
+        result,
+      }).then(() => {
+        this.$message.success('举报处理成功');
+        this.loading = true;
+        api
+          .reportReviewList({
+            appkey: this.$store.state.user.userinfo.appkey,
+          })
+          .then((res) => {
+            this.list = res.list;
+            this.showList = res.list;
+          });
+        setTimeout(() => {
+          this.visible = false;
+          this.loading = false;
+        }, 500);
+      });
     },
     handleCancle() {
       this.visible = false;

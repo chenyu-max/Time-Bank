@@ -9,7 +9,7 @@ export default {
     return axios.get('/api/projectbyid', { params });
   },
   getMyProjectHistory(params) {
-    return axios.get('/api/myproject', params);
+    return axios.get('/api/myproject', { params });
   },
   commitComment(params) {
     return axios.post('/api/comment', params);

@@ -12,18 +12,26 @@
             <a-icon type="home" class="care-tips-ic"></a-icon>
             <h3>注意事项</h3>
           </div>
-          <p>1.每人每天只可以申请一次，申请结果24h内在<a>审核人公示</a>模块公布。</p>
-          <p>2.审核人必须遵守<a>《时间银行审核规章制度》</a>，有违规者，将永久失去申请审核员权益</p>
+          <p>
+            1.每人每天只可以申请一次，申请结果24h内在<a>审核人公示</a>模块公布。
+          </p>
+          <p>
+            2.审核人必须遵守<a>《时间银行审核规章制度》</a>，有违规者，将永久失去申请审核员权益
+          </p>
           <p>3.审核员等级必须在<a>LV5</a>以上，并拥有良好的口碑。</p>
           <p>4.审核人每次审核都用有相对应时间货币作为报酬</p>
-          <p>5.申请成为候选审核人需要质押一定的时间余额，质押金额将在审核结束之后归还账户</p>
+          <p>
+            5.申请成为候选审核人需要质押一定的时间余额，质押金额将在审核结束之后归还账户
+          </p>
         </div>
         <div class="care-tips">
           <div class="care-tips-head">
             <a-icon type="home" class="care-tips-ic"></a-icon>
             <h3>证件要求</h3>
           </div>
-          <p>1.需要上传本人露脸照手持二代身份证背面照+身份证正反照片（不需要手持）</p>
+          <p>
+            1.需要上传本人露脸照手持二代身份证背面照+身份证正反照片（不需要手持）
+          </p>
           <p>2.证件必须在有效期内，有效期需在<a>1个月以上</a></p>
           <p>3.若是公司直属/官方认证的机构，需要上传机构同意书</p>
         </div>
@@ -32,17 +40,21 @@
     <h3 class="title">填写信息</h3>
     <div class="apply-content">
       <a-form-model
-          ref="ruleForm"
-          :model="form"
-          :rules="rules"
-          :label-col="labelCol"
-          :wrapper-col="wrapperCol"
+        ref="ruleForm"
+        :model="form"
+        :rules="rules"
+        :label-col="labelCol"
+        :wrapper-col="wrapperCol"
       >
         <a-form-model-item ref="name" label="真实姓名" prop="name">
-          <a-input v-model="form.name"/>
+          <a-input v-model="form.name" />
         </a-form-model-item>
-        <a-form-model-item ref="identity_number" label="身份证" prop="identity_number">
-          <a-input v-model="form.indentity_number"/>
+        <a-form-model-item
+          ref="identity_number"
+          label="身份证"
+          prop="identity_number"
+        >
+          <a-input v-model="form.identity_number" />
         </a-form-model-item>
         <a-form-model-item label="读取您的信用口碑" prop="resource">
           <a-radio-group v-model="form.resource">
@@ -51,20 +63,27 @@
           </a-radio-group>
         </a-form-model-item>
         <a-form-model-item label="您申请的理由" prop="desc">
-          <a-input v-model="form.desc" type="textarea" style="resize: none;"/>
+          <a-input v-model="form.desc" type="textarea" style="resize: none" />
         </a-form-model-item>
         <a-form-model-item ref="xuanyan" label="您的竞争宣言" prop="xunayan">
-          <a-input v-model="form.xuanyan"/>
+          <a-input v-model="form.xuanyan" />
         </a-form-model-item>
-        <a-form-model-item ref="declaration" label="您的任职保证" prop="declaration">
-          <a-input v-model="form.declaration" placeholder="若成功任职，你的任职保证"/>
+        <a-form-model-item
+          ref="declaration"
+          label="您的任职保证"
+          prop="declaration"
+        >
+          <a-input
+            v-model="form.declaration"
+            placeholder="若成功任职，你的任职保证"
+          />
         </a-form-model-item>
         <a-form-model-item ref="declaration" label="质押金额" prop="deposit">
-          <a-input v-model="form.deposit" disabled/>
+          <a-input v-model="form.deposit" disabled />
         </a-form-model-item>
         <a-form-model-item :wrapper-col="{ span: 13, offset: 10 }">
           <a-button type="primary" @click="onSubmit">提交申请</a-button>
-          <a-button style="margin-left: 60px;" @click="resetForm">重置</a-button>
+          <a-button style="margin-left: 60px" @click="resetForm">重置</a-button>
         </a-form-model-item>
         <a-form-model-item :wrapper-col="{ span: 13, offset: 9 }">
           <a-checkbox @change="onChange">
@@ -109,7 +128,7 @@ export default {
             trigger: 'blur',
           },
         ],
-        indentity_number: [
+        identity_number: [
           {
             required: true,
             message: '请输入您的证件号码',
@@ -147,7 +166,14 @@ export default {
             appkey: this.$store.state.user.userinfo.appkey,
             ...this.form,
           };
-          api.applyToBeReviewer(tempObj);
+          api
+            .applyToBeReviewer(tempObj)
+            .then(() => {
+              this.$message.success('申请成功');
+            })
+            .catch((err) => {
+              this.$message.error(err);
+            });
         } else {
           return false;
         }
@@ -157,16 +183,14 @@ export default {
     resetForm() {
       this.$refs.ruleForm.resetFields();
     },
-    onChange() {
-    },
+    onChange() {},
   },
 };
 </script>
 
 <style scoped lang="less">
-
 a {
-  color: #31A5fc;
+  color: #31a5fc;
 }
 
 .apply-prj-on {
@@ -202,7 +226,7 @@ a {
     align-items: center;
 
     > h1 {
-      color: #31A5FC;
+      color: #31a5fc;
     }
 
     .care-tips {
@@ -220,7 +244,7 @@ a {
         .care-tips-ic {
           font-size: 20px;
           margin-right: 8px;
-          color: #CF1414;
+          color: #cf1414;
         }
       }
     }
@@ -239,5 +263,4 @@ a {
   border: 1px solid #eee;
   padding: 20px 0;
 }
-
 </style>

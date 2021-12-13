@@ -5,6 +5,9 @@ export default {
   login(params) {
     return axios.post('/api/login', params);
   },
+  getUserInfo(params) {
+    return axios.get('/api/getuserinfo', { params });
+  },
   register(params) {
     return axios.post('/api/passport/register', params);
   },

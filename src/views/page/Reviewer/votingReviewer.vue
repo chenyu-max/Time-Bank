@@ -1,8 +1,8 @@
 <template>
   <div class="voting-reviewer-container">
     <div class="top">
-      <img class="img1" src="../../../assets/reviewer_poster.png" alt/>
-      <img class="img2" src="../../../assets/logo.png" alt/>
+      <img class="img1" src="../../../assets/reviewer_poster.png" alt />
+      <img class="img2" src="../../../assets/logo.png" alt />
     </div>
     <div>
       <div class="voting-content-header">
@@ -12,11 +12,11 @@
         </div>
         <div class="voting-header-right">
           <div>
-            <a-icon type="home"/>
+            <a-icon type="home" />
             <p>投票截止时间：00:00:00</p>
           </div>
           <div>
-            <a-icon type="project"/>
+            <a-icon type="project" />
             <p>剩余票数：{{ lastVotes }}</p>
           </div>
         </div>
@@ -24,38 +24,40 @@
     </div>
     <div class="list">
       <a-list
-          item-layout="horizontal"
-          :pagination="pagination"
-          :data-source="candidateList"
+        item-layout="horizontal"
+        :pagination="pagination"
+        :data-source="candidateList"
       >
         <a-list-item slot="renderItem" slot-scope="item">
           <a slot="actions" @click="checkDetail(item.id)">详情</a>
-          <a slot="actions" @click="vote(item.id,-1)" v-if="item.id === checkWho">
+          <a
+            slot="actions"
+            @click="vote(item.id, 0)"
+            v-if="item.id === checkWho"
+          >
             撤票
           </a>
-          <a slot="actions"
-             :class="{'a-disabled': !lastVotes }"
-             @click="vote(item.id,1)" v-if="item.id !== checkWho">
+          <a
+            slot="actions"
+            :class="{ 'a-disabled': !lastVotes }"
+            @click="vote(item.id, 1)"
+            v-if="item.id !== checkWho"
+          >
             投票
           </a>
-          <a-list-item-meta
-              :description="item.xuanyan"
-          >
+          <a-list-item-meta :description="item.xuanyan">
             <a slot="title">{{ item.name }}</a>
-            <a-avatar
-                slot="avatar"
-                :src="item.avatar"
-            />
+            <a-avatar slot="avatar" :src="item.avatar" />
           </a-list-item-meta>
           <div>{{ item.votes }}票</div>
         </a-list-item>
       </a-list>
     </div>
     <a-modal
-        title="候选人详细信息"
-        :visible="visible"
-        :footer="null"
-        @cancel="handleCancel"
+      title="候选人详细信息"
+      :visible="visible"
+      :footer="null"
+      @cancel="handleCancel"
     >
       <div class="modal-child">
         <span>用户名：</span>
@@ -91,9 +93,10 @@ import api from '@/api/reviewer';
 export default {
   name: 'votingReviewer',
   async created() {
-    await api.getReviewerInfo({
-      appkey: this.$store.state.user.userinfo.appkey,
-    })
+    await api
+      .getReviewerInfo({
+        appkey: this.$store.state.user.userinfo.appkey,
+      })
       .then((res) => {
         this.$store.dispatch('candidate/changeCandidateId', res.likeName);
         this.lastVotes = res.likeName ? 0 : 1;
@@ -120,11 +123,12 @@ export default {
   },
   methods: {
     async vote(id, votes) {
-      await api.vote({
-        appkey: this.$store.state.user.userinfo.appkey,
-        id,
-        votes,
-      })
+      await api
+        .vote({
+          appkey: this.$store.state.user.userinfo.appkey,
+          id,
+          votes,
+        })
         .then(() => {
           if (votes === 1) {
             this.$store.dispatch('candidate/changeCandidateId', id);
@@ -133,20 +137,22 @@ export default {
           }
           this.lastVotes = votes === 1 ? 0 : 1;
         });
-      // await api.getReviewerInfo({
-      //   appkey: this.$store.state.user.userinfo.appkey,
-      // })
-      //   .then((res) => {
-      //     this.$store.dispatch('candidate/changeCandidateId', res.likeName);
-      //     this.lastVotes = res.likeName ? 0 : 1;
-      //     this.candidateList = res.candidate;
-      //   });
+      await api
+        .getReviewerInfo({
+          appkey: this.$store.state.user.userinfo.appkey,
+        })
+        .then((res) => {
+          this.$store.dispatch('candidate/changeCandidateId', res.likeName);
+          this.lastVotes = res.likeName ? 0 : 1;
+          this.candidateList = res.candidate;
+        });
     },
     checkDetail(id) {
-      api.getCandidateInfoById({
-        appkey: this.$store.state.user.userinfo.appkey,
-        id,
-      })
+      api
+        .getCandidateInfoById({
+          appkey: this.$store.state.user.userinfo.appkey,
+          id,
+        })
         .then((res) => {
           this.candidateInfo = res;
         });

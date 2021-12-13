@@ -148,7 +148,9 @@ export default {
       this.confirmLoading = true;
       api.commitComment({
         appkey: this.$store.state.user.userinfo.appkey,
-        projectId: this.projectId,
+        projectId: this.nowCommentId,
+        star: this.starNum,
+        comment: this.nowComment,
       })
         .then(() => {
           let index = 0;
