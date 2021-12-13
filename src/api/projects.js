@@ -3,13 +3,13 @@ import axios from './axios';
 
 export default {
   getProjectsList(params) {
-    return axios.get('/api/projectslist', params);
+    return axios.get('/api/projectslist', { params });
   },
   getProjectById(params) {
-    return axios.get('/api/projectbyid', params);
+    return axios.get('/api/projectbyid', { params });
   },
   getMyProjectHistory(params) {
-    return axios.get('/api/myproject', params);
+    return axios.get('/api/myproject', { params });
   },
   commitComment(params) {
     return axios.post('/api/comment', params);

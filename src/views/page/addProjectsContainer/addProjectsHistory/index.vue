@@ -4,29 +4,41 @@
       <a-tab-pane key="进行中" tab="进行中">
         <div v-if="showList.length">
           <div v-for="item in showList" :key="item.id">
-            <doing :project="item" @checkDetail="handleCheckDetail"/>
+            <doing :project="item" @checkDetail="handleCheckDetail" />
           </div>
         </div>
-        <a-empty v-else/>
-        <pager :total="nowList.length" :current="nowPage" @pageChange="changePage"/>
+        <a-empty v-else />
+        <pager
+          :total="nowList.length"
+          :current="nowPage"
+          @pageChange="changePage"
+        />
       </a-tab-pane>
       <a-tab-pane key="审核中" tab="审核中">
         <div v-if="showList.length">
           <div v-for="item in showList" :key="item.id">
-            <wait-check :project="item" @change="handleChange"/>
+            <wait-check :project="item" @change="handleChange" />
           </div>
         </div>
-        <a-empty v-else/>
-        <pager :total="nowList.length" :current="nowPage" @pageChange="changePage"/>
+        <a-empty v-else />
+        <pager
+          :total="nowList.length"
+          :current="nowPage"
+          @pageChange="changePage"
+        />
       </a-tab-pane>
       <a-tab-pane key="已结束" tab="已结束">
         <div v-if="showList.length">
           <div v-for="item in showList" :key="item.id">
-            <finish :project="item" @checkDetail="handleCheckDetail"/>
+            <finish :project="item" @checkDetail="handleCheckDetail" />
           </div>
         </div>
-        <a-empty v-else/>
-        <pager :total="nowList.length" :current="nowPage" @pageChange="changePage"/>
+        <a-empty v-else />
+        <pager
+          :total="nowList.length"
+          :current="nowPage"
+          @pageChange="changePage"
+        />
       </a-tab-pane>
     </a-tabs>
   </div>
@@ -52,27 +64,37 @@ export default {
     const storeDoingList = deepCopy(this.$store.state.myAddProject.doingList);
     const storeWaitList = deepCopy(this.$store.state.myAddProject.waitList);
     const storeFinishList = deepCopy(this.$store.state.myAddProject.finishList);
-    if (storeDoingList.length
-        || storeWaitList.length
-        || storeFinishList.length) {
+    if (
+      storeDoingList.length || storeWaitList.length || storeFinishList.length
+    ) {
       this.doingListArr = storeDoingList;
       this.nowList = this.doingListArr;
       this.showList = this.nowList.slice(0, 10);
       this.waitListArr = storeWaitList;
       this.finishListArr = storeFinishList;
     } else {
-      api.getMyAddProject({
-        appkey: this.$store.state.user.userinfo.state,
-      })
+      api
+        .getMyAddProject({
+          appkey: this.$store.state.user.userinfo.appkey,
+        })
         .then((res) => {
           this.doingListArr = res.doing;
           this.nowList = this.doingListArr;
           this.showList = this.nowList.slice(0, 10);
           this.waitListArr = res.waitCheck;
           this.finishListArr = res.finish;
-          this.$store.dispatch('myAddProject/changeDoingList', deepCopy(this.doingListArr));
-          this.$store.dispatch('myAddProject/changeWaitList', deepCopy(this.waitListArr));
-          this.$store.dispatch('myAddProject/changeFinishList', deepCopy(this.finishListArr));
+          this.$store.dispatch(
+            'myAddProject/changeDoingList',
+            deepCopy(this.doingListArr),
+          );
+          this.$store.dispatch(
+            'myAddProject/changeWaitList',
+            deepCopy(this.waitListArr),
+          );
+          this.$store.dispatch(
+            'myAddProject/changeFinishList',
+            deepCopy(this.finishListArr),
+          );
         });
     }
   },
@@ -109,25 +131,26 @@ export default {
       this.$router.push({
         name: 'ProjectDetail',
         params: {
-          projectId: project.id,
-          couldAccept: false,
+          projectId: project.projectId,
         },
       });
     },
     handleChange(projectInfo) {
       let index = -1;
       this.waitListArr.forEach((item, i) => {
-        if (item.id === projectInfo.id) {
+        if (item.projectId === projectInfo.projectId) {
           index = i;
         }
       });
       this.waitListArr[index] = projectInfo;
-      this.$store.dispatch('myAddProject/changeWaitList', deepCopy(this.waitListArr));
+      this.$store.dispatch(
+        'myAddProject/changeWaitList',
+        deepCopy(this.waitListArr),
+      );
     },
   },
 };
 </script>
 
 <style scoped>
-
 </style>

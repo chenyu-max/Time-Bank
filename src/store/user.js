@@ -12,6 +12,10 @@ export default {
     setUserInfo(state, userInfo) {
       state.userinfo = userInfo;
     },
+    setUserMoney(state, money) {
+      state.userMoney = money;
+      setCookie(state.userInfo);
+    },
     logout(state) {
       state.userinfo = {
         username: '',
@@ -31,6 +35,9 @@ export default {
     setUserInfo({ commit }, userInfo) {
       commit('setUserInfo', userInfo);
       setCookie(userInfo);
+    },
+    setUserMoney({ commit }, money) {
+      commit('setUserMoney', money);
     },
     logout({ commit }) {
       commit('logout');

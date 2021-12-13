@@ -1,17 +1,18 @@
+<script src="../../../utils/formatDate.js"></script>
 <template>
   <div class="project-detail-container">
     <h1 class="project-title">
-      {{ project.name }}
+      {{ project.pname }}
     </h1>
     <div class="project-info-1">
       <div class="project-id">
         <span>项目ID: &nbsp;</span>
-        {{ project.id }}
+        {{ project.projectId }}
       </div>
       <div>|</div>
       <div class="owner">
         <span>项目发起人: &nbsp;</span>
-        {{ project.ownerName + '——ID：' + project.ownerId}}
+        {{ project.ownerName + '——ID：' + project.ownerId }}
       </div>
       <div>|</div>
       <div class="create-time">
@@ -44,7 +45,7 @@
       <div>|</div>
       <div class="total-value">
         <span>总支付时间币: &nbsp;</span>
-        {{ (project.value * project.needPeople).toFixed(2) }}
+        {{ (project.currency * project.needPeople).toFixed(2) }}
       </div>
     </div>
     <div class="project-description">
@@ -57,7 +58,7 @@
       </div>
       <div class="work-time">
         <div class="title">服务时间:</div>
-        {{ project.workTime }}
+        {{ project.time }}h
       </div>
       <div class="contact-person-name">
         <div class="title">联系人:</div>
@@ -85,7 +86,7 @@
           :data-source="commentsList">
         <template #renderItem="item">
           <a-list-item>
-            <a-comment :author="item.authorDis" :avatar="item.avatar">
+            <a-comment :author="item.username" :avatar="item.avatar">
               <template #content>
                 <p>{{ item.userComment }}</p>
               </template>
@@ -118,6 +119,7 @@
 
 <script>
 import api from '@/api/projects';
+import formatDate from '@/utils/formatDate';
 
 export default {
   name: 'projectDetail',
@@ -127,23 +129,23 @@ export default {
       projectId: this.$route.params.projectId,
     })
       .then((res) => {
-        this.project = res;
-        // 对用户展示项目联系人时候 使用 某先生 或者 某女士
-        const contactName = res.contactPerson.sex === 'male' ? `${res.contactPerson.name[0]}先生` : `${res.contactPerson.name[0]}女士`;
+        this.project = res.projectInfo;
         this.contactPerson = {
-          name: contactName,
-          phone: res.contactPerson.phone,
+          name: this.project.contactPersonName,
+          phone: this.project.contactPersonPhone,
         };
+        this.project.createTime = formatDate(this.project.createTime);
+        this.project.startTime = formatDate(this.project.startTime);
+        this.project.endTime = formatDate(this.project.endTime);
         this.commentsList = res.userList.map((item) => {
           const temp = item;
-          const authorDis = `${temp.userName}`;
           return {
-            authorDis,
+            username: temp.username,
             avatar: temp.userAvatar,
-            overTime: temp.overTime,
+            overTime: formatDate(temp.overTime, true),
             userComment: temp.userComment,
-            acceptTime: temp.acceptTime,
-            userState: temp.userState,
+            acceptTime: formatDate(temp.acceptTime, true),
+            userState: "已完成",
             star: temp.star,
           };
         });
@@ -168,11 +170,13 @@ export default {
       api.acceptProject({
         appkey: this.$store.state.user.userinfo.appkey,
         projectId: this.project.projectId,
-      }).then(() => {
-        this.$message.success('报名成功，请等待通知');
-      }).catch((err) => {
-        this.$message.error(err);
-      });
+      })
+        .then(() => {
+          this.$message.success('报名成功，请等待通知');
+        })
+        .catch((err) => {
+          this.$message.error(err);
+        });
     },
   },
 };

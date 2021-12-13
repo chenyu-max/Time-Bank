@@ -2,27 +2,39 @@
   <div class="report-originator-container">
     <div class="title">举报发起者</div>
     <a-steps :current="current" class="steps-header">
-      <a-step v-for="item in steps" :key="item.title" :title="item.title"/>
+      <a-step v-for="item in steps" :key="item.title" :title="item.title" />
     </a-steps>
     <div class="steps-content">
       <template v-if="current === 0">
-        <a-form-model ref="form" class="form"
-                      :model="form" :rules="rules" v-bind="layout">
+        <a-form-model
+          ref="form"
+          class="form"
+          :model="form"
+          :rules="rules"
+          v-bind="layout"
+        >
           <a-form-model-item has-feedback label="发起者ID" prop="originatorId">
-            <a-input v-model="form.originatorId"/>
+            <a-input v-model="form.originatorId" />
           </a-form-model-item>
-          <a-form-model-item has-feedback label="发起者姓名" prop="originatorName">
-            <a-input v-model="form.originatorName"/>
+          <a-form-model-item
+            has-feedback
+            label="发起者姓名"
+            prop="originatorName"
+          >
+            <a-input v-model="form.originatorName" />
           </a-form-model-item>
           <a-form-model-item has-feedback label="投诉人姓名" prop="name">
-            <a-input v-model="form.name"/>
+            <a-input v-model="form.name" />
           </a-form-model-item>
           <a-form-model-item has-feedback label="投诉人电话" prop="phone">
-            <a-input v-model="form.phone"/>
+            <a-input v-model="form.phone" />
           </a-form-model-item>
           <a-form-model-item has-feedback label="投诉详情" prop="desc">
-            <a-input v-model="form.desc" type="textarea"
-                     style="resize: none; height: 80px "/>
+            <a-input
+              v-model="form.desc"
+              type="textarea"
+              style="resize: none; height: 80px"
+            />
           </a-form-model-item>
         </a-form-model>
       </template>
@@ -35,9 +47,9 @@
         提交举报信息
       </a-button>
       <a-button
-          v-if="current === steps.length - 1"
-          type="primary"
-          @click="done"
+        v-if="current === steps.length - 1"
+        type="primary"
+        @click="done"
       >
         完成举报
       </a-button>
@@ -98,37 +110,50 @@ export default {
         desc: '',
       },
       rules: {
-        originatorId: [{
-          validator: validateOriginatorId,
-          trigger: 'change',
-        }],
-        originatorName: [{
-          validator: validateOriginatorName,
-          trigger: 'change',
-        }],
-        name: [{
-          validator: validateName,
-          trigger: 'change',
-        }],
-        phone: [{
-          validator: validatePhone,
-          trigger: 'change',
-        }],
-        desc: [{
-          validator: validateDesc,
-          trigger: 'change',
-        }],
+        originatorId: [
+          {
+            validator: validateOriginatorId,
+            trigger: 'change',
+          },
+        ],
+        originatorName: [
+          {
+            validator: validateOriginatorName,
+            trigger: 'change',
+          },
+        ],
+        name: [
+          {
+            validator: validateName,
+            trigger: 'change',
+          },
+        ],
+        phone: [
+          {
+            validator: validatePhone,
+            trigger: 'change',
+          },
+        ],
+        desc: [
+          {
+            validator: validateDesc,
+            trigger: 'change',
+          },
+        ],
       },
       layout: {
         labelCol: { span: 7 },
         wrapperCol: { span: 11 },
       },
       current: 0,
-      steps: [{
-        title: '填写举报信息',
-      }, {
-        title: '完成举报',
-      }],
+      steps: [
+        {
+          title: '填写举报信息',
+        },
+        {
+          title: '完成举报',
+        },
+      ],
     };
   },
   methods: {
@@ -143,12 +168,16 @@ export default {
     next() {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          api.reportOriginator({
-            appkey: this.$store.state.user.userinfo.appkey,
-            ...this.form,
-          })
+          api
+            .reportOriginator({
+              appkey: this.$store.state.user.userinfo.appkey,
+              ...this.form,
+            })
             .then(() => {
               this.current = 1;
+            })
+            .catch((err) => {
+              this.$message.error(err);
             });
         } else {
           this.$message.error('请正确填写信息');

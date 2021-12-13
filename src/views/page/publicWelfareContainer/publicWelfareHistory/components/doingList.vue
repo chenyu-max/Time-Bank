@@ -2,7 +2,7 @@
   <div class="project-nav-container">
     <div class="title">
       <div class="name">{{ project.name }}</div>
-      <div class="owner"> 发起人: {{ project.ownerName }}</div>
+      <div class="owner">发起人: {{ project.ownerName }}</div>
       <div class="category">分类: {{ project.category }}</div>
       <div class="state">状态: 进行中</div>
     </div>
@@ -10,19 +10,20 @@
       <div class="time-money">时间币: {{ project.value }}</div>
       <div class="serve-time">服务时间: {{ project.time }}h</div>
       <div class="effective-time">
-        有效时间:&nbsp; {{ project.startTime }} &nbsp;到&nbsp; {{ project.endTime }}
+        有效时间:&nbsp; {{ formatDate(project.startTime, true) }} &nbsp;到&nbsp;
+        {{ formatDate(project.endTime, true) }}
       </div>
       <div class="accept-time">
-        承接任务日期: {{ project.acceptTime }}
+        承接任务日期: {{ formatDate(project.acceptTime, true) }}
       </div>
-      <div class="check-details" @click="checkDetail">
-        查看详情
-      </div>
+      <div class="check-details" @click="checkDetail">查看详情</div>
     </div>
   </div>
 </template>
 
 <script>
+import formatDate from '@/utils/formatDate';
+
 export default {
   name: 'doingList',
   props: {
@@ -35,6 +36,7 @@ export default {
     checkDetail() {
       this.$emit('checkDetail', this.project);
     },
+    formatDate,
   },
 };
 </script>
@@ -103,7 +105,7 @@ export default {
     font-weight: bold;
     margin-right: 20px;
     cursor: pointer;
-    color: #30A679;
+    color: #30a679;
   }
 }
 </style>

@@ -7,8 +7,8 @@
     <a-form-model ref="infoForm" class="info-form"
                   @validate="validate"
                   :model="infoForm" :rules="rules" v-bind="layout">
-      <a-form-model-item has-feedback label="项目名称" prop="projectName">
-        <a-input v-model="infoForm.projectName"/>
+      <a-form-model-item has-feedback label="项目名称" prop="pname">
+        <a-input v-model="infoForm.pname"/>
       </a-form-model-item>
       <a-form-model-item has-feedback label="描述" prop="description">
         <a-input v-model="infoForm.description" type="textarea"
@@ -24,11 +24,11 @@
           <a-select-option value="帮忙做事">帮忙做事</a-select-option>
         </a-select>
       </a-form-model-item>
-      <a-form-model-item has-feedback label="每人需要支付的时间币" prop="value">
-        <a-input v-model="infoForm.value"/>
+      <a-form-model-item has-feedback label="每人需要支付的时间币" prop="currency">
+        <a-input v-model="infoForm.currency"/>
       </a-form-model-item>
-      <a-form-model-item has-feedback label="每人进行服务的时间" prop="workTime">
-        <a-input v-model="infoForm.workTime"/>
+      <a-form-model-item has-feedback label="每人进行服务的时间" prop="time">
+        <a-input v-model="infoForm.time"/>
       </a-form-model-item>
       <a-form-model-item has-feedback label="服务地点" prop="address">
         <a-input v-model="infoForm.address"/>
@@ -180,12 +180,12 @@ export default {
     };
     return {
       infoForm: {
-        projectName: '',
+        pname: '',
         description: '',
         needPeople: '',
         category: '',
-        value: '',
-        workTime: '',
+        currency: '',
+        time: '',
         address: '',
         contactPersonName: '',
         contactPersonSex: 'male',
@@ -194,7 +194,7 @@ export default {
         endTime: '',
       },
       rules: {
-        projectName: [{
+        pname: [{
           validator: validateProjectName,
           trigger: 'change',
         }],
@@ -210,11 +210,11 @@ export default {
           validator: validateCategory,
           trigger: 'blur',
         }],
-        value: [{
+        currency: [{
           validator: validateValue,
           trigger: 'change',
         }],
-        workTime: [{
+        time: [{
           validator: validateWorkTime,
           trigger: 'change',
         }],
@@ -256,7 +256,7 @@ export default {
         };
         projectInfo.needPeople = +projectInfo.needPeople;
         projectInfo.value = +projectInfo.value;
-        projectInfo.workTime = +projectInfo.workTime;
+        projectInfo.time = +projectInfo.time;
         projectInfo.startTime = projectInfo.startTime.format('YYYY-MM-DD HH:MM');
         projectInfo.endTime = projectInfo.endTime.format('YYYY-MM-DD HH:MM');
         if (valid) {
@@ -274,7 +274,7 @@ export default {
         needPeople: '',
         category: '',
         value: '',
-        workTime: '',
+        time: '',
         address: '',
         contactPersonName: '',
         contactPersonSex: 'male',

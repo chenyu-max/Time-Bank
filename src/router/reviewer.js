@@ -40,5 +40,25 @@ export default {
       },
       component: () => import(/* webpackChunkName: "index" */ '../views/page/reviewWork/reportReviewList.vue'),
     },
+    {
+      name: 'AddProjectReviewDetails',
+      path: 'addprojectdetails/:projectId',
+      component: () => import(/* webpackChunkName: "index" */ '../views/page/reviewWork/components/addProjectDetail.vue'),
+      meta: {
+        title: '项目详情',
+        hidden: true,
+        fatherTitle: '项目发起审核',
+      },
+    },
+    {
+      name: 'DeclareProjectReviewDetails',
+      path: 'declareprojectdetails/:projectId',
+      component: () => import(/* webpackChunkName: "index" */ '../views/page/reviewWork/components/declareProjectDetail.vue'),
+      meta: {
+        title: '项目详情',
+        hidden: true,
+        fatherTitle: '项目申报审核',
+      },
+    },
   ],
 };

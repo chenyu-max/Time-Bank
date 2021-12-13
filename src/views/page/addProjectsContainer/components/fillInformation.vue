@@ -109,8 +109,8 @@ export default {
     const validateDescription = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入项目描述'));
-      } else if (value.length < 50) {
-        callback(new Error('项目描述必须大于50字'));
+      } else if (value.length < 10) {
+        callback(new Error('项目描述必须大于10字'));
       } else {
         callback();
       }
@@ -251,10 +251,10 @@ export default {
           ...this.infoForm,
         };
         projectInfo.needPeople = +projectInfo.needPeople;
-        projectInfo.value = +projectInfo.value;
-        projectInfo.workTime = +projectInfo.workTime;
-        projectInfo.startTime = projectInfo.startTime.format('YYYY-MM-DD HH:MM');
-        projectInfo.endTime = projectInfo.endTime.format('YYYY-MM-DD HH:MM');
+        // projectInfo.value = parseFloat(projectInfo.value).toFixed(2);
+        // projectInfo.workTime = parseFloat(projectInfo.workTime).toFixed(2);
+        projectInfo.startTime = projectInfo.startTime.format('YYYY-MM-DD HH:MM:SS');
+        projectInfo.endTime = projectInfo.endTime.format('YYYY-MM-DD HH:MM:SS');
         if (valid) {
           this.$emit('next', projectInfo);
         } else {

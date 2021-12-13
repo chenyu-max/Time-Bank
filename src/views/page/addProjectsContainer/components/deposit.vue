@@ -29,13 +29,20 @@
 
 <script>
 import api from '@/api/addProject';
+import userApi from '@/api/user';
 import deepCopy from '../../../../utils/deepCopy';
 
 export default {
   name: 'deposit',
-  created() {
+  async created() {
     this.projectInfo = deepCopy(this.$store.state.addProject.nowInfo);
-    this.balance = this.$store.state.user.userinfo.userMoney;
+    await userApi
+      .getUserInfo({
+        appkey: this.$store.state.user.userinfo.appkey,
+      })
+      .then((res) => {
+        this.balance = res.userMoney;
+      });
   },
   data() {
     return {
@@ -46,7 +53,7 @@ export default {
   computed: {
     value: {
       get() {
-        return (this.projectInfo.needPeople + 1) * this.projectInfo.value;
+        return (+this.projectInfo.needPeople) * (+this.projectInfo.value + 1);
       },
     },
   },
@@ -59,8 +66,9 @@ export default {
       const params = {
         appkey: this.$store.state.user.userinfo.appkey,
         ...this.projectInfo,
-        payMoney: this.value,
+        // payMoney: this.value,
       };
+      console.log(params);
       await api.addNewProject(params)
         .then(() => {
           this.$message.success('添加项目成功，请等待项目审核', 1.5);

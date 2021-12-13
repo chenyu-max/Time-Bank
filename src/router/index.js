@@ -163,6 +163,8 @@ router.beforeEach((to, from, next) => {
       let obj = null;
       if (store.state.user.userinfo.role === 'Reviewer') {
         obj = [...leftMenu, reviewer];
+      } else {
+        obj = [...leftMenu];
       }
       if (store.state.user.userinfo.appkey) {
         store.dispatch('menuRouters/changeMenuRoutes', obj)
@@ -177,6 +179,8 @@ router.beforeEach((to, from, next) => {
       let obj = null;
       if (store.state.user.userinfo.role === 'Reviewer') {
         obj = [...leftMenu, reviewer];
+      } else {
+        obj = [...leftMenu];
       }
       store.dispatch('menuRouters/changeMenuRoutes', obj)
         .then(() => {

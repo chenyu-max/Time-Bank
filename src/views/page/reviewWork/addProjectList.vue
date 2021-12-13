@@ -1,8 +1,6 @@
 <template>
   <div class="add-project-list-container">
-    <div class="title">
-      添加项目审核列表
-    </div>
+    <div class="title">添加项目审核列表</div>
     <div class="top">
       <div class="left">
         <div>剩余审核个数</div>
@@ -17,39 +15,49 @@
       <div class="left-tips">项目列表</div>
       <div class="middle">
         <div class="tips">分类：</div>
-        <a-button :class="{'active': activeName === 'all'}" @click="changeActive('all')">
+        <a-button
+          :class="{ active: activeName === 'all' }"
+          @click="changeActive('all')"
+        >
           全部
         </a-button>
-        <a-button :class="{'active': activeName === 'ing'}" @click="changeActive('ing')">
+        <a-button
+          :class="{ active: activeName === 'ing' }"
+          @click="changeActive('ing')"
+        >
           待审核
         </a-button>
-        <a-button :class="{'active': activeName === 'over'}" @click="changeActive('over')">
+        <a-button
+          :class="{ active: activeName === 'over' }"
+          @click="changeActive('over')"
+        >
           已审核
         </a-button>
       </div>
       <div class="search">
         <div class="tips">查找：</div>
-        <a-input-search placeholder="请输入" style="width: 200px"/>
+        <a-input-search placeholder="请输入" style="width: 200px" />
       </div>
     </div>
     <div class="list">
       <a-list
-          item-layout="horizontal"
-          :data-source="showList"
-          :pagination="pagination"
+        item-layout="horizontal"
+        :data-source="showList"
+        :pagination="pagination"
       >
         <a-list-item slot="renderItem" slot-scope="item">
-          <a slot="actions"
-             @click="checkDetail(item)"
-             :class="{'gray': item.state === 'over'}">去审核</a>
-          <a-list-item-meta
-              :description="'简介：' + item.desc"
+          <a
+            slot="actions"
+            @click="checkDetail(item)"
+            :class="{ gray: item.projectResult === 'over' }"
+            >去审核</a
           >
+          <a-list-item-meta :description="'简介：' + item.description">
             <a slot="title">{{ item.projectName }}</a>
           </a-list-item-meta>
           <div class="info">
             <div class="up">发起人</div>
-            <div class="down">{{ item.owner }}</div>
+            <div class="down">{{ item.ownerName }}</div>
           </div>
           <div class="info">
             <div class="up">项目需要人数</div>
@@ -57,17 +65,32 @@
           </div>
           <div class="info">
             <div class="up">审核人投票情况</div>
-            <a-tooltip :title="'同意人数：' + item.agree + '否决人数：' + item.reject">
-              <a-progress :show-info="false"
-                          :percent="100 * ((item.agree + item.reject) / 21)"
-                          :success-percent="100 * (item.agree / 21)"
+            <a-tooltip
+              :title="
+                '同意人数：' +
+                item.projectAgree +
+                '否决人数：' +
+                item.projectDisagree
+              "
+            >
+              <a-progress
+                :show-info="false"
+                :percent="
+                  100 * ((item.projectAgree + item.projectDisagree) / 21)
+                "
+                :success-percent="100 * (item.projectAgree / 21)"
               />
             </a-tooltip>
           </div>
           <div class="info">
             <div class="up">状态</div>
-            <div :class="{'ing-class': item.state === 'ing','over-class': item.state === 'over'}">
-              {{ item.state === 'over' ? '完成' : '待审核' }}
+            <div
+              :class="{
+                'ing-class': item.projectResult === 'ing',
+                'over-class': item.projectResult === 'over',
+              }"
+            >
+              {{ item.projectResult === 'over' ? '完成' : '待审核' }}
             </div>
           </div>
         </a-list-item>
@@ -82,9 +105,10 @@ import api from '@/api/reviewerWork';
 export default {
   name: 'addProjectList',
   async created() {
-    await api.addProjectList({
-      appkey: this.$store.state.user.userinfo.appkey,
-    })
+    await api
+      .addProjectList({
+        appkey: this.$store.state.user.userinfo.appkey,
+      })
       .then((res) => {
         this.ingProject = res.ingProject;
         this.overProject = res.overProject;
@@ -111,11 +135,16 @@ export default {
         if (activeName === 'all') {
           return true;
         }
-        return item.state === activeName;
+        return item.projectResult === activeName;
       });
     },
     checkDetail(item) {
-      console.log(item);
+      this.$router.push({
+        name: 'AddProjectReviewDetails',
+        params: {
+          projectId: item.projectId,
+        },
+      });
     },
   },
 };
@@ -194,7 +223,6 @@ export default {
 }
 
 .list {
-
   .gray {
     color: #929292;
     cursor: default;
@@ -228,7 +256,8 @@ export default {
     justify-content: space-between;
     flex: 0 0 15%;
 
-    .up, .down {
+    .up,
+    .down {
       color: #929292;
     }
 
