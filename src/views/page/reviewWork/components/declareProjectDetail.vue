@@ -10,7 +10,7 @@
           {{ project.projectName }}
         </a-descriptions-item>
         <a-descriptions-item label="目前投票数">
-          {{ 4 }}/{{ 21 }}
+          {{ project.remarkAgree }}/{{ 21 }}
         </a-descriptions-item>
         <a-descriptions-item label="项目ID">
           {{ project.projectId }}
