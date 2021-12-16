@@ -44,9 +44,9 @@
           </a-list-item-meta>
           <div class="bottom-class">
             <div class="user-comment">{{ item.userComment }}</div>
-            <div>用户评分 {{ item.userStar }}星</div>
+            <div>用户评分 {{ item.star }}星</div>
             <div>用户完成时间: {{ formatDate(item.overTime) }}</div>
-            <div>用户工作时间: {{ formatDate(item.workTime) }}h</div>
+            <div>用户工作时间: {{ project.time }}h</div>
           </div>
         </a-list-item>
       </a-list>
@@ -88,7 +88,9 @@ export default {
     },
     declare() {
       if (
-        this.$store.state.myAddProject.declareList.indexOf(this.project.projectId) === -1
+        this.$store.state.myAddProject.declareList.indexOf(
+          this.project.projectId,
+        ) === -1
       ) {
         this.visible = true;
       } else {
