@@ -171,7 +171,7 @@ export default {
 .bg1 {
   background-image: url("../../../assets/main_bg/bg1.jpg");
   width: 100%;
-  background-size: cover;
+  background-size: 100% 100%;
   height: 85vh;
 
   .bg1-text {
@@ -237,7 +237,7 @@ export default {
 
     .func-pic {
       background-color: yellow;
-      background-size: cover;
+      background-size: 100% 100%;
       background-repeat: no-repeat;
       opacity: 0.7;
       background-color: rgba(0, 0, 0, 0.2);
@@ -277,7 +277,7 @@ export default {
       padding-top: 100px;
       background-color: yellow;
       background-repeat: no-repeat;
-      background-size: cover;
+      background-size: 100% 100%;
       opacity: 0.7;
       box-shadow: darkgrey 10px 10px 30px 5px;
 

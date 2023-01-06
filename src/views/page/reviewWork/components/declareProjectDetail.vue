@@ -7,10 +7,10 @@
     <div class="con-container">
       <a-descriptions bordered>
         <a-descriptions-item label="项目名称">
-          {{ project.projectName }}
+          {{ project.pname }}
         </a-descriptions-item>
         <a-descriptions-item label="目前投票数">
-          {{ project.remarkAgree }}/{{ 21 }}
+          {{ 0 }}/{{ 21 }}
         </a-descriptions-item>
         <a-descriptions-item label="项目ID">
           {{ project.projectId }}
@@ -101,20 +101,41 @@
 
 <script>
 import api from '@/api/reviewerWork';
+import projectApi from '@/api/projects';
 import formatDate from '@/utils/formatDate';
 
 export default {
   name: 'DeclareProjectDetail',
   async created() {
-    await api
-      .declareProjectDetail({
+    // await api
+    //   .declareProjectDetail({
+    //     appkey: this.$store.state.user.userinfo.appkey,
+    //     projectId: this.$route.params.projectId,
+    //   })
+    //   .then((res) => {
+    //     this.project = {
+    //       ...res.declareProjectDetailVo,
+    //       endTime: formatDate(res.declareProjectDetailVo.endTime),
+    //     };
+    //     this.userList = res.userList.map((item) => {
+    //       const acceptTime = formatDate(item.acceptTime);
+    //       const overTime = formatDate(item.overTime);
+    //       return {
+    //         ...item,
+    //         acceptTime,
+    //         overTime,
+    //       };
+    //     });
+    //   });
+    await projectApi
+      .getProjectById({
         appkey: this.$store.state.user.userinfo.appkey,
         projectId: this.$route.params.projectId,
       })
       .then((res) => {
         this.project = {
-          ...res.declareProjectDetailVo,
-          endTime: formatDate(res.declareProjectDetailVo.endTime),
+          ...res.projectInfo,
+          endTime: formatDate(res.projectInfo.endTime),
         };
         this.userList = res.userList.map((item) => {
           const acceptTime = formatDate(item.acceptTime);

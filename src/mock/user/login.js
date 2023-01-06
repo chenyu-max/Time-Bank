@@ -1,6 +1,13 @@
+/*
+ * @Description:
+ * @Author: chenyu76
+ * @Date: 2022-04-10 20:54:31
+ * @LastEditTime: 2022-11-06 17:20:56
+ * @LastEditors: chenyu76
+ */
 import Mock from 'mockjs';
 
-Mock.mock('/api/passport/login', 'post', {
+Mock.mock('/api/login', 'post', {
   code: 0,
   msg: '',
   data: {

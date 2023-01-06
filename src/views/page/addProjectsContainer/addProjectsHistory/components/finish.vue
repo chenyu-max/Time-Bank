@@ -60,6 +60,7 @@
 
 <script>
 import api from '@/api/addProject';
+import projectApi from '@/api/projects';
 import formatDate from '@/utils/formatDate';
 
 export default {
@@ -70,8 +71,13 @@ export default {
       required: true,
     },
   },
-  created() {
-    this.userList = this.project.userList;
+  async created() {
+    await projectApi.getProjectById({
+      appkey: this.$store.state.user.userinfo.appkey,
+      projectId: this.project.projectId,
+    }).then((res) => {
+      this.userList = res.userList;
+    });
   },
   data() {
     return {

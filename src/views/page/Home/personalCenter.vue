@@ -182,7 +182,7 @@ export default {
   },
   data() {
     return {
-      userInfo: null,
+      userInfo: {},
     };
   },
   methods: {

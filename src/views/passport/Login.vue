@@ -137,7 +137,7 @@ export default {
       margin-top: 45px;
       height: 30%;
       background: url("../../assets/login_header.png");
-      background-size: cover;
+      background-size: 100% 100%;
       flex: 0 0 auto;
     }
 

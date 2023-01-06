@@ -5,37 +5,55 @@
       <div class="right-header">
         <h1>时间银行账号注册</h1>
       </div>
-      <a-form-model ref="registerForm" class="register-form"
-                    :model="registerForm" :rules="rules" v-bind="layout">
+      <a-form-model
+        ref="registerForm"
+        class="register-form"
+        :model="registerForm"
+        :rules="rules"
+        v-bind="layout"
+      >
         <a-form-model-item has-feedback label="用户名" prop="username">
-          <a-input v-model="registerForm.username"/>
+          <a-input v-model="registerForm.username" />
         </a-form-model-item>
         <a-form-model-item has-feedback label="手机号" prop="phoneNumber">
-          <a-input v-model="registerForm.phoneNumber"/>
+          <a-input v-model="registerForm.phoneNumber" />
         </a-form-model-item>
         <a-form-model-item has-feedback label="密码" prop="password">
-          <a-input v-model="registerForm.password" type="password" autocomplete="new-password"/>
+          <a-input
+            v-model="registerForm.password"
+            type="password"
+            autocomplete="new-password"
+          />
         </a-form-model-item>
         <a-form-model-item has-feedback label="确认密码" prop="password2">
-          <a-input v-model="registerForm.password2" type="password" autocomplete="off"/>
+          <a-input
+            v-model="registerForm.password2"
+            type="password"
+            autocomplete="off"
+          />
         </a-form-model-item>
         <a-form-model-item has-feedback label="验证码" prop="code">
-          <a-input v-model="registerForm.code"/>
+          <a-input v-model="registerForm.code" />
         </a-form-model-item>
-        <a-form-model-item style="text-align: center; margin-top: -12px"
-                           :wrapper-col="{ span: 14, offset: 4 }">
-          <a-button @click="getCode">
-            获取验证码
-          </a-button>
+        <a-form-model-item
+          style="text-align: center; margin-top: -12px"
+          :wrapper-col="{ span: 14, offset: 4 }"
+        >
+          <a-button @click="getCode"> 获取验证码 </a-button>
         </a-form-model-item>
-        <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }" style="text-align: center">
-          <a-button type="primary" @click="submitForm('registerForm')" class="register-btn">
+        <a-form-model-item
+          :wrapper-col="{ span: 14, offset: 4 }"
+          style="text-align: center"
+        >
+          <a-button
+            type="primary"
+            @click="submitForm('registerForm')"
+            class="register-btn"
+          >
             注册
           </a-button>
           <div>
-            <router-link :to="{name : 'Login'}">
-              返回登录
-            </router-link>
+            <router-link :to="{ name: 'Login' }"> 返回登录 </router-link>
           </div>
         </a-form-model-item>
       </a-form-model>
@@ -112,18 +130,24 @@ export default {
           validator: checkPhoneNumber,
           triggers: 'change',
         },
-        password: [{
-          validator: validatePass,
-          trigger: 'change',
-        }],
-        password2: [{
-          validator: checkPassword2,
-          trigger: 'change',
-        }],
-        code: [{
-          validator: checkCode,
-          trigger: 'change',
-        }],
+        password: [
+          {
+            validator: validatePass,
+            trigger: 'change',
+          },
+        ],
+        password2: [
+          {
+            validator: checkPassword2,
+            trigger: 'change',
+          },
+        ],
+        code: [
+          {
+            validator: checkCode,
+            trigger: 'change',
+          },
+        ],
       },
       layout: {
         labelCol: { span: 4 },
@@ -169,11 +193,11 @@ export default {
   position: absolute;
   transform: translateY(-50%) translateX(-50%);
   border-radius: 5px;
-  box-shadow: 0 2px 30px 0 rgba(0, 0, 0, .11);
+  box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.11);
   display: flex;
 
   .left-bg {
-    background-image: url("../../assets/login_bg.png");
+    background-image: url('../../assets/login_bg.png');
     object-fit: cover;
     background-repeat: no-repeat;
     background-size: cover;
