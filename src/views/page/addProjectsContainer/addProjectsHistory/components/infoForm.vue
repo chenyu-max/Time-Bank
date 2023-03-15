@@ -110,8 +110,8 @@ export default {
     const validateDescription = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入项目描述'));
-      } else if (value.length < 50) {
-        callback(new Error('项目描述必须大于50字'));
+      } else if (value.length < 10) {
+        callback(new Error('项目描述必须大于10字'));
       } else {
         callback();
       }
@@ -192,6 +192,8 @@ export default {
         contactPersonPhone: '',
         startTime: '',
         endTime: '',
+        city: '杭州',
+        province: '浙江',
       },
       rules: {
         pname: [{

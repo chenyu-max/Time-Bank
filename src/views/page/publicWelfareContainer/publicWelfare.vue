@@ -32,7 +32,8 @@ export default {
   async created() {
     await api.getProjectsList({
       appkey: this.$store.state.user.userinfo.appkey,
-      city: this.$store.state.nowCityList.nowCityList[1],
+      province: '浙江',
+      city: '杭州',
     })
       .then((res) => {
         this.total = res.length;

@@ -37,9 +37,9 @@
           <div class="info">
             <router-link :to="{name : 'PersonalCenter'}">个人中心</router-link>
           </div>
-          <div class="balance">
+          <!-- <div class="balance">
             <router-link :to="{name : 'TimeShop'}">时间商城</router-link>
-          </div>
+          </div> -->
           <div class="logout" @click="logout">退出登录</div>
         </div>
       </div>
@@ -164,7 +164,7 @@ export default {
 
       .avatar-img {
         transition: all 0.6s ease-in-out;
-        transform: rotate(360deg);
+        transform: rotate(360deg) translateY(-15px);
         z-index: 999;
       }
 

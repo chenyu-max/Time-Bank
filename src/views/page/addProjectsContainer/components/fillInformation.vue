@@ -19,7 +19,7 @@
       <a-form-model-item has-feedback label="项目分类" prop="category">
         <a-select v-model="infoForm.category" placeholder="please select your zone">
           <a-select-option value="照顾老人">照顾老人</a-select-option>
-          <a-select-option value="照顾小孩">照顾老人</a-select-option>
+          <a-select-option value="照顾小孩">照顾小孩</a-select-option>
           <a-select-option value="帮忙做事">帮忙做事</a-select-option>
         </a-select>
       </a-form-model-item>

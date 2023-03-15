@@ -2,7 +2,7 @@
  * @Description:
  * @Author: chenyu76
  * @Date: 2022-04-10 20:54:31
- * @LastEditTime: 2022-11-06 17:53:16
+ * @LastEditTime: 2023-03-14 17:38:37
  * @LastEditors: chenyu76
  */
 // 对于用户操作的接口管理
@@ -14,7 +14,7 @@ export default {
   },
   getUserInfo(params) {
     // return axios.get('/api/getuserinfo', { params });
-    return axios.get('/api/getuserinfo', params);
+    return axios.get('/api/getuserinfo', { params });
   },
   register(params) {
     return axios.post('/api/passport/register', params);

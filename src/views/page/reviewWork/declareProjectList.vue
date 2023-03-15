@@ -52,7 +52,7 @@
             :class="{ gray: item.state === 'over' }"
             >去审核</a
           >
-          <a-list-item-meta :description="'申报备注：' + item.description">
+          <a-list-item-meta :description="'申报备注：' + item.remarkText">
             <a slot="title">{{ item.projectName }}</a>
           </a-list-item-meta>
           <div class="info">
