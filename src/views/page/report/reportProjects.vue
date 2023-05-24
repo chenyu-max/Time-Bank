@@ -6,19 +6,21 @@
     </a-steps>
     <div class="steps-content">
       <template v-if="current === 0">
-        <a-form-model
-          ref="form"
-          class="form"
-          :model="form"
-          :rules="rules"
-          v-bind="layout"
-        >
-          <a-form-model-item has-feedback label="项目ID" prop="projectId">
+        <a-form-model ref="form" class="form" :model="form" :rules="rules" v-bind="layout">
+
+          <a-form-model-item has-feedback label="项目名称" prop="projectId">
+            <a-select default-value=""  @change="handleChange">
+              <a-select-option :value="item.id" v-for="item in allArr" :key="item.id">
+                {{ item.name }}
+              </a-select-option>
+            </a-select>
+          </a-form-model-item>
+          <!-- <a-form-model-item has-feedback label="项目ID" prop="projectId">
             <a-input v-model="form.projectId" />
           </a-form-model-item>
           <a-form-model-item has-feedback label="项目名称" prop="projectName">
             <a-input v-model="form.projectName" />
-          </a-form-model-item>
+          </a-form-model-item> -->
           <a-form-model-item has-feedback label="投诉人姓名" prop="name">
             <a-input v-model="form.name" />
           </a-form-model-item>
@@ -26,11 +28,7 @@
             <a-input v-model="form.phone" />
           </a-form-model-item>
           <a-form-model-item has-feedback label="投诉详情" prop="desc">
-            <a-input
-              v-model="form.desc"
-              type="textarea"
-              style="resize: none; height: 80px"
-            />
+            <a-input v-model="form.desc" type="textarea" style="resize: none; height: 80px" />
           </a-form-model-item>
         </a-form-model>
       </template>
@@ -42,11 +40,7 @@
       <a-button v-if="current < steps.length - 1" type="primary" @click="next">
         提交举报信息
       </a-button>
-      <a-button
-        v-if="current === steps.length - 1"
-        type="primary"
-        @click="done"
-      >
+      <a-button v-if="current === steps.length - 1" type="primary" @click="done">
         完成举报
       </a-button>
     </div>
@@ -55,24 +49,40 @@
 
 <script>
 import api from '@/api/report';
+import projectApi from '@/api/projects';
 
 export default {
   name: 'reportProjects',
+  async created() {
+    await projectApi.getMyProjectHistory({
+      appkey: this.$store.state.user.userinfo.appkey,
+    })
+      .then((res) => {
+        let nowList = [];
+        let waitListArr = [];
+        let finishListArr = [];
+        nowList = res.doing;
+        waitListArr = res.waitForComment;
+        finishListArr = res.finish;
+        this.allArr = [...nowList, ...finishListArr, ...waitListArr];
+      });
+    console.log(this.allArr);
+  },
   data() {
-    const validateProjecId = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入项目ID'));
-      } else {
-        callback();
-      }
-    };
-    const validateProjectName = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入项目名称'));
-      } else {
-        callback();
-      }
-    };
+    // const validateProjecId = (rule, value, callback) => {
+    //   if (value === '') {
+    //     callback(new Error('请输入项目ID'));
+    //   } else {
+    //     callback();
+    //   }
+    // };
+    // const validateProjectName = (rule, value, callback) => {
+    //   if (value === '') {
+    //     callback(new Error('请输入项目名称'));
+    //   } else {
+    //     callback();
+    //   }
+    // };
     const validateName = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请您的姓名'));
@@ -98,6 +108,7 @@ export default {
       }
     };
     return {
+      allArr: [],
       form: {
         projectId: '',
         projectName: '',
@@ -106,18 +117,18 @@ export default {
         desc: '',
       },
       rules: {
-        projectId: [
-          {
-            validator: validateProjecId,
-            trigger: 'change',
-          },
-        ],
-        projectName: [
-          {
-            validator: validateProjectName,
-            trigger: 'change',
-          },
-        ],
+        // projectId: [
+        //   {
+        //     validator: validateProjecId,
+        //     trigger: 'change',
+        //   },
+        // ],
+        // projectName: [
+        //   {
+        //     validator: validateProjectName,
+        //     trigger: 'change',
+        //   },
+        // ],
         name: [
           {
             validator: validateName,
@@ -153,6 +164,15 @@ export default {
     };
   },
   methods: {
+    handleChange(e) {
+      for (let i = 0; i < this.allArr.length; i += 1) {
+        if (this.allArr[i].id === e) {
+          this.form.projectId = this.allArr[i].id;
+          this.form.projectName = this.allArr[i].name;
+          break;
+        }
+      }
+    },
     done() {
       this.$message.success('举报完成');
       setTimeout(() => {

@@ -4,7 +4,7 @@
       <div class="box-header">
         <div>
           <div class="header-title">人工客服</div>
-          <div>xxx时间银行</div>
+          <div>时帮时间银行</div>
         </div>
       </div>
       <div class="box-main" ref="boxMain">
@@ -72,7 +72,7 @@ export default {
     // });
     this.showMsgList.push({
       type: 'left',
-      text: '您好，我是xxx时间银行的人工客服 小王，请问我有什么可以帮到您的吗？',
+      text: '您好，我是时帮时间银行的人工客服 小王，请问我有什么可以帮到您的吗？',
     });
   },
   data() {

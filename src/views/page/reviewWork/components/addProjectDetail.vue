@@ -11,7 +11,7 @@
           {{ project.pname }}
         </a-descriptions-item>
         <a-descriptions-item label="目前投票数">
-          {{ 4 }}/{{ 21 }}
+          {{ project.projectAgree }}/{{ 21 }}
         </a-descriptions-item>
         <a-descriptions-item label="项目ID">
           {{ project.projectId }}
@@ -75,6 +75,7 @@
 
 <script>
 import api from '@/api/reviewerWork';
+import formatDate from '@/utils/formatDate';
 
 export default {
   name: 'AddProjectDetail',
@@ -87,6 +88,8 @@ export default {
       })
       .then((res) => {
         this.project = res;
+        this.project.startTime = formatDate(this.project.startTime);
+        this.project.endTime = formatDate(this.project.endTime);
       });
   },
   data() {

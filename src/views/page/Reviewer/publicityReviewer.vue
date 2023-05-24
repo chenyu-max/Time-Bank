@@ -7,6 +7,7 @@
     <a-list
         item-layout="horizontal"
         :data-source="reviewerList"
+        :pagination="pagination"
     >
       <a-list-item slot="renderItem" slot-scope="item">
         <a slot="actions" @click="checkDetail(item)">详情</a>
@@ -67,6 +68,9 @@ export default {
     return {
       reviewerList: [],
       visible: false,
+      pagination: {
+        pageSize: 10,
+      },
       showDetailInfo: {},
     };
   },

@@ -58,10 +58,7 @@
             <div>安全等级:</div>
             <div>中</div>
             <div>
-              <a-progress
-                :stroke-color="{ '0%': '#108ee9', '100%': '#87d068' }"
-                :percent="50"
-              />
+              <a-progress :stroke-color="{ '0%': '#108ee9', '100%': '#87d068' }" :percent="50" />
             </div>
           </div>
           <div class="level-info">
@@ -109,10 +106,7 @@
           </div>
           <div class="serve-row">
             <div class="serve-left">
-              <a-icon
-                type="eye-invisible"
-                v-if="userInfo.role !== 'Reviewer'"
-              />
+              <a-icon type="eye-invisible" v-if="userInfo.role !== 'Reviewer'" />
               <a-icon type="eye" v-else />
               审核人
             </div>
@@ -130,10 +124,7 @@
         <div class="right-title">会员中心</div>
         <div class="middle">
           <div class="avatar">
-            <a-avatar
-              :size="64"
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-            />
+            <a-avatar :size="64" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
           </div>
           <div class="middle-right">
             <div class="name">{{ userInfo.username }}</div>
@@ -141,6 +132,12 @@
               <a-icon type="money-collect" />
               {{ userInfo.userMoney }}
             </div>
+          </div>
+        </div>
+        <div class="right-level" style="align-items: center; justify-content: space-between;">
+          <div>收支明细</div>
+          <div style="flex: 0">
+            <a-button @click="checkMoney">查看</a-button>
           </div>
         </div>
         <div class="right-level">
@@ -162,6 +159,36 @@
         </div>
       </div>
     </div>
+    <a-modal v-model="visible" title="收支明细" @ok="handleOk" class="model-view">
+      <div class="money-detail">
+        <span>参加“钱塘区照顾张爷爷”项目</span>
+        <span>时间币：<span class="add">+2</span></span>
+      </div>
+      <div class="money-detail">
+        <span>发布“滨江区照顾张奶奶”项目</span>
+        <span>时间币：<span class="reduce">-3</span></span>
+      </div>
+      <div class="money-detail">
+        <span>发布“钱塘区照顾陈奶奶”项目</span>
+        <span>时间币：<span class="reduce">-3</span></span>
+      </div>
+      <div class="money-detail">
+        <span>发布“余杭区照顾曾爷爷”项目</span>
+        <span>时间币：<span class="reduce">-3</span></span>
+      </div>
+      <div class="money-detail">
+        <span>参加“钱塘区帮陈奶奶搬东西”项目</span>
+        <span>时间币：<span class="add">+2</span></span>
+      </div>
+      <div class="money-detail">
+        <span>参加“钱塘区照顾季奶奶”项目</span>
+        <span>时间币：<span class="add">+3</span></span>
+      </div>
+      <div class="money-detail">
+        <span>参加“钱塘区照顾季奶奶”项目</span>
+        <span>时间币：<span class="add">+2</span></span>
+      </div>
+    </a-modal>
   </div>
 </template>
 
@@ -183,6 +210,7 @@ export default {
   data() {
     return {
       userInfo: {},
+      visible: false,
     };
   },
   methods: {
@@ -191,11 +219,24 @@ export default {
         name: 'Certificate',
       });
     },
+    checkMoney() {
+      this.visible = true;
+    },
+    handleOk() {
+      this.visible = false;
+    },
   },
 };
 </script>
 
+<style lang="less"></style>
+
 <style scoped lang="less">
+::v-deep .ant-modal-body {
+  height: 250px;
+  overflow: auto;
+}
+
 .title {
   width: 100%;
   height: 5vh;
@@ -215,20 +256,20 @@ export default {
     padding: 0 10px;
 
     .info {
-      > div:first-child {
+      >div:first-child {
         font-size: 18px;
         font-weight: bolder;
         margin: 10px 0;
       }
 
-      > div:last-child {
+      >div:last-child {
         display: flex;
         flex: 1 1 auto;
         justify-content: space-around;
         padding: 5px 0;
         border-bottom: 3px solid #eee;
 
-        > div {
+        >div {
           width: 50%;
           padding: 0 4vw;
 
@@ -267,18 +308,18 @@ export default {
         display: flex;
         margin-top: 25px;
 
-        > div:first-child {
+        >div:first-child {
           flex: 0 0 20%;
           color: #4a4a4a;
         }
 
-        > div:nth-child(2) {
+        >div:nth-child(2) {
           flex: 0 0 20%;
           color: #ffc238;
           font-weight: bolder;
         }
 
-        > div:last-child {
+        >div:last-child {
           flex: 1 1 auto;
           margin-right: 10vw;
         }
@@ -369,15 +410,15 @@ export default {
       display: flex;
       margin: 30px 0;
 
-      > div:first-child {
+      >div:first-child {
         flex: 0 0 20%;
       }
 
-      > div:nth-child(2) {
+      >div:nth-child(2) {
         flex: 0 0 20%;
       }
 
-      > div:last-child {
+      >div:last-child {
         flex: 1 1 auto;
       }
     }
@@ -387,24 +428,40 @@ export default {
       height: 40px;
       line-height: 40px;
 
-      > div:first-child {
+      >div:first-child {
         margin-right: 3px;
         flex: 0 0 10%;
       }
 
-      > div:nth-child(2) {
+      >div:nth-child(2) {
         flex: 1 1 auto;
       }
 
-      > div:nth-child(3) {
+      >div:nth-child(3) {
         flex: 0 0 30%;
         color: #ff5a5a;
       }
 
-      > div:last-child {
+      >div:last-child {
         flex: 0 0 auto;
       }
     }
+  }
+}
+
+.money-detail {
+  padding: 10px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+
+  .add {
+    color: #30a679;
+  }
+
+  .reduce {
+    color: #ff5a5a;
   }
 }
 </style>

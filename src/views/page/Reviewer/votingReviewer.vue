@@ -73,7 +73,7 @@
       </div>
       <div>
         <span>当选审核人次数：</span>
-        <span>{{ candidateInfo.reviewerDays }} 次</span>
+        <span>{{ candidateInfo.reviewerDays || 0 }} 次</span>
       </div>
       <div>
         <span>候选人竞争宣言：</span>
